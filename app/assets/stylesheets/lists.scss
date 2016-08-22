@@ -1,0 +1,26 @@
+ul.single-line {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    padding: 0;
+    margin: 0;
+    a {
+      display: block;
+      height: 34px;
+      padding: 14px 0 0 0;
+      font: 14px robotoregular, sans-serif;
+      text-decoration: none;
+    }
+  }
+}
+.list-row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.list-row:first-child {
+  padding-top: 0;
+}
+.list-row:last-child {
+  padding-bottom: 0;
+}

@@ -1,0 +1,17 @@
+#guest-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 1;
+  background-color: $primary;
+  color: $white;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.guest {
+}

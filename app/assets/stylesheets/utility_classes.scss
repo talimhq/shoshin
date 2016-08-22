@@ -1,0 +1,123 @@
+.z-depth-0 {
+  box-shadow: none !important;
+}
+
+.z-depth-1, .card {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.z-depth-1-half {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.z-depth-2 {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.z-depth-3 {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.z-depth-4 {
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+
+.z-depth-5 {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}
+.clearfix + * {
+  clear: both;
+}
+.btn {
+  text-decoration: none;
+  color: $white;
+  background-color: $primary;
+  text-align: center;
+  letter-spacing: .5px;
+  border: none;
+  border-radius: 2px;
+  outline: 0;
+  padding: 0.531rem 1rem;
+  margin: 0.5rem 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  transition: all .3s ease;
+  &:hover {
+    color: $white;
+    background-color: $alt-primary;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
+  }
+  &.alert {
+    background-color: $red;
+    &:hover {
+      background-color:  $alt-red;
+    }
+  }
+  &.success {
+    background-color: $green;
+    &:hover {
+      background-color:  $alt-green;
+    }
+  }
+}
+.btn.round {
+  height: 56px;
+  font-size: 20px;
+  width: 56px;
+  border-radius: 28px;
+  padding: 1rem;
+  margin: 0;
+  i {
+    font-size: 24px;
+    width: 24px;
+  }
+}
+.link-destroy {
+  &:hover,
+  &:focus {
+    color: $red;
+  }
+}
+.link-add {
+  &:hover,
+  &:focus {
+    color: $green;
+  }
+}
+@media all and (max-width: $small-min) {
+  .hide-xs-only {
+    display: none;
+  }
+}
+@media all and (min-width: $small-min) and (max-width: $medium-min) {
+  .hide-s-only {
+    display: none;
+  }
+}
+@media all and (min-width: $medium-min) and (max-width: $large-min) {
+  .hide-m-only {
+    display: none;
+  }
+}
+@media all and (min-width: $large-min) {
+  .hide-l-only {
+    display: none;
+  }
+}

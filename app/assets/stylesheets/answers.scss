@@ -1,0 +1,18 @@
+.stepper-area .answers {
+  padding-top: 8px;
+  .title {
+    font: 14px robotomedium, sans-serif;
+    color: rgba(0, 0, 0, 0.87);
+    a {
+      padding-left: 8px;
+    }
+  }
+}
+#answers > .nested-fields.classify {
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.34);
+  padding-bottom: 32px;
+}
+#answers > .error {
+  color: $red;
+}

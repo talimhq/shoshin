@@ -1,0 +1,58 @@
+<header>
+  <div class="user-avatar">
+    <img src="<%= gravatar_url(current_account.email) %>" alt="mon avatar" />
+  </div>
+  <div class="action-bar">
+    <div class="user-name"><%= current_account.full_name %></div>
+    <div class="user-email">
+      <%= current_account.email %>
+    </div>
+  </div>
+</header>
+<div class="navigations">
+  <div class="navigation">
+    <div class="link"><%= link_to (material_icon.home.to_s + 'Accueil'), root_url %></div>
+    <% if current_user.school %>
+      <div class="link">
+        <%= link_to material_icon.school.to_s + 'Mon établissement', teacher_school_path(current_user.school) %>
+      </div>
+    <% else %>
+      <div class="link">
+        <%= link_to material_icon.school.to_s + 'Trouver mon établissement', new_teacher_school_user_path %>
+      </div>
+    <% end %>
+  </div>
+  <% if current_user.school %>
+    <div class="navigation">
+      <div class="subheader">Mes groupes</div>
+      <% current_user.groups.includes(:teaching, :level).where.not(id: nil).each do |group| %>
+        <div class="link">
+          <%= link_to material_icon.group_work.to_s + group.name, [:teacher, group] %>
+        </div>
+      <% end %>
+      <div class="link">
+        <%= link_to material_icon.add.to_s + 'Ajouter un groupe', new_teacher_group_path %>
+      </div>
+    </div>
+  <% end %>
+  <div class="navigation">
+    <div class="subheader">Mes ressources</div>
+    <div class="link"><%= link_to (material_icon.style.to_s + 'Référentiels'), teacher_user_teaching_cycles_path %></div>
+    <div class="link"><%= link_to (material_icon.book.to_s + 'Cours'), teacher_lessons_path %></div>
+    <div class="link"><%= link_to (material_icon.assignment.to_s + 'Exercices'), teacher_exercises_path %></div>
+  </div>
+  <% if current_user.admin %>
+    <div class="navigation">
+      <div class="subheader">Administration</div>
+      <div class="link"><%= link_to (material_icon.group.to_s + 'Utilisateurs'), admin_users_path %></div>
+      <div class="link"><%= link_to (material_icon.widgets.to_s + 'Socle'), admin_core_components_path %></div>
+      <div class="link"><%= link_to (material_icon.translate.to_s + 'Enseignements'), admin_teachings_path %></div>
+      <div class="link"><%= link_to (material_icon.wifi_tethering.to_s + 'Cycles et niveaux'), admin_cycles_path %></div>
+      <div class="link"><%= link_to (material_icon.school.to_s + 'Établissements'), admin_schools_path %></div>
+    </div>
+  <% end %>
+</div>
+<div class="navigation bottom">
+  <div class="link"><%= link_to (material_icon.settings.to_s + 'Mon compte'), edit_user_registration_path %></div>
+  <div class="link"><%= link_to (material_icon.power_settings_new.to_s + 'Déconnexion'), destroy_user_session_path, method: :delete %></div>
+</div>

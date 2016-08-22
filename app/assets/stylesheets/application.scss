@@ -1,0 +1,42 @@
+// COLORS
+$primary: #2196F3;
+$alt-primary: darken($primary, 5%);
+$light-primary: lighten($primary, 30%);
+$red: #e57373;
+$alt-red: darken($red, 5%);
+$yellow: #FFCA28;
+$green: #00897B;
+$alt-green: darken($green, 5%);
+$pale-green: rgb(175,228,188);
+$pale-red: rgb(245,170,187);
+$pale-orange: rgb(255,224,200);
+$black: #000000;
+$light-grey: #eeeeee;
+$grey: #959595;
+$white: #ffffff;
+// BREAKPOINTS
+$small-min: 48em;
+$medium-min: 64em;
+$large-min: 75em;
+// VENDOR
+@import 'normalize';
+@import 'trix';
+@import 'select2';
+@import 'material_icons';
+// CUSTOM
+@import 'grid';
+@import 'layout';
+@import 'utility_classes';
+@import 'fonts';
+@import 'forms';
+@import 'lists';
+@import 'tabs';
+@import 'steppers';
+@import 'devise';
+@import 'users';
+@import 'answers';
+@import 'cards';
+@import 'guest';
+// CONTROLLER SPECIFIC
+@import 'ability_sets';
+@import 'exercise_forms';

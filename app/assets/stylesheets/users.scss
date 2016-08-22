@@ -1,0 +1,21 @@
+.user-bar {
+  display: block;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 8px;
+  img {
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  span {
+    color: rgba(0,0,0,0.87);
+    padding-left: 8px;
+  }
+  a {
+    padding-left: 8px;
+  }
+}

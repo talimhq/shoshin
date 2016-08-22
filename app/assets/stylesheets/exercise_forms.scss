@@ -1,0 +1,16 @@
+.icon-success {
+  color: green;
+}
+.icon-error {
+  color: red;
+}
+.card.empty {
+  background-color: $pale-orange;
+}
+.card.success {
+  background-color: $pale-green;
+}
+.card.error {
+  background-color: $pale-red;
+  color: black;
+}

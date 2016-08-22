@@ -1,0 +1,19 @@
+attributes:
+  - content
+  - foreign_key
+  - inheritance
+disconnected: true
+filename: erd
+filetype: pdf
+indirect: true
+inheritance: true
+markup: true
+notation: simple
+orientation: vertical
+polymorphism: false
+sort: true
+warn: true
+title: Shoshin domain model
+exclude: null
+only: null
+prepend_primary: false

@@ -1,0 +1,20 @@
+<header>
+  <div class="user-avatar">
+    <img src="<%= gravatar_url(current_user.email) %>" alt="mon avatar" />
+  </div>
+  <div class="action-bar">
+    <div class="user-name"><%= current_user.full_name %></div>
+    <div class="user-email">
+      <%= current_user.email %>
+    </div>
+  </div>
+</header>
+<div class="navigation">
+  <div class="link">
+    <%= link_to (material_icon.home.to_s + 'Accueil'), root_url %>
+  </div>
+</div>
+<div class="navigation">
+  <div class="link"><%= link_to (material_icon.settings.to_s + 'Mon compte'), edit_user_registration_path %></div>
+  <div class="link"><%= link_to (material_icon.power_settings_new.to_s + 'Déconnexion'), destroy_user_session_path, method: :delete %></div>
+</div>

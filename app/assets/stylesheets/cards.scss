@@ -1,0 +1,212 @@
+.card {
+  border-radius: 2px;
+  margin: 0 16px 16px 16px;
+  background: $white;
+  .title-area {
+    padding: 16px;
+    @media all and (min-width: $small-min) {
+      padding-left: 24px;
+    }
+    .main-title {
+      font: 20px robotoregular, sans-serif;
+      margin: 0;
+      a {
+        padding-left: 8px;
+      }
+    }
+  }
+  .title-area:last-child {
+    padding-bottom: 24px;
+  }
+  .title-area:first-child {
+    padding-top: 24px;
+  }
+  .content-area {
+    padding: 16px;
+    @media all and (min-width: $small-min) {
+      padding-left: 24px;
+    }
+  }
+  .content-area:last-child {
+    padding: 16px 16px 24px 16px;
+  }
+  .actions-area {
+    clear: both;
+    padding: 8px;
+    text-align: right;
+    .btn {
+      display: inline-block;
+      margin: 0;
+      background: transparent;
+      box-shadow: none;
+      color: rgba(0,0,0,0.54);
+      text-transform: uppercase;
+      font-weight: bold;
+      &:hover,
+      &:focus {
+        color: $primary;
+      }
+      &.link-destroy:hover,
+      &.link-destroy:focus {
+        color: $red;
+      }
+      &.link-add:hover,
+      &.link-add:focus {
+        color: $green;
+      }
+    }
+  }
+  .card-list {
+    font: 16px robotoregular, sans-serif;
+    height: 16px;
+    padding: 16px 0;
+  }
+  .table-area {
+    overflow-x: auto;
+    white-space: nowrap;
+    min-width: 100%;
+    .header {
+      height: 64px;
+      padding-left: 24px;
+      padding-right: 14px;
+      font: 20px robotoregular, sans-serif;
+      color: rgba(0,0,0,0.87);
+      display: flex;
+      align-items: center;
+      // i {
+      //   width: 18px;
+      //   height: 18px;
+      //   margin: 3px;
+      // }
+      i:first-child{
+        margin-right: 8px;
+      }
+    }
+    table {
+      width: 100%;
+      border-spacing: 0;
+      th, td {
+        &.text {
+          text-align: left;
+        }
+        &.numeric, &.actions, &.boolean {
+          text-align: right;
+        }
+        &.image {
+          text-align: center;
+        }
+      }
+      thead {
+        tr {
+          height: 56px;
+          th {
+            vertical-align: middle;
+            color: rgba(0,0,0,0.54);
+            font: 12px robotomedium, sans-serif;
+            padding-left: 56px;
+            &:first-child {
+              padding-left: 24px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr.collapsed, tr.expanded {
+          cursor: pointer;
+        }
+        tr.subrow {
+          transition: all 1s ease-in-out;
+          &.hidden {
+           display: none;
+          }
+        }
+        tr {
+          height: 48px;
+          &:hover {
+            background-color: #eee;
+          }
+          td {
+            padding-left: 56px;
+            border-top: 1px solid rgba(0,0,0,0.15);
+            vertical-align: middle;
+            color: rgba(0,0,0,0.87);
+            font: 13px robotoregular, sans-serif;
+            .btn {
+              display: inline-block;
+              height: 18px;
+              width: 18px;
+              padding: 3px;
+              margin: 0;
+              background: transparent;
+              box-shadow: none;
+              color: rgba(0,0,0,0.54);
+              font-size: 18px;
+              i { width: 18px; }
+              & + .btn {
+                padding-left: 24px;
+              }
+              &:hover {
+                color: $primary;
+              }
+              &.link-destroy:hover {
+                color: $red;
+              }
+            }
+            &:first-child {
+              padding-left: 24px;
+            }
+            &:last-child {
+              padding-right: 24px;
+            }
+          }
+        }
+      }
+    }
+    .footer {
+      height: 56px;
+      width: 100%;
+      font: 12px robotoregular, sans-serif;
+      color: rgba(0,0,0,0.54);
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: flex-end;
+      .pagination {
+        .next, .previous {
+          color: rgba(0,0,0,0.54);
+          display: inline-block;
+          height: 18px;
+          width: 18px;
+          padding: 3px;
+          margin: 0;
+          text-align: center;
+          i { width: 18px; }
+          &:not([disabled]):hover {
+            color: $primary;
+          }
+          &[disabled] {
+            color: rgba(0,0,0,0.15);
+            pointer-events: none;
+          }
+        }
+        .next {
+          margin-right: 14px;
+        }
+        .previous {
+          margin-right: 24px;
+        }
+      }
+      .page-info {
+        height: 24px;
+        margin-right: 32px;
+      }
+    }
+  }
+}
+.empty-state {
+  text-align: center;
+  color: rgba(0,0,0,0.54);
+  i {
+    font-size: 60px;
+  }
+}

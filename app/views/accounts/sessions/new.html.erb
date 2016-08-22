@@ -1,0 +1,36 @@
+<% content_for :title, 'Connexion' %>
+<div class="page-title">
+  <div class="title">Connexion</div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, root_url %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 offset-m2 m8 offset-l1 l7">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Connexion</h3>
+      </div>
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), defaults: { required: false }) do |f| %>
+        <div class="content-area">
+          <%= f.input :email, label: 'Courriel' %>
+          <%= f.input :password, label: 'Mot de passe' %>
+          <%= f.input :remember_me, as: :boolean, label: 'Se souvenir de moi' if devise_mapping.rememberable? %>
+        </div>
+
+        <div class="actions-area">
+          <%= f.button :submit, 'Connexion' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="column xs12 offset-m2 m8 offset-l0 l3">
+    <div class="card">
+      <div class="content-area">
+        <ul class=single-line>
+          <%= render 'accounts/shared/links' %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

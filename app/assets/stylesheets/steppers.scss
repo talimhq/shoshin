@@ -1,0 +1,54 @@
+.stepper-area {
+  padding: 24px;
+  .stepper-bar {
+    padding-bottom: 8px;
+    .stepper-position {
+      display: inline-block;
+      height: 20px;
+      width: 24px;
+      border-radius: 12px;
+      background-color: $primary;
+      text-align: center;
+      color: $white;
+      font: 12px robotoregular, sans-serif;
+      padding-top: 4px;
+    }
+    .stepper-title {
+      padding-left: 12px;
+      font: 14px robotomedium, sans-serif;
+      color: rgba(0,0,0,0.87);
+      a {
+        padding-left: 8px;
+      }
+    }
+    &.adder {
+      display: block;
+      .stepper-position {
+        padding-top: 0;
+        height: 24px;
+        transition: all 0.4s ease;
+        background-color: rgba(0,0,0,0.38);
+      }
+      .stepper-title {
+        transition: all 0.4s ease;
+        color: rgba(0,0,0,0.38);
+      }
+      &:hover, &:focus {
+        .stepper-position {
+          background-color: $green;
+        }
+        .stepper-title {
+          color: $green;
+        }
+      }
+    }
+  }
+  .stepper-content {
+    margin-left: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-left: 1px solid #bdbdbd;
+    padding-bottom: 40px;
+    margin-bottom: 8px;
+  }
+}

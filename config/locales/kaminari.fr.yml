@@ -1,0 +1,10 @@
+fr:
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: '0 - 0 sur 0'
+          one: '1 - 1 sur 1'
+          other: '1 - %{count} sur %{count}'
+      more_pages:
+        display_entries: '%{first} - %{last} sur %{total}'

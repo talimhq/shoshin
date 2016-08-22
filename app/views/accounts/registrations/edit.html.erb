@@ -1,0 +1,73 @@
+<% content_for :title, 'Mon compte' %>
+<div class="page-title">
+  <div class="title">
+    Mon compte
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, root_url %>
+  </div>
+</div>
+<div class="row">
+  <div class="column s12 m6 l7">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Mes informations</h3>
+      </div>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, defaults: { required: false }) do |f| %>
+        <div class="content-area">
+          <%= f.error_notification %>
+          <%= f.input :first_name, label: 'Prénom' %>
+          <%= f.input :last_name, label: 'Nom de famille' %>
+          <%= f.input :role, as: :radio_buttons, collection: User.role_options, label: 'Role', disabled: true %>
+          <%= f.input :email, label: 'Courriel' %>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <p>Confimation en attente pour: <%= resource.unconfirmed_email %></p>
+          <% end %>
+
+          <%= f.input :password, autocomplete: 'off', hint: 'laissez ce champ vide pour le laisser inchangé', label: 'Nouveau mot de passe' %>
+          <%= f.input :password_confirmation, label: 'Confirmez' %>
+          <%= f.input :current_password, hint: 'nous avons besoin de votre mot de passe actuel pour valider ces modifications', required: true, label: 'Mot de passe actuel' %>
+        </div>
+
+        <div class="actions-area">
+          <%= f.button :submit, 'Modifier' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="column s12 m6 l5">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Mon avatar</h3>
+      </div>
+      <div class="content-area">
+        <div class="row item-center-xs">
+          <div class="column xs12 s6">
+            <div class="text-center">
+              <img src="<%= gravatar_url(current_user.email) %>" alt="" class="avatar" />
+            </div>
+          </div>
+          <div class="column xs12 s6">
+            <p>
+              Votre avatar est généré automatiquement à partir de votre courriel. Si vous souhaitez le changer, assurez vous que votre adresse est correcte puis connectez vous sur Gravatar.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Gravatar', 'https://fr.gravatar.com', target: '_blank', class: 'btn' %>
+      </div>
+    </div>
+    <% if current_user.role == 'teacher' %>
+      <div class="card">
+        <div class="title-area">
+          <h3 class="main-title">Mécontent?</h3>
+        </div>
+        <div class="actions-area">
+          <%= link_to 'Supprimer mon compte', registration_path(resource_name), data: { confirm: 'Attention, cette action est définitive. En êtes vous sûr?' }, method: :delete, class: 'btn link-destroy' %>
+        </div>
+      </div>
+    <%  end %>
+  </div>
+</div>

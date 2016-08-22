@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? 'Shoshin - ' + yield(:title) : 'Shoshin' %></title>
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+          processEscapes: true,
+          skipTags: ["script","noscript","style","textarea","pre","code", "trix-editor"]
+        }
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if account_signed_in? %>
+      <header id="top-nav">
+        <%= render partial: 'layouts/top_bar' %>
+      </header>
+      <nav id="drawer">
+        <%= render partial: "layouts/#{current_account.role}_navigation_links" %>
+      </nav>
+      <main>
+        <%= yield %>
+      </main>
+    <% else %>
+      <header id="guest-bar">
+        <%= render partial: 'layouts/guest_bar' %>
+      </header>
+      <main class="guest">
+        <%= yield %>
+      </main>
+    <% end %>
+    <%= render partial: 'layouts/flash_messages' %>
+  </body>
+</html>

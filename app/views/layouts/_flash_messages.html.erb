@@ -1,0 +1,9 @@
+<% %w(notice alert).each do |level| %>
+  <% unless flash[level].blank? %>
+  <div class="toast-container">
+    <div class="toast">
+      <%= flash[level] %>
+    </div>
+  </div>
+  <% end %>
+<% end %>

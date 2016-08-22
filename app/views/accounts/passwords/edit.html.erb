@@ -1,0 +1,43 @@
+<% content_for :title, 'Changer de mot de passe' %>
+<div class="page-title">
+  <div class="title">
+    Changer de mot de passe
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, root_url %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 offset-m2 m8 offset-l1 l7">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Changer votre mot de passe</h3>
+      </div>
+
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, defaults: { required: false }) do |f| %>
+        <%= f.error_notification %>
+
+        <%= f.input :reset_password_token, as: :hidden %>
+        <%= f.full_error :reset_password_token %>
+
+        <div class="content-area">
+          <%= f.input :password, label: 'Nouveau mot de passe', hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length) %>
+          <%= f.input :password_confirmation, label: 'Confiurmez votre nouveau mot de passe' %>
+        </div>
+
+        <div class="actions-area">
+          <%= f.button :submit, 'Changer mon mot de passe' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="column xs12 offset-m2 m8 offset-l0 l3">
+    <div class="card">
+      <div class="content-area">
+        <ul class=single-line>
+          <%= render 'accounts/shared/links' %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

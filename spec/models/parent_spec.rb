@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Parent, type: :model do
+  it_behaves_like User do
+    let(:user) { create(:parent) }
+  end
+
   describe 'db structure' do
   end
 
   describe 'associations' do
-    it { is_expected.to have_one(:account) }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:account) }
   end
 
   describe 'instance methods' do
@@ -23,6 +25,6 @@ RSpec.describe Parent, type: :model do
   end
 
   describe 'factories' do
-    it { expect(build(:parent)).to be_valid}
+    it { expect(build(:parent)).to be_valid }
   end
 end

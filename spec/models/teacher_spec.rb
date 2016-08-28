@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Teacher, type: :model do
+  it_should_behave_like User do
+    let(:user) { create(:teacher) }
+  end
+
   describe 'db structure' do
     it { is_expected.to have_db_column(:approved).of_type(:boolean) }
     it { is_expected.to have_db_column(:admin).of_type(:boolean) }
@@ -22,7 +26,6 @@ RSpec.describe Teacher, type: :model do
   describe 'validations' do
     it { is_expected.to validate_exclusion_of(:approved).in_array([nil]) }
     it { is_expected.to validate_exclusion_of(:admin).in_array([nil]) }
-    it { is_expected.to validate_presence_of(:account) }
   end
 
   describe 'factories' do

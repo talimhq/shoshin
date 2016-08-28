@@ -1,19 +1,19 @@
 class Student < ApplicationRecord
+  include User
+
   before_validation :set_default_email
   before_validation :set_default_password
 
-  has_one :account, as: :user, dependent: :destroy
-  accepts_nested_attributes_for :account
-
-  belongs_to :classroom, inverse_of: :students
+  belongs_to :classroom, inverse_of: :students, counter_cache: true
 
   validates :account, :classroom, presence: true
-  delegate :first_name, to: :account
-  delegate :last_name, to: :account
-  delegate :email, to: :account
 
   def admin?
     false
+  end
+
+  def approved?
+    true
   end
 
   private

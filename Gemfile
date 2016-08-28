@@ -35,6 +35,7 @@ group :test do
   gem 'capybara', require: false
   gem 'capybara-webkit'
   gem 'database_cleaner', require: false
+  gem 'capybara-select2', git: 'git://github.com/goodwill/capybara-select2.git'
 end
 
 group :development do

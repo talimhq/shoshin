@@ -9,6 +9,7 @@ class Teacher::SchoolTeachersController < TeacherController
   def create
     @school_teacher = current_user.build_school_teacher(school_teacher_params)
     if @school_teacher.save
+      SchoolTeacherMailer.new_teacher(@school_teacher).deliver_later
       flash[:notice] = 'Demande enregistrée.'
       redirect_to [:teacher, @school_teacher.school]
     else

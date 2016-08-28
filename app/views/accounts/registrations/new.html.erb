@@ -28,8 +28,10 @@
         </div>
 
         <div class="content-area">
-          <%= f.association :school, label: 'Établissement' %>
-          <p>Votre établissement n'est pas encore inscrit? <%= link_to 'Cliquez ici pour l\'ajouter', '#' %></p>
+          <%= f.simple_fields_for :school_teacher do |s| %>
+            <%= s.association :school, label: 'Établissement' %>
+          <% end %>
+          <p>Votre établissement n'est pas encore inscrit? <%= link_to 'Cliquez ici pour l\'ajouter', new_public_school_path %></p>
         </div>
 
         <div class="actions-area">

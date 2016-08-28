@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :edit, :update, :destroy],
                         path: 'utilisateurs'
       resources :schools, path: 'etablissements'
+      patch 'etablissements/:school_id/professeurs/:teacher_id' => 'school_teachers#update', as: :school_teacher
+      delete 'etablissements/:school_id/professeurs/:teacher_id' => 'school_teachers#destroy'
     end
 
     namespace :teacher, path: 'professeur' do

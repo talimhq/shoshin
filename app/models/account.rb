@@ -14,6 +14,22 @@ class Account < ApplicationRecord
     %w(Student Parent Teacher)
   end
 
+  def active_for_authentication?
+    if user_type == 'Teacher'
+      super && user.approved?
+    else
+      super
+    end
+  end
+
+  def inactive_message
+    if user_type == 'Teacher' && !user.approved? && confirmed_at
+      :not_approved
+    else
+      super
+    end
+  end
+
   def full_name
     [first_name, last_name].join(' ')
   end

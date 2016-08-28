@@ -11,10 +11,10 @@
       <div class="title-area">
         <h3 class="main-title">Nouvel établissement</h3>
       </div>
-        <%= simple_form_for @school do |f| %>
+        <%= simple_form_for @school, url: public_schools_path do |f| %>
           <div class="content-area">
             <%= f.input :name, label: 'Nom' %>
-            <%= f.input :short_name, label: 'Identifiant' %>
+            <%= f.input :identifier, label: 'Identifiant' %>
             <%= f.input :country, label: 'Pays', collection: Country.all.map {|country| [country.translations['fr'], country.alpha2]} %>
             <%= f.input :state, label: 'Département', collection: School.states %>
             <%= f.input :city, label: 'Ville' %>

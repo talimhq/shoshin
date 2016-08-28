@@ -5,7 +5,7 @@ class Admin::SchoolsController < AdminController
   end
 
   def show
-    @school = School.find(params[:id])
+    @school = School.includes(:teachers, :pending_teachers, :classrooms).find(params[:id])
   end
 
   def new

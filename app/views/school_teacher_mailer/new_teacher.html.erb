@@ -1,0 +1,7 @@
+<p>Bonjour,</p>
+<p>Un nouveau professeur a sollicité une inscription dans votre établissement.</p>
+<p><strong>Nom:</strong> <%= @new_teacher.last_name %></p>
+<p><strong>Prénom:</strong> <%= @new_teacher.first_name %></p>
+<p><strong>Email:</strong> <%= @new_teacher.email %></p>
+<p>Pour accepter ou refuser cette demande, merci de vous connecter sur Shoshin et d'accéder à la page de votre établissement. Ou alors, cliquez sur le lien ci dessous:</p>
+<%= link_to 'Mon établissement', teacher_school_url(@new_teacher.school) %>

@@ -8,6 +8,7 @@ namespace :db do
       admin = teacher_hash.delete(:admin)
       teacher = Teacher.new(old_id: old_id,
                             admin: admin,
+                            approved: true,
                             account_attributes: teacher_hash)
       teacher.save(validate: false)
     end

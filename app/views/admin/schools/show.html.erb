@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="column xs12">
+  <div class="column xs12 s6 m12 l7">
     <div class="card">
       <div class="title-area">
         <h3 class="main-title">Informations</h3>
@@ -42,6 +42,98 @@
             <%= @school.email %>
           </p>
         <% end %>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Modifier', edit_admin_school_path(@school), class: 'btn' %>
+      </div>
+    </div>
+    <% if @school.pending_teachers.any? %>
+      <div class="card empty">
+        <div class="table-area">
+          <div class="header">
+            Nouveaux professeurs
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="text">Nom</th>
+                <th class="text">Prénom</th>
+                <th class="text">Courriel</th>
+                <th class="actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @school.pending_school_teachers.includes(teacher: :account).each do |school_teacher| %>
+                <tr>
+                  <td class="text"><%= school_teacher.teacher.last_name %></td>
+                  <td class="text"><%= school_teacher.teacher.first_name %></td>
+                  <td class="text"><%= school_teacher.teacher.email %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.check, admin_school_teacher_path(@school.id, school_teacher.teacher_id), method: :patch, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-add' %>
+                    <%= link_to material_icon.close, admin_school_teacher_path(@school, school_teacher.teacher_id), method: :delete, data: { confirm: 'En êtes vous sûr?' },class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Professeurs
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text">Nom</th>
+              <th class="text">Prénom</th>
+              <th class="text">Courriel</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @school.teachers.any? %>
+              <% @school.teachers.includes(:account).each do |teacher| %>
+                <tr>
+                  <td class="text"><%= teacher.last_name %></td>
+                  <td class="text"><%= teacher.first_name %></td>
+                  <td class="text"><%= teacher.email %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.delete, admin_school_teacher_path(@school, teacher), method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="4">Aucun professeur enregistré dans cet établissement.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="column s6 m12 l5">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Classes
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text">Nom</th>
+              <th class="text">Niveau</th>
+              <th class="numeric">Élèves</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render 'teacher/schools/classrooms_row' %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

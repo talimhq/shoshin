@@ -98,7 +98,7 @@
 .link-add {
   &:hover,
   &:focus {
-    color: $green;
+    color: $green !important;
   }
 }
 @media all and (max-width: $small-min) {

@@ -1,0 +1,7 @@
+<p> Bonjour <%= @resource.email %>!</p>
+
+<p>Votre compte a été temporairement bloqué à cause d'un nombre excessif de tentatives de connexion.</p>
+
+<p>Afin de débloquer votre compte, cliquez le lien ci dessous:</p>
+
+<p><%= link_to 'Débloquer mon compte', unlock_url(@resource, unlock_token: @token) %></p>

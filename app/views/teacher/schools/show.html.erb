@@ -91,17 +91,30 @@
             </tr>
           </thead>
           <tbody>
-            <% @school.teachers.includes(:account).each do |teacher| %>
+            <% if @school.teachers.any? %>
+              <% @school.teachers.includes(:account).each do |teacher| %>
+                <tr>
+                  <td class="text"><%= teacher.last_name %></td>
+                  <td class="text"><%= teacher.first_name %></td>
+                  <td class="text"><%= teacher.email %></td>
+                </tr>
+              <% end %>
+            <% else %>
               <tr>
-                <td class="text"><%= teacher.last_name %></td>
-                <td class="text"><%= teacher.first_name %></td>
-                <td class="text"><%= teacher.email %></td>
+                <td colspan="3">Aucun professeur enregistré dans cet établissement.</td>
               </tr>
             <% end %>
           </tbody>
         </table>
       </div>
     </div>
+    <% if current_user.in? @school.teachers %>
+      <div class="card">
+        <div class="content-area">
+          <p>Vous n'enseignez plus dans cet établissement? <%= link_to 'Quitter cet établissement', [:teacher, current_user.school_teacher], method: :delete, data: { confirm: 'En êtes vous sûr? Vos groupes seront supprimés.' }, class: 'link-destroy' %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
   <div class="column s6 m12 l5">
     <div class="card">

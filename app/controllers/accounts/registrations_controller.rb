@@ -6,13 +6,15 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   def new
     @teacher = Teacher.new
     @teacher.build_account
+    @teacher.build_school_teacher
   end
 
   # POST /resource
   def create
     @teacher = Teacher.new(teacher_params)
     if @teacher.save
-      flash[:notice] = :signed_up_but_unconfirmed
+      SchoolTeacherMailer.new_teacher(@teacher.school_teacher).deliver_later
+      flash[:notice] = 'Un message contenant un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.'
       redirect_to root_url
     else
       set_minimum_password_length
@@ -54,7 +56,7 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
     params.require(:teacher).permit(
       :school_id, account_attributes: [
         :first_name, :last_name, :email, :password, :password_confirmation
-      ]
+      ], school_teacher_attributes: [:school_id]
     )
   end
 

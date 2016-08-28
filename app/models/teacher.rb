@@ -1,9 +1,9 @@
 class Teacher < ApplicationRecord
-  has_one :school_teacher, inverse_of: :teacher, dependent: :destroy
-  has_one :school, through: :school_teacher
+  include User
 
-  has_one :account, as: :user, dependent: :destroy
-  accepts_nested_attributes_for :account
+  has_one :school_teacher, inverse_of: :teacher, dependent: :destroy
+  accepts_nested_attributes_for :school_teacher
+  has_one :school, through: :school_teacher
 
   has_many :authorships, inverse_of: :author, foreign_key: :teacher_id,
                          dependent: :destroy
@@ -17,11 +17,6 @@ class Teacher < ApplicationRecord
 
   validates :admin, :approved, exclusion: { in: [nil] }
   validates :account, presence: true
-
-  delegate :first_name, to: :account
-  delegate :last_name, to: :account
-  delegate :email, to: :account
-  delegate :full_name, to: :account
 
   def can_do?(exercise)
     exercise.shared || in?(exercise.authors)

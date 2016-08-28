@@ -1,0 +1,23 @@
+<p>Bonjour,</p>
+<p>Un nouveau professeur a sollicité une inscription dans un établissement sans professeurs.</p>
+<p>
+  <strong>Données de l'utilisateur:</strong><br>
+  Nom: <%= @new_teacher.last_name %><br>
+  Prénom: <%= @new_teacher.first_name %><br>
+  Email: <%= @new_teacher.email %>
+</p>
+<p>
+  <strong>Données de l'établissement :</strong><br>
+  Nom: <%= @new_teacher.school.name %><br>
+  Identifiant: <%= @new_teacher.school.identifier %><br>
+  Pays: <%= @new_teacher.school.country_name %><br>
+  Département: <%= @new_teacher.school.state_name %><br>
+  Ville: <%= @new_teacher.school.city %>
+  <% if @new_teacher.school.website %>
+    <br>Site web: <%= @new_teacher.school.website %>
+  <% end %>
+  <% if @new_teacher.school.email %>
+    <br>Email: <%= @new_teacher.school.email %>
+  <% end %>
+</p>
+<p>Vérifiez si les données de cet établissement sont correctes et si cette demande d'inscription est légitime. Puis connectez vous sur Shoshin pour la valider ou la refuser.</p>

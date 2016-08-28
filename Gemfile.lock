@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/goodwill/capybara-select2.git
+  revision: 585192e4bb0db8d52e761ab68f08c17294806447
+  specs:
+    capybara-select2 (1.0.1)
+      capybara
+      rspec
+
+GIT
   remote: git://github.com/sinatra/rack-protection.git
   revision: 7e723a74763bb83989d1249cdceb9cceb2ee6f01
   specs:
@@ -196,6 +204,10 @@ GEM
     redis (3.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
     rspec-core (3.5.2)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -276,6 +288,7 @@ DEPENDENCIES
   acts_as_list
   bullet
   capybara
+  capybara-select2!
   capybara-webkit
   cocoon
   countries (= 2.0.0.pre.4)

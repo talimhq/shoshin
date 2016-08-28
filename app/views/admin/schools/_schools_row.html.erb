@@ -1,0 +1,16 @@
+<% @schools.each do |school| %>
+  <tr id="school_<%= school.id %>">
+    <td class="text"><%= school.name %></td>
+    <td class="text"><%= school.identifier %></td>
+    <td class="text"><%= school.country_name %></td>
+    <td class="text"><%= school.state_name %></td>
+    <td class="text"><%= school.city %></td>
+    <td class="numeric"><%= school.teachers_count %></td>
+    <td class="actions">
+      <%= link_to material_icon.visibility, [:admin, school], class: 'btn link-see' %>
+      <%= link_to material_icon.edit, [:edit, :admin, school ], class: 'btn link-edit' %>
+      <%= link_to material_icon.delete, [:admin, school ], method: :delete, data: { confirm: 'En êtes vous sûr ?', remote: true }, class: 'btn link-destroy' %>
+    </td>
+  </tr>
+<% end %>
+

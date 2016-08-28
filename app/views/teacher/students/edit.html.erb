@@ -1,0 +1,30 @@
+<% content_for :title, 'Modifier un élève' %>
+<div class="page-title">
+  <div class="title">
+    Modifier un élève
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @student.classroom] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Données de l'élève</h3>
+      </div>
+      <%= simple_form_for [:teacher, @student] do |f| %>
+        <div class="content-area">
+          <%= f.simple_fields_for :account do |s| %>
+            <%= s.input :first_name, label: 'Prénom' %>
+            <%= s.input :last_name, label: 'Nom' %>
+            <%= s.input :email, label: 'Courriel', hint: 'Si vous le laissez vide nous essaierons de générer une addresse fictive pour que l\'élève puisse se connecter' %>
+          <% end %>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

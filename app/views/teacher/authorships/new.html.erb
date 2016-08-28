@@ -1,0 +1,21 @@
+<% content_for :title, "#{@editable.name} - Ajouter un auteur" %>
+<div class="page-title">
+  <div class="title"><%= "#{@editable.name} - Ajouter un auteur" %></div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @editable, :authorships] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 offset-l2 l8">
+    <div class="card">
+        <%= simple_form_for @editable.authorships.new, url: [:teacher, @editable, :authorships], defaults: { required: false } do |f| %>
+          <div class="content-area">
+            <%= f.association :author, collection: Teacher.where.not(id: @editable.author_ids), label_method: :full_name, label: 'Auteur' %>
+          </div>
+          <div class="actions-area">
+            <%= f.button :submit, 'Ajouter' %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

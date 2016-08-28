@@ -1,0 +1,19 @@
+<%= simple_form_for [:admin, @teaching], defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <div class="row">
+      <div class="column xs12 s6">
+        <%= f.input :name, label: 'Nom' %>
+      </div>
+      <div class="column xs12 s6">
+        <%= f.input :short_name, label: 'Nom court' %>
+      </div>
+    </div>
+    <div class="input">
+      <label>Cycles</label>
+      <%= f.association :cycles, collection: Cycle.ordered, as: :check_boxes, label: false %>
+    </div>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

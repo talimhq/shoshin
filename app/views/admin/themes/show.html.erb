@@ -1,0 +1,40 @@
+<% content_for :title, "#{@theme.teaching_name} - #{ @theme.cycle_name }" %>
+<div class="page-title">
+  <div class="title">
+    <%= @theme.teaching_name %> - <%= @theme.cycle_name %><br>
+    <%= @theme.name %> (<%= @theme.level_names %>)
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, admin_teaching_cycle_path(@theme.teaching_cycle) %>
+    <%= link_to material_icon.add, new_admin_theme_expectation_path(@theme) %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs11 offset-l1 l10">
+    <% @theme.expectations.each do |expectation| %>
+      <div class="card">
+        <div class="table-area">
+          <div class="header">
+            <%= expectation.name %>
+          </div>
+          <table>
+            <thead>
+              <th class="text">Connaissances associées</th>
+            </thead>
+            <tbody>
+              <% expectation.knowledge_items.each do |knowledge_item| %>
+                <tr>
+                  <td class="text"><%= knowledge_item.name %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="actions-area">
+          <%= link_to 'Modifier', edit_admin_expectation_path(expectation), class: 'btn' %>
+          <%= link_to 'Supprimer', admin_expectation_path(expectation), method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

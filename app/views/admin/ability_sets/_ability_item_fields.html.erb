@@ -1,0 +1,13 @@
+<div class="nested-fields" id="ability_item_<%= f.object.new_record? ? nil : f.object.id %>">
+  <div class="row item-center-xs">
+    <div class="column xs1 text-center">
+      <%= material_icon.reorder.css_class('draggable') %>
+    </div>
+    <div class="column xs10">
+      <%= f.input :name, label: 'Description' %>
+    </div>
+    <div class="column xs1 text-center">
+      <%= link_to_remove_association material_icon.delete, f, class: 'link-destroy' %>
+    </div>
+  </div>
+</div>

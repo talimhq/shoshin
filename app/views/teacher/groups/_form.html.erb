@@ -1,0 +1,9 @@
+<%= simple_form_for [:teacher, @group] do |f| %>
+  <div class="content-area">
+    <%= f.association :teaching, label: 'Enseignement' %>
+    <%= f.association :level, label: 'Niveau' %>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

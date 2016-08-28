@@ -11,21 +11,21 @@ RSpec.describe Teacher::SharedLessonsController, type: :controller do
   end
 
   context 'as a student' do
-    before { sign_in create(:student) }
+    before { sign_in create(:student_account) }
     it { expect(get(:index)).to have_http_status(302) }
     it { expect(post(:create, params: { lesson_id: lesson.id })).to have_http_status(302) }
     it { expect { post(:create, params: { lesson_id: lesson.id }) }.not_to change(Lesson, :count) }
   end
 
   context 'as a parent' do
-    before { sign_in create(:parent) }
+    before { sign_in create(:parent_account) }
     it { expect(get(:index)).to have_http_status(302) }
     it { expect(post(:create, params: { lesson_id: lesson.id })).to have_http_status(302) }
     it { expect { post(:create, params: { lesson_id: lesson.id }) }.not_to change(Lesson, :count) }
   end
 
   context 'as a teacher' do
-    before { sign_in create(:teacher) }
+    before { sign_in create(:teacher_account) }
     it { expect(get(:index)).to have_http_status(200) }
     it { expect(post(:create, params: { lesson_id: lesson.id })).to have_http_status(302) }
     it { expect { post(:create, params: { lesson_id: lesson.id }) }.to change(Lesson, :count).by(1) }

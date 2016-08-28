@@ -1,0 +1,11 @@
+<div class="row item-center-xs">
+  <div class="column xs8">
+    <%= f.input :content, label: 'Contenu' %>
+  </div>
+  <div class="column xs2 text-center">
+    <%= f.input :correct, label: 'Juste ?' %>
+  </div>
+  <div class="column xs2 text-center">
+    <%= link_to_remove_association material_icon.delete, f, class: 'link-destroy'  %>
+  </div>
+</div>

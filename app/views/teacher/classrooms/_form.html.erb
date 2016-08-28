@@ -1,0 +1,12 @@
+<div class="title-area">
+  <h3 class="main-title">Données de la classe</h3>
+</div>
+<%= simple_form_for @classroom, url: @classroom.new_record? ? teacher_school_classrooms_path(@classroom.school) : teacher_classroom_path(@classroom) do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Nom' %>
+    <%= f.association :level, label: 'Niveau' %>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

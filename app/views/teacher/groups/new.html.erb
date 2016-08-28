@@ -1,0 +1,19 @@
+<% content_for :title, 'Nouveau groupe' %>
+<div class="page-title">
+  <div class="title">
+    Nouveau groupe
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, teacher_groups_path %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Nouveau groupe</h3>
+      </div>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

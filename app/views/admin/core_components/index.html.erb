@@ -1,0 +1,33 @@
+<% content_for :title, 'Composantes du socle' %>
+<div class="page-title">
+  <div class="title">
+    Composantes du socle
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 offset-l2 l8">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Composantes du socle</h3>
+      </div>
+      <div class="content-area">
+        <% @core_components.each do |core_component| %>
+          <div class="row item-xs-center card-list">
+            <div class="column xs10">
+              <%= core_component.name %>
+            </div>
+            <div class="column xs1 text-center">
+              <%= link_to material_icon.edit, edit_admin_core_component_path(core_component) %>
+            </div>
+            <div class="column xs1 text-center">
+              <%= link_to material_icon.delete, admin_core_component_path(core_component), method: :delete, class: 'link-destroy', data: { confirm: 'En êtes vous sûr?' } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Ajouter', new_admin_core_component_path, class: 'btn link-add' %>
+      </div>
+    </div>
+  </div>
+</div>

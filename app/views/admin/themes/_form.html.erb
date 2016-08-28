@@ -1,0 +1,19 @@
+<%= simple_form_for @theme, url: @theme.new_record? ? admin_teaching_cycle_themes_path(@theme.teaching_cycle) : admin_theme_path(@theme), defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Titre' %>
+    <div id="theme_levels">
+       <div class="errors">
+      <%= f.error :theme_levels %>
+      </div>
+      <%= f.simple_fields_for :theme_levels do |s| %>
+        <%= render 'theme_level_fields', f: s %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'Ajouter un niveau', f, :theme_levels, class: 'link-add' %>
+      </div>
+    </div>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

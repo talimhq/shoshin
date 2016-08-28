@@ -1,0 +1,19 @@
+<%= simple_form_for [:teacher, @exercise], defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Titre de l\'exercice' %>
+    <%= f.association :teaching, collection: Teaching.ordered, label: 'Enseignement' %>
+    <div class="input">
+      <label>Niveaux</label>
+      <%= f.input :level_ids, collection: Level.all, as: :check_boxes, label: false, include_hidden: false %>
+    </div>
+    <%= f.input :time, collection: (1..12).map { |k| k*5 }, label_method: ->(time) { "#{time} minutes" }, label: 'Durée' %>
+    <%= f.input :difficulty, collection: [['Facile', 1], ['Moyen', 2], ['Difficile', 3]], as: :radio_buttons, label: 'Difficulté' %>
+    <%= f.input :statement, as: :hidden, label: 'Énoncé (optionnel)' %>
+    <trix-editor input="exercise_statement" class="trix-content"></trix-editor>
+    <%= f.input :exam, as: :radio_buttons, label: 'Sujet d\'annale ?' %>
+    <%= f.input :shared, as: :radio_buttons, label: 'Partagé ?' %>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

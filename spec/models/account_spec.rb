@@ -71,7 +71,30 @@ RSpec.describe Account, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    context 'after_destroy' do
+      it 'destroys student record' do
+        account = create(:student_account)
+        expect { account.destroy }.to change(Student, :count).by(-1)
+      end
+
+      it 'destroys teacher record' do
+        account = create(:teacher_account)
+        expect { account.destroy }.to change(Teacher, :count).by(-1)
+      end
+
+      it 'destroys student record' do
+        account = create(:parent_account)
+        expect { account.destroy }.to change(Parent, :count).by(-1)
+      end
+    end
+  end
+
   describe 'factories' do
-    it { expect(build(:account)).to be_valid }
+    it { expect(build(:user_account)).to be_valid }
+    it { expect(build(:teacher_account)).to be_valid }
+    it { expect(build(:student_account)).to be_valid }
+    it { expect(build(:parent_account)).to be_valid }
+    it { expect(build(:admin_account)).to be_valid }
   end
 end

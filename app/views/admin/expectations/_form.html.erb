@@ -1,0 +1,16 @@
+<%= simple_form_for @expectation, url: @expectation.new_record? ? admin_theme_expectations_path(@expectation.theme_id) : admin_expectation_path(@expectation), defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Titre' %>
+    <div id="knowledge_items">
+      <%= f.simple_fields_for :knowledge_items do |s| %>
+        <%= render 'knowledge_item_fields', f: s %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'Ajouter une connaissance associée', f, :knowledge_items, class: 'link-add' %>
+      </div>
+    </div>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

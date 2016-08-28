@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :teacher do
-    account
+    after :build do |teacher|
+      teacher.account ||= build(:teacher_account, user: teacher)
+    end
   end
 end

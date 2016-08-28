@@ -13,7 +13,7 @@ RSpec.describe Admin::LevelsController, type: :controller do
   end
 
   context 'as a user' do
-    before { sign_in create(:user) }
+    before { sign_in create(:user_account) }
 
     it { expect(post(:sort, params: { level: [level2.id, level1.id] })).to have_http_status(302) }
     it 'does not change levels position' do
@@ -23,7 +23,7 @@ RSpec.describe Admin::LevelsController, type: :controller do
   end
 
   context 'as an admin' do
-    before { sign_in create(:admin) }
+    before { sign_in create(:admin_account) }
 
     it { expect(post(:sort, params: { level: [level2.id, level1.id] })).to have_http_status(200) }
     it 'changes levels position' do

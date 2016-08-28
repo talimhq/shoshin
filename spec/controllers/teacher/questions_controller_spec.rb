@@ -33,7 +33,7 @@ RSpec.describe Teacher::QuestionsController, type: :controller do
   end
 
   context 'as a student' do
-    before { sign_in create(:student) }
+    before { sign_in create(:student_account) }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { exercise_id: question.exercise_id })).to have_http_status(302) }
@@ -63,7 +63,7 @@ RSpec.describe Teacher::QuestionsController, type: :controller do
   end
 
   context 'as a parent' do
-    before { sign_in create(:parent) }
+    before { sign_in create(:parent_account) }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { exercise_id: question.exercise_id })).to have_http_status(302) }
@@ -93,7 +93,7 @@ RSpec.describe Teacher::QuestionsController, type: :controller do
   end
 
   context 'not an author' do
-    before { sign_in create(:teacher) }
+    before { sign_in create(:teacher_account) }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { exercise_id: question.exercise_id })).to have_http_status(302) }
@@ -123,7 +123,7 @@ RSpec.describe Teacher::QuestionsController, type: :controller do
   end
 
   context 'as an author' do
-    before { sign_in teacher }
+    before { sign_in teacher.account }
     before { question.exercise.update(authors: [teacher]) }
 
     let(:teacher) { create(:teacher) }

@@ -13,7 +13,7 @@ RSpec.describe Teacher::ThemesController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in create(:teacher) }
+      before(:each) { sign_in create(:teacher_account) }
 
       it 'is a success' do
         get :index, params: { teaching_cycle_id: teaching_cycle.id }
@@ -31,7 +31,7 @@ RSpec.describe Teacher::ThemesController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in create(:teacher) }
+      before(:each) { sign_in create(:teacher_account) }
 
       it 'is a success' do
         get :show, params: { id: theme.id }

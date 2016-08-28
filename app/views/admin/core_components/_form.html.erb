@@ -1,0 +1,8 @@
+<%= simple_form_for [:admin, @core_component], defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Nom de la composante' %>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

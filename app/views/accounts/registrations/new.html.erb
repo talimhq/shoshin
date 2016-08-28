@@ -12,16 +12,16 @@
         <h3 class="main-title">Vos données</h3>
       </div>
       <%= simple_form_for(@teacher, url: account_registration_path, defaults: { required: false }) do |f| %>
-          <div class="content-area">
-            <%= f.simple_fields_for :account do |s| %>
-              <%= s.input :first_name, label: 'Prénom' %>
-              <%= s.input :last_name, label: 'Nom de famille' %>
-              <%= s.input :user_type, as: :radio_buttons, collection: Account.user_types, label: 'Role', disabled: true %>
-              <%= s.input :email, label: 'Courriel' %>
-              <%= s.input :password, hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length), label: 'Mot de passe' %>
-              <%= s.input :password_confirmation, label: 'Confirmez le mot de passe' %>
-            <% end %>
-          </div>
+        <div class="content-area">
+          <%= f.simple_fields_for :account do |s| %>
+            <%= s.input :first_name, label: 'Prénom' %>
+            <%= s.input :last_name, label: 'Nom de famille' %>
+            <%= s.input :user_type, as: :radio_buttons, collection: Account.role_options, label: 'Role', disabled: true %>
+            <%= s.input :email, label: 'Courriel' %>
+            <%= s.input :password, hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length), label: 'Mot de passe' %>
+            <%= s.input :password_confirmation, label: 'Confirmez le mot de passe' %>
+          <% end %>
+        </div>
 
         <div class="title-area">
           <h3 class="main-title">Votre établissement</h3>

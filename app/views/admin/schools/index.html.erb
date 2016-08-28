@@ -1,0 +1,57 @@
+<% content_for :title, "Établissements" %>
+<div class="page-title">
+  <div class="title">
+    Établissements
+  </div>
+  <div class="links">
+    <%= link_to material_icon.add, new_admin_school_path %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= material_icon.search.to_s + 'Rechercher' %></h3>
+      </div>
+        <%= search_form_for @q, url: [:admin, :schools], defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <%= f.input :name_cont, label: 'Nom contient' %>
+          <%= f.input :country_eq, collection: Country.all.map {|country| [country.translations['fr'], country.alpha2]}, label: 'Pays' %>
+          <%= f.input :city_cont, label: 'Ville' %>
+        </div>
+        <div class="actions-area">
+          <%= f.submit 'Rechercher', class: 'btn' %>
+        </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="column xs12">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Établissements
+        </div>
+        <table id="users_table">
+          <thead>
+            <tr>
+              <th class="text"><%= sort_link(@q, :name, 'Nom') %></th>
+              <th class="text"><%= sort_link(@q, :identifier, 'Identifiant') %></th>
+              <th class="text"><%= sort_link(@q, :country, 'Pays') %></th>
+              <th class="text"><%= sort_link(@q, :state, 'Département') %></th>
+              <th class="text"><%= sort_link(@q, :city, 'Ville') %></th>
+              <th class="numeric"><%= sort_link(@q, :school_users_count, 'Utilisateurs') %></th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render 'schools_row' %>
+          </tbody>
+        </table>
+        <div class="footer">
+          <%= render 'schools_footer' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

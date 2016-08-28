@@ -59,8 +59,9 @@ namespace :db do
     schools_array.each do |school_hash|
       teacher_ids = school_hash.delete(:teacher_ids)
       school = School.create!(school_hash)
-      Teacher.where(old_id: teacher_ids)
-             .update_all(school_id: school.id, approved: true)
+      Teacher.where(old_id: teacher_ids).each do |teacher|
+        SchoolTeacher.create(teacher: teacher, school: school, approved: true)
+      end
     end
   end
 end

@@ -1,5 +1,6 @@
 class Teacher < ApplicationRecord
-  belongs_to :school, counter_cache: true
+  has_one :school_teacher, inverse_of: :teacher, dependent: :destroy
+  has_one :school, through: :school_teacher
 
   has_one :account, as: :user, dependent: :destroy
   accepts_nested_attributes_for :account
@@ -16,4 +17,13 @@ class Teacher < ApplicationRecord
 
   validates :admin, :approved, exclusion: { in: [nil] }
   validates :account, presence: true
+
+  delegate :first_name, to: :account
+  delegate :last_name, to: :account
+  delegate :email, to: :account
+  delegate :full_name, to: :account
+
+  def can_do?(exercise)
+    exercise.shared || in?(exercise.authors)
+  end
 end

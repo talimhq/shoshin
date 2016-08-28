@@ -1,0 +1,60 @@
+<% content_for :title, "Utilisateurs" %>
+<div class="page-title">
+  <div class="title">
+    Utilisateurs
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= material_icon.search.to_s + 'Rechercher' %></h3>
+      </div>
+        <%= search_form_for @q, url: [:admin, :users], defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <%= f.input :last_name_or_first_name_cont, label: 'Nom contient' %>
+          <%= f.input :email_cont, label: 'Courriel' %>
+          <div class="row">
+            <div class="column xs12 s4">
+              <%= f.input :user_type_eq, collection: Account.role_options, label: 'Role' %>
+            </div>
+            <div class="column xs12 s4">
+              <%= f.input :confirmed_at_not_null, collection: [['Oui', '1'], ['Non', '0']], label: 'Confirmé ?' %>
+            </div>
+          </div>
+        </div>
+        <div class="actions-area">
+          <%= f.submit 'Rechercher', class: 'btn' %>
+        </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="column xs12">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Utilisateurs
+        </div>
+        <table id="users_table">
+          <thead>
+            <tr>
+              <th class="image">Avatar</th>
+              <th class="text"><%= sort_link(@q, :last_name, 'Nom') %></th>
+              <th class="text"><%= sort_link(@q, :first_name, 'Prénom') %></th>
+              <th class="text"><%= sort_link(@q, :email, 'Courriel') %></th>
+              <th class="boolean"><%= sort_link(@q, :confirmed_at, 'Confirmé?') %></th>
+              <th class="text"><%= sort_link(@q, :role, 'Role') %></th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render 'users_row' %>
+          </tbody>
+        </table>
+        <div class="footer">
+          <%= render 'users_footer' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

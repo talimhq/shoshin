@@ -18,6 +18,8 @@ RSpec.describe School, type: :model do
   end
 
   describe 'associations' do
+    it { is_expected.to have_many(:school_teachers) }
+    it { is_expected.to have_many(:pending_school_teachers) }
     it { is_expected.to have_many(:teachers) }
     it { is_expected.to have_many(:pending_teachers) }
     it { is_expected.to have_many(:classrooms) }

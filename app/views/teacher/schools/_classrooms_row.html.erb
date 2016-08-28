@@ -1,0 +1,13 @@
+<% @school.classrooms.each do |classroom| %>
+  <tr id="classroom_<%= classroom.id %>">
+    <td class="text"><%= classroom.name %></td>
+    <td class="text"><%= classroom.level_name %></td>
+    <td class="numeric"><%= classroom.students_count %></td>
+    <td class="actions">
+      <% if current_user.in? @school.teachers %>
+        <%= link_to material_icon.visibility, [:teacher, classroom], class: 'btn link-see' %>
+        <%= link_to material_icon.delete, [:teacher, classroom], method: :delete, data: { confirm: 'En êtes vous sûr ?', remote: true }, class: 'btn link-destroy' %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

@@ -1,0 +1,8 @@
+<div class="card empty">
+  <div class="content-area">
+    <p>Votre demande doit être validée par un administrateur ou par un collègue déjà inscrit dans cet établissement.</p>
+  </div>
+  <div class="actions-area">
+    <%= link_to 'Annuler ma demande', [:teacher, current_user.school_teacher], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+  </div>
+</div>

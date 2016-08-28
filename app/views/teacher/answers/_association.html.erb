@@ -1,0 +1,11 @@
+<div class="row item-center-xs">
+  <div class="column xs5">
+    <%= f.input :left, label: 'Coté gauche' %>
+  </div>
+  <div class="column xs5">
+    <%= f.input :right, label: 'Coté droit' %>
+  </div>
+  <div class="column xs2 text-center">
+    <%= link_to_remove_association material_icon.delete, f, class: 'link-destroy'  %>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<% content_for :title, @exercise_form.exercise_name %>
+<div class="page-title">
+  <div class="title">
+    <%= @exercise_form.exercise_name %> - Résultat
+  </div>
+</div>
+<div class="row">
+  <div class="column xs-12">
+    <div class="card">
+      <div class="content-area">
+        <% if @exercise_form.exercise_statement.blank? %>
+          <p>Répondre aux questions suivantes:</p>
+        <% else %>
+          <div class=trix-content">
+            <%= @exercise_form.exercise_statement.html_safe %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% @exercise_form.questions.each do |question| %>
+      <div class="card <%= class_for_result(@exercise_form.results[question.id.to_s])%>">
+        <div class="title-area">
+          <h3 class="main-title">
+            <%= question.print_title %>
+          </h3>
+        </div>
+        <div class="content-area">
+          <div class="trix-content">
+            <%= question.content.html_safe %>
+          </div>
+          <p>Vous avez répondu <%= @exercise_form.answers[question.id.to_s] %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

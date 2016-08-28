@@ -1,0 +1,23 @@
+<% content_for :title, 'Trouver mon établissement' %>
+<div class="page-title">
+  <div class="title">
+    Trouver mon établissement
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Mon établissement</h3>
+      </div>
+      <%= simple_form_for [:teacher, @school_teacher] do |f| %>
+        <div class="content-area">
+          <%= f.association :school, label: 'Établissement' %>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

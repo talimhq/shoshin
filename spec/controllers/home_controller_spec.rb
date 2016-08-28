@@ -14,7 +14,7 @@ RSpec.describe HomeController, type: :controller do
 
   context 'as a user' do
     before(:each) do
-      sign_in create(:user)
+      sign_in create(:user_account)
     end
 
     describe 'GET #guest' do
@@ -28,7 +28,7 @@ RSpec.describe HomeController, type: :controller do
 
   context 'as an admin' do
     before(:each) do
-      sign_in create(:admin)
+      sign_in create(:admin_account)
     end
 
     describe 'GET #guest' do

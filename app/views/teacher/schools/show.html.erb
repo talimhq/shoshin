@@ -1,0 +1,134 @@
+<% content_for :title, 'Mon établissement' %>
+<div class="page-title">
+  <div class="title">
+    Mon établissement
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12" id="school_info">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @school.name %></h3>
+      </div>
+      <div class="content-area">
+        <p>
+          <strong>Identifiant:</strong>
+          <%= @school.identifier %>
+        </p>
+        <p>
+          <strong>Pays:</strong>
+          <%= @school.country_name %>
+        </p>
+        <p>
+          <strong>Département:</strong>
+          <%= @school.state_name %>
+        </p>
+        <p>
+          <strong>Ville:</strong>
+          <%= @school.city %>
+        </p>
+        <% unless @school.website.blank? %>
+          <p>
+            <strong>Website:</strong>
+            <%= @school.website %>
+          </p>
+        <% end %>
+        <% unless @school.email.blank? %>
+          <p>
+            <strong>Email:</strong>
+            <%= @school.email %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="column s6 m12 l7">
+    <% if current_user.in?(@school.teachers) && @school.pending_teachers.any? %>
+      <div class="card empty">
+        <div class="table-area">
+          <div class="header">
+            Nouveaux professeurs
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="text">Nom</th>
+                <th class="text">Prénom</th>
+                <th class="text">Courriel</th>
+                <th class="actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @school.pending_school_teachers.includes(teacher: :account).each do |school_teacher| %>
+                <tr>
+                  <td class="text"><%= school_teacher.teacher.last_name %></td>
+                  <td class="text"><%= school_teacher.teacher.first_name %></td>
+                  <td class="text"><%= school_teacher.teacher.email %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.check, [:teacher, school_teacher], method: :patch, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-add' %>
+                    <%= link_to material_icon.close, [:teacher, school_teacher], method: :delete, data: { confirm: 'En êtes vous sûr?' },class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% elsif current_user.in?(@school.pending_teachers) %>
+      <%= render 'school_user_pending' %>
+    <% end %>
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Professeurs
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text">Nom</th>
+              <th class="text">Prénom</th>
+              <th class="text">Courriel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @school.teachers.includes(:account).each do |teacher| %>
+              <tr>
+                <td class="text"><%= teacher.last_name %></td>
+                <td class="text"><%= teacher.first_name %></td>
+                <td class="text"><%= teacher.email %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="column s6 m12 l5">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Classes
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text">Nom</th>
+              <th class="text">Niveau</th>
+              <th class="numeric">Élèves</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render 'classrooms_row' %>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions-area">
+        <% if current_user.in? @school.teachers %>
+          <%= link_to 'Ajouter une classe', new_teacher_school_classroom_path(@school), class: 'btn link-add' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

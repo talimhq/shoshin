@@ -1,106 +1,238 @@
 require 'rails_helper'
 
 RSpec.describe Teacher::AuthorshipsController, type: :controller do
-  let(:new_author) { create(:user) }
-  let!(:authorship) { create(:authorship) }
-  let(:author) { authorship.author }
-  let(:lesson) { authorship.editable }
+  let(:new_author) { create(:teacher) }
+  let(:lesson) { create(:lesson) }
+  let!(:authorship) { create(:authorship, editable: lesson) }
 
-  context 'as a guest' do
-    it { expect(get(:index, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(get(:new, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(post(:create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } })).to have_http_status(302) }
-    it {
-      post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-    it { expect(delete(:destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id })).to have_http_status(302) }
-    it {
-      delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-  end
-
-  context 'as a student' do
-    before { sign_in create(:student) }
-    it { expect(get(:index, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(get(:new, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(post(:create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } })).to have_http_status(302) }
-    it {
-      post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-    it { expect(delete(:destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id })).to have_http_status(302) }
-    it {
-      delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-  end
-
-  context 'as a parent' do
-    before { sign_in create(:parent) }
-    it { expect(get(:index, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(get(:new, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(post(:create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } })).to have_http_status(302) }
-    it {
-      post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-    it { expect(delete(:destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id })).to have_http_status(302) }
-    it {
-      delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-  end
-
-  context 'as a teacher' do
-    before { sign_in create(:teacher) }
-    it { expect(get(:index, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(get(:new, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(302) }
-    it { expect(post(:create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } })).to have_http_status(302) }
-    it {
-      post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-    it { expect(delete(:destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id })).to have_http_status(302) }
-    it {
-      delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-      expect(lesson.reload.authorships.size).to eq(1)
-    }
-  end
-
-  context 'as an author' do
-    before { sign_in author }
-    it { expect(get(:index, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(200) }
-    it { expect(get(:new, params: { editable_type: 'Lesson', lesson_id: lesson.id })).to have_http_status(200) }
-    it { expect(post(:create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } })).to have_http_status(200) }
-    it {
-      post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id, authorship: { author_id: new_author.id } }
-      expect(lesson.reload.authorships.size).to eq(2)
-    }
-    context 'last author' do
-      it { expect(delete(:destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id })).to have_http_status(302) }
-      it {
-        delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-        expect(Authorship.count).to eq(0)
-      }
-      it {
-        delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-        expect(Lesson.count).to eq(0)
-      }
+  describe 'GET #index' do
+    context 'as a guest' do
+      it 'redirects' do
+        get :index, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+        expect(response).to have_http_status(302)
+      end
     end
 
-    context 'not last author' do
-      before { new_author.update(lessons: [lesson]) }
-      it { expect(delete(:destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id })).to have_http_status(302) }
-      it {
-        delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-        expect(lesson.reload.authorships.size).to eq(1)
-      }
-      it {
-        delete :destroy, params: { editable_type: 'Lesson', lesson_id: lesson.id, id: authorship.id }
-        expect(Lesson.count).to eq(1)
-      }
+    context 'as a student' do
+      before { sign_in create(:student_account) }
+
+      it 'redirects' do
+        get :index, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    context 'as a parent' do
+      before { sign_in create(:parent_account) }
+
+      it 'redirects' do
+        get :index, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    context 'as a teacher' do
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
+
+      context 'who is not the author' do
+        it 'redirects' do
+          get :index, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+          expect(response).to have_http_status(302)
+        end
+      end
+
+      context 'who is the author' do
+        before { lesson.update(authors: [teacher]) }
+
+        it 'is a success' do
+          get :index, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
+  end
+
+  describe 'GET #new' do
+    context 'as a guest' do
+      it 'redirects' do
+        get :new, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    context 'as a student' do
+      before { sign_in create(:student_account) }
+
+      it 'redirects' do
+        get :new, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    context 'as a parent' do
+      before { sign_in create(:parent_account) }
+
+      it 'redirects' do
+        get :new, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    context 'as a teacher' do
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
+
+      context 'who is not the author' do
+        it 'redirects' do
+          get :new, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+          expect(response).to have_http_status(302)
+        end
+      end
+
+      context 'who is the author' do
+        before { lesson.update(authors: [teacher]) }
+
+        it 'is a success' do
+          get :new, params: { editable_type: 'Lesson', lesson_id: lesson.id }
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
+  end
+
+  describe 'POST #create' do
+    context 'as a guest' do
+      it 'does not create a new authorship' do
+        expect {
+          post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id,
+                                  authorship: { teacher_id: new_author.id } }
+        }.not_to change(Authorship, :count)
+      end
+    end
+
+    context 'as a student' do
+      before { sign_in create(:student_account) }
+
+      it 'does not create a new authorship' do
+        expect {
+          post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id,
+                                  authorship: { teacher_id: new_author.id } }
+        }.not_to change(Authorship, :count)
+      end
+    end
+
+    context 'as a parent' do
+      before { sign_in create(:parent_account) }
+
+      it 'does not create a new authorship' do
+        expect {
+          post :create, params: { editable_type: 'Lesson', lesson_id: lesson.id,
+                                  authorship: { teacher_id: new_author.id } }
+        }.not_to change(Authorship, :count)
+      end
+    end
+
+    context 'as a teacher' do
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
+
+      context 'who is not the author' do
+        it 'does not create a new authorship' do
+          expect {
+            post :create, params: { editable_type: 'Lesson',
+                                    lesson_id: lesson.id,
+                                    authorship: { teacher_id: new_author.id } }
+          }.not_to change(Authorship, :count)
+        end
+      end
+
+      context 'who is the author' do
+        before { lesson.update(authors: [teacher]) }
+
+        it 'creates a new authorship' do
+          expect {
+            post :create, params: { editable_type: 'Lesson',
+                                    lesson_id: lesson.id,
+                                    authorship: { teacher_id: new_author.id } }
+          }.to change(lesson.authorships, :count).by(1)
+        end
+
+        it 'does not create a duplicate authorship' do
+          expect {
+            post :create, params: { editable_type: 'Lesson',
+                                    lesson_id: lesson.id,
+                                    authorship: { teacher_id: teacher.id } }
+          }.not_to change(Authorship, :count)
+        end
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'as a guest' do
+      it 'does not destroy the authorship' do
+        expect {
+          delete :destroy, params: { editable_type: 'Lesson',
+                                    lesson_id: lesson.id, id: authorship.id }
+        }.not_to change(Authorship, :count)
+      end
+    end
+
+    context 'as a student' do
+      before { sign_in create(:student_account) }
+
+      it 'does not destroy the authorship' do
+        expect {
+          delete :destroy, params: { editable_type: 'Lesson',
+                                    lesson_id: lesson.id, id: authorship.id }
+        }.not_to change(Authorship, :count)
+      end
+    end
+
+    context 'as a parent' do
+      before { sign_in create(:parent_account) }
+
+      it 'does not destroy the authorship' do
+        expect {
+          delete :destroy, params: { editable_type: 'Lesson',
+                                    lesson_id: lesson.id, id: authorship.id }
+        }.not_to change(Authorship, :count)
+      end
+    end
+
+    context 'as a teacher' do
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
+
+      context 'who is not the author' do
+        it 'does not destroy the authorship' do
+          expect {
+            delete :destroy, params: { editable_type: 'Lesson',
+                                      lesson_id: lesson.id, id: authorship.id }
+          }.not_to change(Authorship, :count)
+        end
+      end
+
+      context 'who is the author' do
+        before { lesson.update(authors: [teacher]) }
+
+        it 'destroys the authorship' do
+          authorship = lesson.authorships.first
+          expect {
+            delete :destroy, params: { editable_type: 'Lesson',
+                                      lesson_id: lesson.id, id: authorship.id }
+          }.to change(Authorship, :count).by(-1)
+        end
+
+        it 'destroys the lesson if last author' do
+          authorship = lesson.authorships.first
+          expect {
+            delete :destroy, params: { editable_type: 'Lesson',
+                                      lesson_id: lesson.id, id: authorship.id }
+          }.to change(Lesson, :count).by(-1)
+        end
+      end
     end
   end
 end

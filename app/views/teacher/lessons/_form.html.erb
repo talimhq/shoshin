@@ -1,0 +1,14 @@
+<%= simple_form_for [:teacher, @lesson], defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Titre du cours' %>
+    <%= f.association :teaching, collection: Teaching.ordered, label: 'Enseignement' %>
+    <div class="input">
+      <label>Niveaux</label>
+      <%= f.input :level_ids, collection: Level.all, as: :check_boxes, label: false, include_hidden: false %>
+    </div>
+    <%= f.input :shared, as: :radio_buttons, label: 'Partagé ?' %>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

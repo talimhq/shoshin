@@ -8,7 +8,7 @@ class Group < ApplicationRecord
   delegate :name, to: :teaching, prefix: true
   delegate :name, to: :level, prefix: true
 
-  def name
-    "#{teaching_name} (#{level_name})"
+  def display_name
+    name || "#{teaching_name} (#{level_name})"
   end
 end

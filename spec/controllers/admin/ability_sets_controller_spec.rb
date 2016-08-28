@@ -47,7 +47,7 @@ RSpec.describe Admin::AbilitySetsController, type: :controller do
 
   context 'as a user' do
     before do
-      sign_in create(:user)
+      sign_in create(:user_account)
     end
 
     describe 'GET #new' do
@@ -84,7 +84,7 @@ RSpec.describe Admin::AbilitySetsController, type: :controller do
 
   context 'as an admin' do
     before do
-      sign_in create(:admin)
+      sign_in create(:admin_account)
     end
 
     describe 'GET #new' do

@@ -1,0 +1,10 @@
+<% content_for :title, "#{@group.teaching_name} (#{@group.level_name})" %>
+<div class="page-title">
+  <div class="title">
+    <%= @group.teaching_name %> (<%= @group.level_name %>)
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, teacher_groups_path %>
+    <%= link_to material_icon.delete, [:teacher, @group], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'link-destroy' %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<% content_for :title, 'Modifier une classe' %>
+<div class="page-title">
+  <div class="title">
+    Modifier une classe
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @classroom] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

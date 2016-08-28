@@ -1,0 +1,29 @@
+<%= simple_form_for [:admin, @cycle], defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Nom du cycle' %>
+  </div>
+  <div class="content-area">
+    <h4>Niveaux</h4>
+    <div id="levels" data-sort-url="<%= admin_sort_levels_path %>">
+      <%= f.simple_fields_for :levels do |s| %>
+        <%= render 'level_fields', f: s %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'Ajouter un niveau', f, :levels, class: 'link-add' %>
+      </div>
+    </div>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $('#levels').sortable({
+    items: '>.nested-fields',
+    handle: '.draggable',
+    cursor: 'move',
+    update: function(event, ui) {
+      $.post($(this).data('sort-url'), $(this).sortable('serialize'));
+    }
+  });
+</script>

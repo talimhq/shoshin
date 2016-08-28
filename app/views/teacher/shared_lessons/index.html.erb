@@ -1,0 +1,76 @@
+<% content_for :title, "Chercher un cours" %>
+<div class="page-title">
+  <div class="title">Chercher un cours</div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, :lessons] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12">
+    <div class="card">
+      <div class="title-area">
+      <h3 class="main-title"><%= material_icon.search %> Chercher un cours</h3>
+      </div>
+      <div class="content-area">
+        <%= search_form_for @q, url: [:search, :teacher, :lessons], defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <%= f.input :name_cont, label: 'Titre contient' %>
+          <%= f.input :teaching_id_eq, collection: Teaching.ordered, label: 'Enseignement' %>
+        </div>
+        <div class="actions-area">
+          <%= f.submit 'Chercher', class: 'btn' %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Cours partagés
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text"><%= sort_link(@q, :name, 'Titre') %></th>
+              <th class="text"><%= sort_link(@q, :teaching_name, 'Enseignement') %></th>
+              <th class="text"><%= sort_link(@q, :level_names, 'Niveaux') %></th>
+              <th class="numeric"><%= sort_link(@q, :popularity, 'Popularité', default_order: :desc) %></th>
+              <th class="numeric"><%= sort_link(@q, :authorships_count, 'Auteurs', default_order: :desc) %></th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @lessons.each do |lesson| %>
+              <tr>
+                <td class="text"><%= lesson.name %></td>
+                <td class="text"><%= lesson.teaching_name %></td>
+                <td class="text"><%= lesson.level_names %></td>
+                <td class="numeric"><%= lesson.popularity %></td>
+                <td class="numeric"><%= lesson.authorships.size %></td>
+                <td class="actions">
+                  <%= link_to material_icon.visibility, [:teacher, lesson ], class: 'btn link-see' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="footer">
+          <div class="page-info">
+            <%= page_entries_info @lessons %>
+          </div>
+          <%= paginate @lessons %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $('input').each(function() {
+    animateLabels(this);
+  });
+  $('select').select2({
+    language: 'fr',
+    allowClear: true,
+    placeholder: 'Tous'
+  });
+</script>

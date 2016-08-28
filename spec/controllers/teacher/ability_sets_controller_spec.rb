@@ -12,9 +12,9 @@ RSpec.describe Teacher::AbilitySetsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in create(:teacher) }
+      before(:each) { sign_in create(:teacher_account) }
 
-      it 'should redirect' do
+      it 'should be a success' do
         get :index, params: { teaching_cycle_id: teaching_cycle.id }
         expect(response).to have_http_status(200)
       end

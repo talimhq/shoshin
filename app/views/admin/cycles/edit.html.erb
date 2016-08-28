@@ -1,0 +1,17 @@
+<% content_for :title, 'Modifier un cycle' %>
+<div class="page-title">
+  <div class="title"><%= @cycle.name %> - Modifier</div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, admin_cycles_path %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 l8 offset-l2">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @cycle.name %></h3>
+      </div>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

@@ -27,8 +27,8 @@ RSpec.describe Admin::ExpectationsController, type: :controller do
   end
 
   context 'as a user' do
-    before { sign_in create(:user) }
-    
+    before { sign_in create(:user_account) }
+
     it { expect(get(:new, params: { theme_id: expectation.theme_id })).to have_http_status(302) }
     it { expect(post(:create, params: { theme_id: expectation.theme_id, expectation: valid_attributes })).to have_http_status(302) }
     it { expect { post(:create, params: { theme_id: expectation.theme_id, expectation: valid_attributes }) }.not_to change(Expectation, :count) }
@@ -43,7 +43,7 @@ RSpec.describe Admin::ExpectationsController, type: :controller do
   end
 
   context 'as an admin' do
-    before { sign_in create(:admin) }
+    before { sign_in create(:admin_account) }
 
     it { expect(get(:new, params: { theme_id: expectation.theme_id })).to have_http_status(200) }
     it { expect(post(:create, params: { theme_id: expectation.theme_id, expectation: { invalid: 'attributes' } })).to have_http_status(200) }

@@ -1,0 +1,10 @@
+<%= simple_form_for @step, url: @step.new_record? ? [:teacher, @step.lesson, @step] : [:teacher, @step], defaults: { required: false } do |f| %>
+  <div class="content-area">
+    <%= f.input :title, label: 'Titre (optionnel)' %>
+    <%= f.input :content, as: :hidden %>
+    <trix-editor input="step_content" class="trix-content"></trix-editor>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

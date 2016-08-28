@@ -1,0 +1,16 @@
+<div class="row item-center-xs">
+  <div class="column xs10">
+    <%= f.input :name, label: 'Catégorie' %>
+  </div>
+  <div class="column xs2 text-center">
+    <%= link_to_remove_association material_icon.delete, f, class: 'link-destroy'  %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12">
+    <h5>Items <%= link_to_add_association material_icon.add.to_s, f, :category_items, data: { association_insertion_method: 'append', association_insertion_traversal: 'closest', association_insertion_node: ".row" }, class: 'link-add' %></h5>
+  </div>
+  <%= f.simple_fields_for :category_items do |s| %>
+    <%= render 'category_item_fields', f: s %>
+  <% end %>
+</div>

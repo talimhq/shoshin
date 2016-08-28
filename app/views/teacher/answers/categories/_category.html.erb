@@ -1,0 +1,8 @@
+<div class="column">
+  <span><%= answer.name %></span>
+  <ul>
+    <% answer.category_items.each do |item| %>
+      <li><%= item.content %></li>
+    <% end %>
+  </ul>
+</div>

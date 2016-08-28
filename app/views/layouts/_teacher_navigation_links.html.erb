@@ -18,7 +18,7 @@
       </div>
     <% else %>
       <div class="link">
-        <%= link_to material_icon.school.to_s + 'Trouver mon établissement', new_teacher_school_user_path %>
+        <%= link_to material_icon.school.to_s + 'Trouver mon établissement', new_teacher_school_teacher_path %>
       </div>
     <% end %>
   </div>
@@ -27,7 +27,7 @@
       <div class="subheader">Mes groupes</div>
       <% current_user.groups.includes(:teaching, :level).where.not(id: nil).each do |group| %>
         <div class="link">
-          <%= link_to material_icon.group_work.to_s + group.name, [:teacher, group] %>
+          <%= link_to material_icon.group_work.to_s + group.display_name, [:teacher, group] %>
         </div>
       <% end %>
       <div class="link">
@@ -37,7 +37,7 @@
   <% end %>
   <div class="navigation">
     <div class="subheader">Mes ressources</div>
-    <div class="link"><%= link_to (material_icon.style.to_s + 'Référentiels'), teacher_user_teaching_cycles_path %></div>
+    <div class="link"><%= link_to (material_icon.style.to_s + 'Référentiels'), teacher_teacher_teaching_cycles_path %></div>
     <div class="link"><%= link_to (material_icon.book.to_s + 'Cours'), teacher_lessons_path %></div>
     <div class="link"><%= link_to (material_icon.assignment.to_s + 'Exercices'), teacher_exercises_path %></div>
   </div>
@@ -53,6 +53,6 @@
   <% end %>
 </div>
 <div class="navigation bottom">
-  <div class="link"><%= link_to (material_icon.settings.to_s + 'Mon compte'), edit_user_registration_path %></div>
-  <div class="link"><%= link_to (material_icon.power_settings_new.to_s + 'Déconnexion'), destroy_user_session_path, method: :delete %></div>
+  <div class="link"><%= link_to (material_icon.settings.to_s + 'Mon compte'), edit_account_registration_path %></div>
+  <div class="link"><%= link_to (material_icon.power_settings_new.to_s + 'Déconnexion'), destroy_account_session_path, method: :delete %></div>
 </div>

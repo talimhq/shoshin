@@ -1,0 +1,22 @@
+<%= simple_form_for @ability_set, url: @ability_set.new_record? ? admin_teaching_cycle_ability_sets_path(@ability_set.teaching_cycle) : admin_ability_set_path(@ability_set), defaults: { required: false } do |f| %>
+<div class="title-area">
+  <h3 class="main-title">Compétence</h3>
+</div>
+  <div class="content-area">
+    <%= f.input :name, label: 'Nom' %>
+  </div>
+  <div class="title-area">
+    <h3 class="main-title">Items</h3>
+  </div>
+  <div class="content-area" id="ability_items">
+    <%= f.simple_fields_for :ability_items do |s| %>
+      <%= render 'ability_item_fields', f: s %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'Ajouter un item', f, :ability_items, class: 'link-add' %>
+    </div>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

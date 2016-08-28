@@ -1,4 +1,6 @@
 class Account < ApplicationRecord
+  after_destroy :destroy_user
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
@@ -22,5 +24,26 @@ class Account < ApplicationRecord
 
   def role
     user_type.downcase
+  end
+
+  def self.role_options
+    [%w(Professeur Teacher), %w(Parent Parent), %w(Élève Student)]
+  end
+
+  def display_role
+    case user_type
+    when 'Student'
+      'Élève'
+    when 'Parent'
+      'Parent'
+    when 'Teacher'
+      'Professeur'
+    end
+  end
+
+  private
+
+  def destroy_user
+    user.destroy
   end
 end

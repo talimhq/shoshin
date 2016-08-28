@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Admin::SchoolsController, type: :controller do
-  let(:user) { create(:teacher) }
-  let(:admin) { create(:admin) }
+  let(:user) { create(:teacher_account) }
+  let(:admin) { create(:admin_account) }
   let!(:school) { create(:school) }
   let(:valid_attributes) { attributes_for(:school) }
 

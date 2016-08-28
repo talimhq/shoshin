@@ -24,4 +24,8 @@ module ApplicationHelper
       material_icon.close.css_class('icon-error')
     end
   end
+
+  def current_user
+    current_account.user
+  end
 end

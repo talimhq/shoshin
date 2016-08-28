@@ -34,7 +34,7 @@ RSpec.describe Teacher::StepsController, type: :controller do
   end
 
   context 'as a student' do
-    before { sign_in create(:student) }
+    before { sign_in create(:student_account) }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { lesson_id: step.lesson_id })).to have_http_status(302) }
@@ -64,7 +64,7 @@ RSpec.describe Teacher::StepsController, type: :controller do
   end
 
   context 'as a parent' do
-    before { sign_in create(:parent) }
+    before { sign_in create(:parent_account) }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { lesson_id: step.lesson_id })).to have_http_status(302) }
@@ -94,7 +94,8 @@ RSpec.describe Teacher::StepsController, type: :controller do
   end
 
   context 'not an author' do
-    before { sign_in create(:teacher) }
+    let(:teacher) { create(:teacher) }
+    before { sign_in teacher.account }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { lesson_id: step.lesson_id })).to have_http_status(302) }
@@ -124,10 +125,9 @@ RSpec.describe Teacher::StepsController, type: :controller do
   end
 
   context 'as an author' do
-    before { sign_in teacher }
-    before { step.lesson.update(authors: [teacher]) }
-
     let(:teacher) { create(:teacher) }
+    before { sign_in teacher.account }
+    before { step.lesson.update(authors: [teacher]) }
 
     describe 'GET #new' do
       it { expect(get(:new, params: { lesson_id: step.lesson_id })).to have_http_status(200) }

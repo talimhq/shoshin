@@ -1,0 +1,22 @@
+<div id="level_<%= f.object.new_record? ? nil : f.object.id %>" class="nested-fields">
+  <div class="row item-center-xs">
+    <div class="columns hide-xs-only s1 text-center">
+      <%= material_icon.reorder.css_class('draggable') %>
+    </div>
+    <div class="columns xs12 s4">
+      <%= f.input :level_type, collection: Level.level_types, as: :select, label: 'Type' %>
+    </div>
+    <div class="columns xs12 s3">
+      <%= f.input :name, label: 'Nom du niveau' %>
+    </div>
+    <div class="columns xs12 s3">
+      <%= f.input :short_name, label: 'Nom court' %>
+    </div>
+    <div class="columns xs12 s1 text-center">
+      <%= link_to_remove_association material_icon.delete, f, class: 'link-destroy' %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $('select').select2({language: 'fr'});
+</script>

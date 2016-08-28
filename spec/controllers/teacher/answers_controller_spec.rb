@@ -8,24 +8,24 @@ RSpec.describe Teacher::AnswersController, type: :controller do
   end
 
   context 'as a student' do
-    before { sign_in create(:student) }
+    before { sign_in create(:student_account) }
     it { expect(get(:index, params: { id: question.id })).to have_http_status(302) }
   end
 
   context 'as a parent' do
-    before { sign_in create(:parent) }
+    before { sign_in create(:parent_account) }
     it { expect(get(:index, params: { id: question.id })).to have_http_status(302) }
   end
 
   context 'as an unauthorized teacher' do
-    before { sign_in create(:teacher) }
+    before { sign_in create(:teacher_account) }
     it { expect(get(:index, params: { id: question.id })).to have_http_status(302) }
   end
 
   context 'as an author' do
-    let(:author) { create(:teacher) }
+    let(:author) { create(:teacher_account) }
     before do
-      question.exercise.update(authors: [author])
+      question.exercise.update(authors: [author.user])
       sign_in author
     end
 

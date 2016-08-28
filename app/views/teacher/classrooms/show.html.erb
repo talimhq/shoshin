@@ -1,0 +1,65 @@
+<% content_for :title, @classroom.name %>
+<div class="page-title">
+  <div class="title">
+    <%= @classroom.name %>
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @classroom.school] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 s6 m12 l5">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @classroom.name %></h3>
+      </div>
+      <div class="content-area">
+        <p><strong>Niveaux:</strong> <%= @classroom.level_name %></p>
+        <p><strong>Élèves:</strong> <%= @classroom.students_count %></p>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Modifier', [:edit, :teacher, @classroom], class: 'btn' %>
+      </div>
+    </div>
+  </div>
+  <div class="column xs12 s6 m12 l7">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Élèves
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text">Nom</th>
+              <th class="text">Prénom</th>
+              <th class="text">Courriel</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @classroom.students.any? %>
+              <% @classroom.students.includes(:account).each do |student| %>
+                <tr>
+                  <td class="text"><%= student.last_name %></td>
+                  <td class="text"><%= student.first_name %></td>
+                  <td class="text"><%= student.email %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.edit, edit_teacher_student_path(student), class: 'btn link-edit' %>
+                    <%= link_to material_icon.security, teacher_student_password_path(student), method: :patch, data: { confirm: 'Souhaitez vous réinitialiser le mot de passe de l\'élève? Son nouveau mot de passe sera 123456.' }, class: 'btn'%>
+                    <%= link_to material_icon.delete, [:teacher, student], method: :delete, data: { confirm: 'En êtes vous sûr? Cette action est définitive.' }, class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <td colspan="4">Aucun élève inscrit dans cette classe.</td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Ajouter', new_teacher_classroom_student_path(@classroom), class: 'btn' %>
+      </div>
+    </div>
+  </div>
+</div>

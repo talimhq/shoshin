@@ -1,0 +1,38 @@
+<% content_for :title, "#{@editable.name} - Auteurs" %>
+<div class="page-title">
+  <div class="title"><%= "#{@editable.name} - Auteurs" %></div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @editable] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 offset-l2 l8">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @editable.name %></h3>
+      </div>
+      <div class="content-area">
+        <strong>Enseignement :</strong> <%= @editable.teaching_name %><br>
+        <strong>Niveaux :</strong> <%= @editable.level_names %><br>
+        <strong>Popularité :</strong> <%= @editable.popularity %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Auteurs</h3>
+      </div>
+      <div class="content-area">
+        <% @editable.authors.each do |author| %>
+          <div class="user-bar">
+            <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" />
+            <span><%= author.full_name %></span>
+            <%= link_to material_icon.delete, [:teacher, @editable, @editable.authorships.find_by(teacher_id: author.id)], method: :delete, class: 'link-destroy', data: { confirm: 'En êtes vous sûr ?' } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Ajouter', [:new, :teacher, @editable, :authorship], class: 'btn link-add' %>
+      </div>
+    </div>
+  </div>
+</div>

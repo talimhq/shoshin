@@ -12,7 +12,7 @@ describe Admin::TeachingCyclesController, type: :controller do
     end
 
     context 'as a user' do
-      before(:each) { sign_in create(:user) }
+      before(:each) { sign_in create(:user_account) }
 
       it 'redirects' do
         get :show, params: { id: teaching_cycle.id }
@@ -21,7 +21,7 @@ describe Admin::TeachingCyclesController, type: :controller do
     end
 
     context 'as an admin' do
-      before(:each) { sign_in create(:admin) }
+      before(:each) { sign_in create(:admin_account) }
 
       it 'is a success' do
         get :show, params: { id: teaching_cycle.id }

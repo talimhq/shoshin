@@ -1,0 +1,11 @@
+<div class="row nested-fields item-center-xs">
+  <div class="column xs12 l5">
+    <%= f.association :level, collection: @theme.cycle.levels, label: 'Niveaux' %>
+  </div>
+  <div class="column xs12 l5">
+    <%= f.input :kind, label: 'Type d\'enseignement', collection: ThemeLevel.kinds %>
+  </div>
+  <div class="column xs12 l2 text-center">
+    <%= link_to_remove_association material_icon.delete, f, class: 'link-destroy' %> 
+  </div>
+</div>

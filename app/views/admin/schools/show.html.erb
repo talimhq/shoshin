@@ -1,0 +1,48 @@
+<% content_for :title, 'Établissement' %>
+<div class="page-title">
+  <div class="title">
+    <%= @school.name %>
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, admin_schools_path %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Informations</h3>
+      </div>
+      <div class="content-area">
+        <p>
+          <strong>Identifiant:</strong>
+          <%= @school.identifier %>
+        </p>
+        <p>
+          <strong>Pays:</strong>
+          <%= @school.country_name %>
+        </p>
+        <p>
+          <strong>Département:</strong>
+          <%= @school.state_name %>
+        </p>
+        <p>
+          <strong>Ville:</strong>
+          <%= @school.city %>
+        </p>
+        <% unless @school.website.blank? %>
+          <p>
+            <strong>Website:</strong>
+            <%= @school.website %>
+          </p>
+        <% end %>
+        <% unless @school.email.blank? %>
+          <p>
+            <strong>Email:</strong>
+            <%= @school.email %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

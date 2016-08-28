@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Teacher::GroupsController, type: :controller do
   let!(:group) { create(:group) }
-  let(:teacher) { create(:teacher) }
   let(:valid_attributes) {
     { level_id: create(:level).id, teaching_id: create(:teaching).id }
   }
@@ -16,7 +15,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before(:each) { sign_in teacher.account }
 
       it 'is a success' do
         get :index
@@ -34,7 +34,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
       context 'who does not own the group' do
         it 'redirects' do
@@ -44,7 +45,7 @@ RSpec.describe Teacher::GroupsController, type: :controller do
       end
 
       context 'who owns the group' do
-        before(:each) { group.update(teacher: teacher) }
+        before { group.update(teacher: teacher) }
 
         it 'is a success' do
           get :show, params: { id: group.id }
@@ -63,7 +64,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
       it 'is a success' do
         get :new
@@ -81,7 +83,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
       context 'who does not own the group' do
         it 'redirects' do
@@ -91,7 +94,7 @@ RSpec.describe Teacher::GroupsController, type: :controller do
       end
 
       context 'who owns the group' do
-        before(:each) { group.update(teacher: teacher) }
+        before { group.update(teacher: teacher) }
 
         it 'is a success' do
           get :edit, params: { id: group.id }
@@ -111,7 +114,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
       context 'with valid data' do
         it 'creates a group' do
@@ -150,7 +154,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
       context 'who does not own the group' do
         it 'does not update the group' do
@@ -199,7 +204,8 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before { sign_in teacher }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
       context 'who does not own the group' do
         it 'does not destroy group' do
@@ -210,7 +216,7 @@ RSpec.describe Teacher::GroupsController, type: :controller do
       end
 
       context 'who owns the group' do
-        before { group.update(teacher: teacher) }
+        before { group.update!(teacher: teacher) }
 
         it 'destroys the group' do
           expect {

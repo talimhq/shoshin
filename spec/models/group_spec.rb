@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Group, type: :model do
   describe 'db structure' do
+    it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:teaching_id).of_type(:integer) }
     it { is_expected.to have_db_index(:teaching_id) }
     it { is_expected.to have_db_column(:level_id).of_type(:integer) }
@@ -41,9 +42,15 @@ RSpec.describe Group, type: :model do
       end
     end
 
-    context 'name' do
-      it 'composes teaching_name and level_name' do
-        expect(group.name).to eq("#{group.teaching_name} (#{group.level_name})")
+    context 'display_name' do
+      it 'composes teaching_name and level_name if no name' do
+        expect(group.display_name).to \
+          eq("#{group.teaching_name} (#{group.level_name})")
+      end
+
+      it 'returns name if present' do
+        group.update(name: 'foo')
+        expect(group.display_name).to eq('foo')
       end
     end
   end

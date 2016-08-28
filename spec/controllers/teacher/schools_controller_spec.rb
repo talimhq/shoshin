@@ -14,7 +14,7 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      before(:each) { sign_in teacher.account }
 
       context 'without a school' do
         it 'is a success' do
@@ -24,18 +24,16 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
       end
 
       context 'accepted in a school' do
-        before(:each) { create(:school_user, user: teacher, approved: true) }
-
         it 'redirects' do
+          create(:school_teacher, teacher: teacher, approved: true)
           get :new
           expect(response).to have_http_status(302)
         end
       end
 
       context 'not accepted in a school' do
-        before(:each) { create(:school_user, user: teacher, approved: false) }
-
         it 'redirects' do
+          create(:school_teacher, teacher: teacher, approved: false)
           get :new
           expect(response).to have_http_status(302)
         end
@@ -53,7 +51,7 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      before(:each) { sign_in teacher.account }
 
       context 'without a school' do
         it 'creates a school' do
@@ -62,20 +60,19 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
           }.to change(School, :count).by(1)
         end
 
-        it 'creates a new SchoolUser' do
-          expect {
-            post :create, params: { school: valid_attributes }
-          }.to change(SchoolUser, :count).by(1)
+        it 'assigns the school to the teacher' do
+          post :create, params: { school: valid_attributes }
+          expect(teacher.reload.school_teacher).to be_truthy
         end
 
         it 'creates an unapproved SchoolUser' do
           post :create, params: { school: valid_attributes }
-          expect(SchoolUser.last.approved).to be_falsey
+          expect(SchoolTeacher.last.approved).to be_falsy
         end
 
         it 'creates an new SchoolUser associated with the current user' do
           post :create, params: { school: valid_attributes }
-          expect(SchoolUser.last.user).to eq(teacher)
+          expect(SchoolTeacher.last.teacher).to eq(teacher)
         end
 
         it 're renders the page with invalid data' do
@@ -85,9 +82,8 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
       end
 
       context 'accepted in a school' do
-        before(:each) { create(:school_user, user: teacher, approved: true) }
-
         it 'does not create a school' do
+          create(:school_teacher, teacher: teacher, approved: true)
           expect {
             post :create, params: { school: valid_attributes }
           }.not_to change(School, :count)
@@ -95,9 +91,8 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
       end
 
       context 'not accepted in a school' do
-        before(:each) { create(:school_user, user: teacher, approved: false) }
-
         it 'does not create a school' do
+          create(:school_teacher, teacher: teacher, approved: false)
           expect {
             post :create, params: { school: valid_attributes }
           }.not_to change(School, :count)
@@ -115,7 +110,7 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
     end
 
     context 'as a teacher' do
-      before(:each) { sign_in teacher }
+      before(:each) { sign_in teacher.account }
 
       context 'without a school' do
         it 'redirects' do
@@ -125,36 +120,32 @@ RSpec.describe Teacher::SchoolsController, type: :controller do
       end
 
       context 'unapproved in that school' do
-        before(:each) { create(:school_user, school: school, user: teacher, approved: false) }
-
         it 'is a success' do
+          SchoolTeacher.create(school: school, teacher: teacher, approved: false)
           get :show, params: { id: school.id }
           expect(response).to have_http_status(200)
         end
       end
 
       context 'approved in that school' do
-        before(:each) { create(:school_user, school: school, user: teacher, approved: true) }
-
         it 'is a success' do
+          SchoolTeacher.create(school: school, teacher: teacher, approved: true)
           get :show, params: { id: school.id }
           expect(response).to have_http_status(200)
         end
       end
 
       context 'unapproved in another school' do
-        before(:each) { create(:school_user, user: teacher, approved: false) }
-
         it 'redirects' do
+          create(:school_teacher, teacher: teacher, approved: false)
           get :show, params: { id: school.id }
           expect(response).to have_http_status(302)
         end
       end
 
       context 'approved in another school' do
-        before(:each) { create(:school_user, user: teacher, approved: true) }
-
         it 'redirects' do
+          create(:school_teacher, teacher: teacher, approved: true)
           get :show, params: { id: school.id }
           expect(response).to have_http_status(302)
         end

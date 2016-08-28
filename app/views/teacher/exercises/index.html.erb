@@ -1,0 +1,77 @@
+<% content_for :title, "Exercices" %>
+<div class="page-title">
+  <div class="title">Exercices</div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, root_url %>
+    <%= link_to material_icon.add, new_teacher_exercise_path %>
+    <%= link_to material_icon.search, [:search, :teacher, :exercises] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Filtrer</h3>
+      </div>
+        <%= search_form_for @q, url: [:teacher, :exercises], defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <%= f.input :name_cont, label: 'Titre' %>
+          <%= f.input :teaching_id_eq, collection: Teaching.ordered, label: 'Enseignement' %>
+        </div>
+        <div class="actions-area">
+          <%= f.submit 'Filtrer', class: 'btn' %>
+        </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="column xs12">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Mes exercices
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text"><%= sort_link(@q, :name, 'Titre') %></th>
+              <th class="text"><%= sort_link(@q, :teaching_name, 'Enseignement') %></th>
+              <th class="text"><%= sort_link(@q, :level_names, 'Niveaux') %></th>
+              <th class="numeric"><%= sort_link(@q, :questions_count, 'Questions', default_order: :desc) %></th>
+              <th class="numeric"><%= sort_link(@q, :questions_count, 'Durée', default_order: :desc) %></th>
+              <th class="numeric"><%= sort_link(@q, :popularity, 'Popularité', default_order: :desc) %></th>
+              <th class="numeric"><%= sort_link(@q, :authorships_count, 'Auteurs', default_order: :desc) %></th>
+              <th class="text"><%= sort_link(@q, :exam, 'Annale ?') %></th>
+              <th class="text"><%= sort_link(@q, :shared, 'Partagé ?') %></th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @exercises.each do |exercise| %>
+              <tr>
+                <td class="text"><%= exercise.name %></td>
+                <td class="text"><%= exercise.teaching_name %></td>
+                <td class="text"><%= exercise.level_names %></td>
+                <td class="numeric"><%= exercise.questions_count %></td>
+                <td class="numeric"><%= exercise.time %>'</td>
+                <td class="numeric"><%= exercise.popularity %></td>
+                <td class="numeric"><%= exercise.authorships.size %></td>
+                <td class="text"><%= exercise.exam ? 'Oui' : 'Non' %></td>
+                <td class="text"><%= exercise.shared ? 'Oui' : 'Non' %></td>
+                <td class="actions">
+                  <%= link_to material_icon.edit, [:teacher, exercise ], class: 'btn link-edit' %>
+                  <%= link_to material_icon.delete, [:teacher, exercise ], method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="footer">
+          <div class="page-info">
+            <%= page_entries_info @exercises %>
+          </div>
+          <%= paginate @exercises %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

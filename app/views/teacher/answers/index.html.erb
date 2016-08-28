@@ -1,0 +1,52 @@
+<% content_for :title, @question.exercise_name %>
+<div class="page-title">
+  <div class="title">
+    <%= @question.exercise_name %>
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, teacher_exercise_path(@question.exercise) %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 offset-l1 l10">
+    <div class="card">
+      <div class="title-area">
+        <%= @question.exercise_name %>
+      </div>
+      <div class="content-area">
+        <div class="trix-content">
+          <%= @question.exercise_statement.html_safe %>
+        </div>
+      </div>
+      <div class="title-area">
+        <%= @question.print_title %>
+      </div>
+      <div class="content-area">
+        <div class="trix-content">
+          <%= @question.content.html_safe %>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="title-area">
+        Réponse(s)
+      </div>
+      <%= simple_form_for @question, url: answers_teacher_question_path(@question), defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <div id="answers">
+            <%= f.error :answers %>
+            <%= f.simple_fields_for :answers do |s| %>
+              <%= render 'answer_fields', f: s %>
+            <% end %>
+            <div class="links">
+              <%= link_to_add_association 'Ajouter une réponse', f, :answers %>
+            </div>
+          </div>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -2,9 +2,12 @@ class School < ApplicationRecord
   validates :name, :city, :state, :country, presence: true
   validates :identifier, presence: true, uniqueness: true
 
-  has_many :teachers, -> { where(approved: true) }, dependent: :nullify
-  has_many :pending_teachers, -> { where(approved: false) },
-           class_name: 'Teacher', dependent: :nullify
+  has_many :school_teachers, -> { where(approved: true) },
+           inverse_of: :school, dependent: :destroy
+  has_many :teachers, through: :school_teachers
+  has_many :pending_school_teachers, -> { where(approved: false) },
+           class_name: 'SchoolTeacher', dependent: :destroy
+  has_many :pending_teachers, through: :pending_school_teachers, source: :teacher
   has_many :classrooms, inverse_of: :school, dependent: :destroy
 
   STATES = [

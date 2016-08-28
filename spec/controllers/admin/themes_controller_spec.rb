@@ -26,7 +26,7 @@ RSpec.describe Admin::ThemesController, type: :controller do
   end
 
   context 'as a user' do
-    before { sign_in create(:user) }
+    before { sign_in create(:user_account) }
 
     it { expect(get(:show, params: { id: theme.id })).to have_http_status(302) }
     it { expect(get(:new, params: { teaching_cycle_id: theme.teaching_cycle_id })).to have_http_status(302) }
@@ -42,7 +42,7 @@ RSpec.describe Admin::ThemesController, type: :controller do
   end
 
   context 'as an admin' do
-    before { sign_in create(:admin) }
+    before { sign_in create(:admin_account) }
 
     it { expect(get(:show, params: { id: theme.id })).to have_http_status(200) }
     it { expect(get(:new, params: { teaching_cycle_id: theme.teaching_cycle_id })).to have_http_status(200) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822162302) do
+ActiveRecord::Schema.define(version: 20160826214257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20160822162302) do
   end
 
   create_table "groups", force: :cascade do |t|
+    t.string   "name"
     t.integer  "teaching_id", null: false
     t.integer  "level_id",    null: false
     t.integer  "teacher_id",  null: false
@@ -236,6 +237,11 @@ ActiveRecord::Schema.define(version: 20160822162302) do
     t.index ["cycle_id"], name: "index_levels_on_cycle_id", using: :btree
   end
 
+  create_table "parents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.integer  "exercise_id", null: false
     t.integer  "position"
@@ -245,6 +251,16 @@ ActiveRecord::Schema.define(version: 20160822162302) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["exercise_id"], name: "index_questions_on_exercise_id", using: :btree
+  end
+
+  create_table "school_teachers", force: :cascade do |t|
+    t.integer  "school_id",                  null: false
+    t.integer  "teacher_id",                 null: false
+    t.boolean  "approved",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["school_id"], name: "index_school_teachers_on_school_id", using: :btree
+    t.index ["teacher_id"], name: "index_school_teachers_on_teacher_id", unique: true, using: :btree
   end
 
   create_table "schools", force: :cascade do |t|
@@ -305,14 +321,12 @@ ActiveRecord::Schema.define(version: 20160822162302) do
   end
 
   create_table "teachers", force: :cascade do |t|
-    t.integer  "school_id"
     t.boolean  "approved",   default: false, null: false
     t.boolean  "admin",      default: false, null: false
     t.integer  "old_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["old_id"], name: "index_teachers_on_old_id", using: :btree
-    t.index ["school_id"], name: "index_teachers_on_school_id", using: :btree
   end
 
   create_table "teaching_cycles", force: :cascade do |t|
@@ -373,13 +387,14 @@ ActiveRecord::Schema.define(version: 20160822162302) do
   add_foreign_key "lessons", "teachings"
   add_foreign_key "levels", "cycles"
   add_foreign_key "questions", "exercises"
+  add_foreign_key "school_teachers", "schools"
+  add_foreign_key "school_teachers", "teachers"
   add_foreign_key "steps", "lessons"
   add_foreign_key "students", "classrooms"
   add_foreign_key "teacher_exercise_forms", "exercises"
   add_foreign_key "teacher_exercise_forms", "teachers"
   add_foreign_key "teacher_teaching_cycles", "teachers"
   add_foreign_key "teacher_teaching_cycles", "teaching_cycles"
-  add_foreign_key "teachers", "schools"
   add_foreign_key "teaching_cycles", "cycles"
   add_foreign_key "teaching_cycles", "teachings"
   add_foreign_key "theme_levels", "levels"

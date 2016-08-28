@@ -2,16 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Teacher, type: :model do
   describe 'db structure' do
-    it { is_expected.to have_db_column(:school_id).of_type(:integer) }
     it { is_expected.to have_db_column(:approved).of_type(:boolean) }
     it { is_expected.to have_db_column(:admin).of_type(:boolean) }
     it { is_expected.to have_db_column(:old_id).of_type(:integer) }
-    it { is_expected.to have_db_index(:school_id) }
     it { is_expected.to have_db_index(:old_id) }
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:school) }
+    it { is_expected.to have_one(:school_teacher) }
+    it { is_expected.to have_one(:school) }
     it { is_expected.to have_many(:authorships) }
     it { is_expected.to have_many(:lessons) }
     it { is_expected.to have_many(:exercises) }

@@ -18,7 +18,7 @@
           <%= f.error_notification %>
           <%= f.input :first_name, label: 'Prénom' %>
           <%= f.input :last_name, label: 'Nom de famille' %>
-          <%= f.input :role, as: :radio_buttons, collection: User.role_options, label: 'Role', disabled: true %>
+          <%= f.input :user_type, as: :radio_buttons, collection: Account.role_options, label: 'Role', disabled: true %>
           <%= f.input :email, label: 'Courriel' %>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -59,7 +59,7 @@
         <%= link_to 'Gravatar', 'https://fr.gravatar.com', target: '_blank', class: 'btn' %>
       </div>
     </div>
-    <% if current_user.role == 'teacher' %>
+    <% if current_account.role == 'teacher' %>
       <div class="card">
         <div class="title-area">
           <h3 class="main-title">Mécontent?</h3>

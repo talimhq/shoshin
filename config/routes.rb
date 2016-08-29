@@ -55,6 +55,9 @@ Rails.application.routes.draw do
       patch '/eleves/:id/motdepasse' => 'student_passwords#update', as: :student_password
 
       resources :groups, path: 'groupes'
+      get 'groupes/:id/eleves' => 'student_groups#edit', as: :group_students
+      patch 'groupes/:id/eleves' => 'student_groups#update'
+      put 'groupes/:id/eleves' => 'student_groups#update'
 
       resources :lessons, path: 'cours' do
         concerns :editable, editable_type: 'Lesson'

@@ -15,6 +15,8 @@ RSpec.describe Group, type: :model do
     it { is_expected.to belong_to(:teaching) }
     it { is_expected.to belong_to(:level) }
     it { is_expected.to belong_to(:teacher) }
+    it { is_expected.to have_many(:student_groups) }
+    it { is_expected.to have_many(:students) }
   end
 
   describe 'validations' do

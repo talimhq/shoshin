@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826214257) do
+ActiveRecord::Schema.define(version: 20160829023314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,6 +290,16 @@ ActiveRecord::Schema.define(version: 20160826214257) do
     t.index ["lesson_id"], name: "index_steps_on_lesson_id", using: :btree
   end
 
+  create_table "student_groups", force: :cascade do |t|
+    t.integer  "student_id", null: false
+    t.integer  "group_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id", "student_id"], name: "index_student_groups_on_group_id_and_student_id", unique: true, using: :btree
+    t.index ["group_id"], name: "index_student_groups_on_group_id", using: :btree
+    t.index ["student_id"], name: "index_student_groups_on_student_id", using: :btree
+  end
+
   create_table "students", force: :cascade do |t|
     t.integer  "classroom_id", null: false
     t.datetime "created_at",   null: false
@@ -390,6 +400,8 @@ ActiveRecord::Schema.define(version: 20160826214257) do
   add_foreign_key "school_teachers", "schools"
   add_foreign_key "school_teachers", "teachers"
   add_foreign_key "steps", "lessons"
+  add_foreign_key "student_groups", "groups"
+  add_foreign_key "student_groups", "students"
   add_foreign_key "students", "classrooms"
   add_foreign_key "teacher_exercise_forms", "exercises"
   add_foreign_key "teacher_exercise_forms", "teachers"

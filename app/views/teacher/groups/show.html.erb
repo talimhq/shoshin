@@ -8,3 +8,79 @@
     <%= link_to material_icon.delete, [:teacher, @group], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'link-destroy' %>
   </div>
 </div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="content-area">
+        <div class="row">
+          <ul class="tabs">
+            <li class="tab column xs4">
+              <%= link_to 'Élèves', '#students' %>
+            </li>
+            <li class="tab column xs4">
+              <%= link_to 'Chapitres', '#chapters' %>
+            </li>
+            <li class="tab column xs4">
+              <%= link_to 'Discussion', '#discussion' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row tabs-container">
+        <div class="tab-content column xs12" id="students">
+          <div class="table-area">
+            <div class="header">
+              Mes élèves
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th class="text">Nom</th>
+                  <th class="text">Prénom</th>
+                  <th class="actions"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @group.students.any? %>
+                  <% @group.students.includes(:account).each do |student| %>
+                    <tr>
+                      <td class="text"><%= student.last_name %></td>
+                      <td class="text"><%= student.first_name %></td>
+                      <td class="actions">
+                      </td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="3">Vous n'avez pas encore ajouté d'élèves à ce groupe.</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="actions-area">
+            <%= link_to 'Modifier', teacher_group_students_path, class: 'btn' %>
+          </div>
+        </div>
+        <div class="tab-content column xs12" id="chapters">
+          <div class="title-area">
+            <h3 class="main-title">Chapitres</h3>
+          </div>
+          <div class="actions-area">
+            <%= link_to 'Ajouter', '#', class: 'btn' %>
+          </div>
+        </div>
+        <div class="tab-content column xs12" id="discussion">
+          <div class="content-area">
+            <div class="empty-state">
+              <%= material_icon.watch_later %>
+              <p>
+                Cette fonctionnalité n'est pas encore disponible sur Shoshin.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

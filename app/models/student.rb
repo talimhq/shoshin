@@ -5,6 +5,8 @@ class Student < ApplicationRecord
   before_validation :set_default_password
 
   belongs_to :classroom, inverse_of: :students, counter_cache: true
+  has_many :student_groups, inverse_of: :student, dependent: :destroy
+  has_many :groups, through: :student_groups
 
   validates :account, :classroom, presence: true
 

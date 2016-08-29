@@ -12,6 +12,8 @@ RSpec.describe Student, type: :model do
 
   describe 'association' do
     it { is_expected.to belong_to(:classroom) }
+    it { is_expected.to have_many(:student_groups) }
+    it { is_expected.to have_many(:groups) }
   end
 
   describe 'validations' do

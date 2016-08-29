@@ -47,7 +47,7 @@ class Teacher::GroupsController < TeacherController
   end
 
   def authorize
-    @group = Group.find(params[:id])
+    @group = Group.includes(:teacher, :teaching, :level).find(params[:id])
     redirect_to root_url unless current_user == @group.teacher
   end
 end

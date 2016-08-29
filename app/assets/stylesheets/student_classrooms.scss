@@ -1,0 +1,19 @@
+.classroom_students_checkboxes {
+  // padding: 0 5px;
+  display: flex;
+  flex-flow: column nowrap;
+  .actions-checkbox {
+    padding-top: 15px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    a {
+      flex-grow: 1;
+    }
+  }
+}
+@media only screen and (min-width: $small-min) {
+  .classroom_students_checkboxes {
+    padding: 0 5px;
+  }
+}

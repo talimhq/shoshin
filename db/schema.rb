@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829023314) do
+ActiveRecord::Schema.define(version: 20160829133749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,25 @@ ActiveRecord::Schema.define(version: 20160829023314) do
     t.index ["editable_id", "teacher_id", "editable_type"], name: "index_authorships_on_teacher_and_editable", unique: true, using: :btree
     t.index ["editable_type", "editable_id"], name: "index_authorships_on_editable_type_and_editable_id", using: :btree
     t.index ["teacher_id"], name: "index_authorships_on_teacher_id", using: :btree
+  end
+
+  create_table "chapter_lessons", force: :cascade do |t|
+    t.integer  "chapter_id", null: false
+    t.integer  "lesson_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chapter_id"], name: "index_chapter_lessons_on_chapter_id", using: :btree
+    t.index ["lesson_id", "chapter_id"], name: "index_chapter_lessons_on_lesson_id_and_chapter_id", unique: true, using: :btree
+    t.index ["lesson_id"], name: "index_chapter_lessons_on_lesson_id", using: :btree
+  end
+
+  create_table "chapters", force: :cascade do |t|
+    t.integer  "group_id",   null: false
+    t.string   "name",       null: false
+    t.integer  "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_chapters_on_group_id", using: :btree
   end
 
   create_table "classrooms", force: :cascade do |t|
@@ -386,6 +405,9 @@ ActiveRecord::Schema.define(version: 20160829023314) do
   add_foreign_key "answers_multiple_choices", "questions"
   add_foreign_key "answers_single_choices", "questions"
   add_foreign_key "authorships", "teachers"
+  add_foreign_key "chapter_lessons", "chapters"
+  add_foreign_key "chapter_lessons", "lessons"
+  add_foreign_key "chapters", "groups"
   add_foreign_key "classrooms", "levels"
   add_foreign_key "classrooms", "schools"
   add_foreign_key "exercises", "teachings"

@@ -63,11 +63,49 @@
           </div>
         </div>
         <div class="tab-content column xs12" id="chapters">
-          <div class="title-area">
-            <h3 class="main-title">Chapitres</h3>
+          <div class="table-area">
+            <div class="header">
+              Chapitres
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th class="actions"></th>
+                  <th class="text">Titre</th>
+                  <th class="numeric">Cours</th>
+                  <th class="numeric">Exercices</th>
+                  <th class="numeric">Evaluations</th>
+                  <th class="Actions"></th>
+                </tr>
+              </thead>
+              <tbody id="chapters_rows" data-sort-url="<%= sort_teacher_group_chapters_path(@group) %>">
+                <% if @group.chapters.any? %>
+                  <% @group.chapters.each do |chapter| %>
+                    <tr id="chapter_<%= chapter.id %>">
+                      <td class="action">
+                        <%= material_icon.reorder.css_class('draggable') %>
+                      </td>
+                      <td class="text"><%= chapter.name %></td>
+                      <td class="numeric">0</td>
+                      <td class="numeric">0</td>
+                      <td class="numeric">0</td>
+                      <td class="actions">
+                        <%= link_to material_icon.visibility, [:teacher, chapter], class: 'btn link-see' %>
+                        <%= link_to material_icon.edit, edit_teacher_chapter_path(chapter), class: 'btn link-edit' %>
+                        <%= link_to material_icon.delete, [:teacher, chapter], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="6">Vous n'avez pas encore créé de chapitres pour ce groupe.</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
           </div>
           <div class="actions-area">
-            <%= link_to 'Ajouter', '#', class: 'btn' %>
+            <%= link_to 'Ajouter', new_teacher_group_chapter_path(@group), class: 'btn' %>
           </div>
         </div>
         <div class="tab-content column xs12" id="discussion">
@@ -84,3 +122,21 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" charset="utf-8">
+  $('#chapters_rows').sortable({
+    items: '>tr',
+    handle: '.draggable',
+    cursor: 'move',
+    containment: 'parent',
+    tolerance: 'pointer',
+    helper: function(event, ui) {
+      ui.children().each(function() {
+        $(this).width($(this).width());
+      });
+      return ui;
+    },
+    update: function (event, ui) {
+      $.post($(this).data('sort-url'), $(this).sortable('serialize'));
+    }
+  }).disableSelection();
+</script>

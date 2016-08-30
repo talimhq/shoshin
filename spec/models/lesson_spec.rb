@@ -24,6 +24,7 @@ RSpec.describe Lesson, type: :model do
     it { is_expected.to have_many(:authorships) }
     it { is_expected.to have_many(:authors) }
     it { is_expected.to have_many(:steps) }
+    it { is_expected.to have_many(:chapter_lessons) }
   end
 
   describe 'validations' do

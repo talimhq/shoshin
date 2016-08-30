@@ -1,0 +1,8 @@
+<%= simple_form_for [:teacher, @group, @chapter] do |f| %>
+  <div class="content-area">
+    <%= f.input :name, label: 'Titre' %>
+  </div>
+  <div class="actions-area">
+    <%= f.button :submit, 'Enregistrer' %>
+  </div>
+<% end %>

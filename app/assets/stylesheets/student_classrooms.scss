@@ -1,5 +1,4 @@
-.classroom_students_checkboxes {
-  // padding: 0 5px;
+.vertical-checkboxes {
   display: flex;
   flex-flow: column nowrap;
   .actions-checkbox {
@@ -13,7 +12,7 @@
   }
 }
 @media only screen and (min-width: $small-min) {
-  .classroom_students_checkboxes {
+  .vertical-checkboxes {
     padding: 0 5px;
   }
 }

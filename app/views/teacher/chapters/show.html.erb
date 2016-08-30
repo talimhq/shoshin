@@ -1,0 +1,69 @@
+<% content_for :title, @chapter.name %>
+<div class="page-title">
+  <div class="title">
+    <%= @chapter.name %>
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @chapter.group] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="content-area">
+        <div class="row">
+          <ul class="tabs">
+            <li class="tab column xs4">
+              <%= link_to 'Cours', '#lessons' %>
+            </li>
+            <li class="tab column xs4">
+              <%= link_to 'Exercices', '#exercises' %>
+            </li>
+            <li class="tab column xs4">
+              <%= link_to 'Évaluations', '#evaluations' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row tabs-container">
+        <div class="tab-content column xs12" id="lessons">
+          <div class="table-area">
+            <div class="header">
+              Cours
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th class="text">Titre</th>
+                  <th class="actions"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @chapter.lessons.any? %>
+                  <% @chapter.lessons.each do |lesson| %>
+                    <tr>
+                      <td class="text"><%= lesson.name %></td>
+                      <td class="actions">
+                      </td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="2">Vous n'avez pas encore associé de cours avec ce chapitre.</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="actions-area">
+            <%= link_to 'Modifier', teacher_chapter_lessons_path(@chapter), class: 'btn' %>
+          </div>
+        </div>
+        <div class="tab-content column xs12" id="exercises">
+        </div>
+        <div class="tab-content column xs12" id="evaluations">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

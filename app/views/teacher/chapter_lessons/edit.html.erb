@@ -1,0 +1,33 @@
+<%= content_for :title, 'Ajouter un cours' %>
+<div class="page-title">
+  <div class="title">
+    Ajouter un cours
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @chapter] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Sélectionnez les cours</h3>
+      </div>
+      <%= simple_form_for @chapter, url: teacher_chapter_lessons_path(@chapter) do |f| %>
+        <div class="content-area">
+          <% if @lessons.any? %>
+            <div class="vertical-checkboxes">
+              <%= f.collection_check_boxes :lesson_ids, @lessons, :id, :name, include_hidden: false %>
+            </div>
+          <% else %>
+            <p>Vous ne possédez pas de cours pour ce niveau (<%= @chapter.group.level_name %>).</p>
+            <p><%= link_to 'Cliquez ici', teacher_lessons_path %> pour accéder à votre liste de cours.</p>
+          <% end %>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -54,10 +54,18 @@ Rails.application.routes.draw do
 
       patch '/eleves/:id/motdepasse' => 'student_passwords#update', as: :student_password
 
-      resources :groups, path: 'groupes'
+      resources :groups, path: 'groupes', shallow: true do
+        resources :chapters, path: 'chapitres', except: [:index] do
+          collection do
+            post 'classer' => 'chapters#sort', as: :sort
+          end
+        end
+      end
       get 'groupes/:id/eleves' => 'student_groups#edit', as: :group_students
       patch 'groupes/:id/eleves' => 'student_groups#update'
       put 'groupes/:id/eleves' => 'student_groups#update'
+      get 'chapitres/:id/cours' => 'chapter_lessons#edit', as: :chapter_lessons
+      patch 'chapitres/:id/cours' => 'chapter_lessons#update'
 
       resources :lessons, path: 'cours' do
         concerns :editable, editable_type: 'Lesson'

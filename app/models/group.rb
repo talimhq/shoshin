@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   has_many :student_groups, inverse_of: :group, dependent: :destroy
   has_many :students, -> { joins(:account).order('accounts.last_name') },
            through: :student_groups
+  has_many :chapters, -> { order(:position) }, inverse_of: :group, dependent: :destroy
 
   validates :teaching, :level, :teacher, presence: true
 

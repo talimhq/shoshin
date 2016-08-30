@@ -1,0 +1,19 @@
+<%= content_for :title, 'Nouveau chapitre' %>
+<div class="page-title">
+  <div class="title">
+    <%= @group.display_name %>
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @group] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Nouveau chapitre</h3>
+      </div>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

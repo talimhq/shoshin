@@ -6,6 +6,7 @@ class Lesson < ApplicationRecord
   belongs_to :original, class_name: 'Lesson', foreign_key: :original_id, inverse_of: :copies, required: false
   has_many :authors, through: :authorships, source: :author, inverse_of: :lessons
   has_many :steps, -> { order(position: :asc) }, inverse_of: :lesson, dependent: :destroy
+  has_many :chapter_lessons, inverse_of: :lesson, dependent: :destroy
 
   validates :name, :popularity, :level_ids, :teaching, presence: true
   validates :shared, exclusion: { in: [nil] }

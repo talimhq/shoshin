@@ -1,6 +1,6 @@
 class Admin::UsersController < AdminController
   def index
-    @q = Account.all.ransack(params[:q])
+    @q = Account.includes(:user).all.ransack(params[:q])
     @users = @q.result.order(last_name: :asc).page(params[:page]).per(10)
   end
 
@@ -10,7 +10,7 @@ class Admin::UsersController < AdminController
   end
 
   def edit
-    @user = Account.find(params[:id])
+    @user = Account.includes(:user).find(params[:id])
   end
 
   def update

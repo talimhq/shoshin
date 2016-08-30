@@ -7,7 +7,7 @@ class Teacher::LessonsController < TeacherController
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.includes(:authors, :teaching, :steps).find(params[:id])
   end
 
   def new

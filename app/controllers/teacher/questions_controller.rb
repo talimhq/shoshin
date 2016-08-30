@@ -37,7 +37,7 @@ class Teacher::QuestionsController < TeacherController
 
   def load_question
     if params[:exercise_id]
-      @question = Exercise.find(params[:exercise_id]).questions.new
+      @question = Exercise.includes(:authors).find(params[:exercise_id]).questions.new
     else
       @question = Question.find(params[:id])
     end

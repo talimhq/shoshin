@@ -7,7 +7,7 @@ class Teacher::ExercisesController < TeacherController
   end
 
   def show
-    @exercise = Exercise.find(params[:id])
+    @exercise = Exercise.includes(:authors, :questions).find(params[:id])
   end
 
   def new

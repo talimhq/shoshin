@@ -37,7 +37,7 @@
               <th class="text"><%= sort_link(@q, :teaching_name, 'Enseignement') %></th>
               <th class="text"><%= sort_link(@q, :level_names, 'Niveaux') %></th>
               <th class="numeric"><%= sort_link(@q, :questions_count, 'Questions', default_order: :desc) %></th>
-              <th class="numeric"><%= sort_link(@q, :questions_count, 'Durée', default_order: :desc) %></th>
+              <th class="numeric"><%= sort_link(@q, :time, 'Durée', default_order: :desc) %></th>
               <th class="numeric"><%= sort_link(@q, :popularity, 'Popularité', default_order: :desc) %></th>
               <th class="numeric"><%= sort_link(@q, :authorships_count, 'Auteurs', default_order: :desc) %></th>
               <th class="text"><%= sort_link(@q, :exam, 'Annale ?') %></th>
@@ -58,6 +58,7 @@
                 <td class="text"><%= exercise.exam ? 'Oui' : 'Non' %></td>
                 <td class="text"><%= exercise.shared ? 'Oui' : 'Non' %></td>
                 <td class="actions">
+                  <%= link_to material_icon.visibility, teacher_try_exercise_path(exercise), class: 'btn' %>
                   <%= link_to material_icon.edit, [:teacher, exercise ], class: 'btn link-edit' %>
                   <%= link_to material_icon.delete, [:teacher, exercise ], method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
                 </td>

@@ -74,7 +74,6 @@
                   <th class="text">Titre</th>
                   <th class="numeric">Cours</th>
                   <th class="numeric">Exercices</th>
-                  <th class="numeric">Evaluations</th>
                   <th class="Actions"></th>
                 </tr>
               </thead>
@@ -86,9 +85,8 @@
                         <%= material_icon.reorder.css_class('draggable') %>
                       </td>
                       <td class="text"><%= chapter.name %></td>
-                      <td class="numeric">0</td>
-                      <td class="numeric">0</td>
-                      <td class="numeric">0</td>
+                      <td class="numeric"><%= chapter.lessons_count%></td>
+                      <td class="numeric"><%= chapter.exercises_count%></td>
                       <td class="actions">
                         <%= link_to material_icon.visibility, [:teacher, chapter], class: 'btn link-see' %>
                         <%= link_to material_icon.edit, edit_teacher_chapter_path(chapter), class: 'btn link-edit' %>
@@ -98,7 +96,7 @@
                   <% end %>
                 <% else %>
                   <tr>
-                    <td colspan="6">Vous n'avez pas encore créé de chapitres pour ce groupe.</td>
+                    <td colspan="5">Vous n'avez pas encore créé de chapitres pour ce groupe.</td>
                   </tr>
                 <% end %>
               </tbody>

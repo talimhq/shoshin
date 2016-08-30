@@ -8,113 +8,93 @@
       <%= link_to material_icon.arrow_back, search_teacher_exercises_path %>
       <%= link_to material_icon.content_copy, teacher_exercise_copy_path(@exercise), method: :post %>
     <% end %>
+    <%= link_to material_icon.visibility, teacher_try_exercise_path(@exercise) %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 s6 m12 l6">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @exercise.name %> <%= link_to material_icon.edit, [:edit, :teacher, @exercise] if current_user.in? @exercise.authors %></h3>
+      </div>
+      <div class="content-area">
+        <strong>Enseignement :</strong> <%= @exercise.teaching_name %><br>
+        <strong>Niveaux :</strong> <%= @exercise.level_names %><br>
+        <strong>Popularité :</strong> <%= @exercise.popularity %>
+      </div>
+    </div>
+  </div>
+  <div class="column xs12 s6 m12 l6">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Auteurs <%= link_to material_icon.edit, [:teacher, @exercise, :authorships] if current_user.in? @exercise.authors %></h3>
+      </div>
+      <div class="content-area">
+        <% @exercise.authors.each do |author| %>
+          <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="column">
     <div class="card">
-      <div class="tabs-area">
-        <div class="row">
-          <ul class="tabs">
-            <li class="tab column xs4"><%= link_to 'Questions', "#questions" %></li>
-            <li class="tab column xs4"><%= link_to 'À propos', "#about" %></li>
-            <li class="tab column xs4"><%= link_to 'Discussion', "#discussion" %></li>
-          </ul>
+      <% if @exercise.statement %>
+        <div class="content-area">
+          <div class="trix-content">
+            <%= @exercise.statement.html_safe %>
+          </div>
         </div>
-      </div>
-      <div class="row tabs-container">
-        <div class="tab-content column xs12" id="questions">
-          <% if @exercise.statement %>
-            <div class="content-area">
-              <div class="trix-content">
-                <%= @exercise.statement.html_safe %>
-              </div>
-            </div>
-          <% end %>
-          <% if @exercise.questions.size == 0 %>
-            <div class="content-area">
-              <p>
-                Cet exercice ne possède pas encore de questions.
-              </p>
-            </div>
-            <% if current_user.in? @exercise.authors %>
-              <div class="actions-area">
-                <%= link_to 'Ajouter une question', [:new, :teacher, @exercise, :question], class: 'btn link-add' %>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="stepper-area">
-              <% @exercise.questions.each do |question| %>
-                <div class="stepper-bar">
-                  <span class="stepper-position"><%= question.position %></span>
-                  <span class="stepper-title">
-                    <%= question.print_title %>
-                    <% if current_user.in? @exercise.authors %>
-                      <%= link_to material_icon.edit, edit_teacher_question_path(question) %>
-                      <%= link_to material_icon.delete, teacher_question_path(question), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'link-destroy' %>
-                    <% end %>
-                  </span>
-                </div>
-                <div class="stepper-content">
-                  <div class="trix-content">
-                    <%= question.content.html_safe %>
-                  </div>
-                  <% unless question.print_type == 'redaction' %>
-                    <div class="answers">
-                      <p class="title">Réponses <%= link_to material_icon.edit, answers_teacher_question_path(question) %></p>
-                      <div class="row">
-                        <% question.answers.each do |answer| %>
-                          <%= render answer, answer: answer %>
-                        <% end %>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-              <% if current_user.in? @exercise.authors %>
-                <a class="stepper-bar adder" href="<%= new_teacher_exercise_question_path(@exercise) %>">
-                  <span class="stepper-position"><%= material_icon.add %></span>
-                  <span class="stepper-title">Ajouter</span>
-                </a>
-              <% end %>
-            </div>
-          <% end %>
+      <% end %>
+      <% if @exercise.questions.size == 0 %>
+        <div class="content-area">
+          <p>
+            Cet exercice ne possède pas encore de questions.
+          </p>
         </div>
-        <div class="tab-content column xs12" id="about">
-          <div class="row">
-            <div class="column xs12 s6">
-              <div class="title-area">
-                <h3 class="main-title"><%= @exercise.name %> <%= link_to material_icon.edit, [:edit, :teacher, @exercise] if current_user.in? @exercise.authors %></h3>
-              </div>
-              <div class="content-area">
-                <strong>Enseignement :</strong> <%= @exercise.teaching_name %><br>
-                <strong>Niveaux :</strong> <%= @exercise.level_names %><br>
-                <strong>Popularité :</strong> <%= @exercise.popularity %>
-              </div>
-            </div>
-            <div class="column xs12 s6">
-              <div class="title-area">
-                <h3 class="main-title">Auteurs <%= link_to material_icon.edit, [:teacher, @exercise, :authorships] if current_user.in? @exercise.authors %></h3>
-              </div>
-              <div class="content-area">
-                <% @exercise.authors.each do |author| %>
-                  <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
+        <% if current_user.in? @exercise.authors %>
+          <div class="actions-area">
+            <%= link_to 'Ajouter une question', [:new, :teacher, @exercise, :question], class: 'btn link-add' %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="stepper-area">
+          <% @exercise.questions.each do |question| %>
+            <div class="stepper-bar">
+              <span class="stepper-position"><%= question.position %></span>
+              <span class="stepper-title">
+                <%= question.print_title %>
+                <% if current_user.in? @exercise.authors %>
+                  <%= link_to material_icon.edit, edit_teacher_question_path(question) %>
+                  <%= link_to material_icon.delete, teacher_question_path(question), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'link-destroy' %>
                 <% end %>
+              </span>
+            </div>
+            <div class="stepper-content">
+              <div class="trix-content">
+                <%= question.content.html_safe %>
               </div>
+              <% unless question.print_type == 'redaction' %>
+                <div class="answers">
+                  <p class="title">Réponses <%= link_to material_icon.edit, answers_teacher_question_path(question) %></p>
+                  <div class="row">
+                    <% question.answers.each do |answer| %>
+                      <%= render answer, answer: answer %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
             </div>
-          </div>
+          <% end %>
+          <% if current_user.in? @exercise.authors %>
+            <a class="stepper-bar adder" href="<%= new_teacher_exercise_question_path(@exercise) %>">
+              <span class="stepper-position"><%= material_icon.add %></span>
+              <span class="stepper-title">Ajouter</span>
+            </a>
+          <% end %>
         </div>
-        <div class="tab-content column xs12" id="discussion">
-          <div class="content-area">
-            <div class="empty-state">
-              <%= material_icon.watch_later %>
-              <p>
-                Cette fonctionnalité n'est pas encore disponible sur Shoshin.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,1 +1,1 @@
-<%= f.input question.id.to_s, as: :radio_buttons, collection: question.answers.map(&:content), label: 'Réponse' %>
+<%= f.input question.id.to_s, as: :radio_buttons, collection: question.answers.map(&:content), label: false %>

@@ -11,91 +11,70 @@
   </div>
 </div>
 <div class="row">
+  <div class="column xs12 s6 m12 l6">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @lesson.name %> <%= link_to material_icon.edit, [:edit, :teacher, @lesson] if current_user.in? @lesson.authors %></h3>
+      </div>
+      <div class="content-area">
+        <strong>Enseignement :</strong> <%= @lesson.teaching_name %><br>
+        <strong>Niveaux :</strong> <%= @lesson.level_names %><br>
+        <strong>Popularité :</strong> <%= @lesson.popularity %>
+      </div>
+    </div>
+  </div>
+  <div class="column xs12 s6 m12 l6">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Auteurs <%= link_to material_icon.edit, [:teacher, @lesson, :authorships] if current_user.in? @lesson.authors %></h3>
+      </div>
+      <div class="content-area">
+        <% @lesson.authors.each do |author| %>
+          <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="column">
     <div class="card">
-      <div class="tabs-area">
-        <div class="row">
-          <ul class="tabs">
-            <li class="tab column xs4"><%= link_to 'Séances', "#steps" %></li>
-            <li class="tab column xs4"><%= link_to 'À propos', "#about" %></li>
-            <li class="tab column xs4"><%= link_to 'Discussion', "#discussion" %></li>
-          </ul>
+      <% if @lesson.steps.size == 0 %>
+        <div class="content-area">
+          <p>
+            Ce cours ne possède pas encore de séances.
+          </p>
         </div>
-      </div>
-      <div class="row tabs-container">
-        <div class="tab-content column xs12" id="steps">
-          <% if @lesson.steps.size == 0 %>
-            <div class="content-area">
-              <p>
-                Ce cours ne possède pas encore de séances.
-              </p>
+        <% if current_user.in? @lesson.authors %>
+          <div class="actions-area">
+            <%= link_to 'Ajouter une séance', [:new, :teacher, @lesson, :step], class: 'btn link-add' %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="stepper-area">
+          <% @lesson.steps.each do |step| %>
+            <div class="stepper-bar">
+              <span class="stepper-position"><%= step.position %></span>
+              <span class="stepper-title">
+                <%= step.print_title %>
+                <% if current_user.in? @lesson.authors %>
+                  <%= link_to material_icon.edit, [:edit, :teacher, step] %>
+                  <%= link_to material_icon.delete, [:teacher, step], method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'link-destroy' %>
+                <% end %>
+              </span>
             </div>
-            <% if current_user.in? @lesson.authors %>
-              <div class="actions-area">
-                <%= link_to 'Ajouter une séance', [:new, :teacher, @lesson, :step], class: 'btn link-add' %>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="stepper-area">
-              <% @lesson.steps.each do |step| %>
-                <div class="stepper-bar">
-                  <span class="stepper-position"><%= step.position %></span>
-                  <span class="stepper-title">
-                    <%= step.print_title %>
-                    <% if current_user.in? @lesson.authors %>
-                      <%= link_to material_icon.edit, [:edit, :teacher, step] %>
-                      <%= link_to material_icon.delete, [:teacher, step], method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'link-destroy' %>
-                    <% end %>
-                  </span>
-                </div>
-                <div class="stepper-content trix-content">
-                  <%= step.content.html_safe %>
-                </div>
-              <% end %>
-              <% if current_user.in? @lesson.authors %>
-                <a class="stepper-bar adder" href="<%= new_teacher_lesson_step_path(@lesson) %>">
-                  <span class="stepper-position"><%= material_icon.add %></span>
-                  <span class="stepper-title">Ajouter</span>
-                </a>
-              <% end %>
+            <div class="stepper-content trix-content">
+              <%= step.content.html_safe %>
             </div>
           <% end %>
+          <% if current_user.in? @lesson.authors %>
+            <a class="stepper-bar adder" href="<%= new_teacher_lesson_step_path(@lesson) %>">
+              <span class="stepper-position"><%= material_icon.add %></span>
+              <span class="stepper-title">Ajouter</span>
+            </a>
+          <% end %>
         </div>
-        <div class="tab-content column xs12" id="about">
-          <div class="row">
-            <div class="column xs12 s6">
-              <div class="title-area">
-                <h3 class="main-title"><%= @lesson.name %> <%= link_to material_icon.edit, [:edit, :teacher, @lesson] if current_user.in? @lesson.authors %></h3>
-              </div>
-              <div class="content-area">
-                <strong>Enseignement :</strong> <%= @lesson.teaching_name %><br>
-                <strong>Niveaux :</strong> <%= @lesson.level_names %><br>
-                <strong>Popularité :</strong> <%= @lesson.popularity %>
-              </div>
-            </div>
-            <div class="column xs12 s6">
-              <div class="title-area">
-                <h3 class="main-title">Auteurs <%= link_to material_icon.edit, [:teacher, @lesson, :authorships] if current_user.in? @lesson.authors %></h3>
-              </div>
-              <div class="content-area">
-                <% @lesson.authors.each do |author| %>
-                  <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tab-content column xs12" id="discussion">
-          <div class="content-area">
-            <div class="empty-state">
-              <%= material_icon.watch_later %>
-              <p>
-                Cette fonctionnalité n'est pas encore disponible sur Shoshin.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

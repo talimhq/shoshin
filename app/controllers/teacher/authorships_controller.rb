@@ -32,7 +32,7 @@ class Teacher::AuthorshipsController < TeacherController
   def set_editable
     case params[:editable_type]
     when 'Lesson'
-      @editable = Lesson.find(params[:lesson_id])
+      @editable = Lesson.includes(:authors, :teaching).find(params[:lesson_id])
     when 'Exercise'
       @editable = Exercise.find(params[:exercise_id])
     end

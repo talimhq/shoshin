@@ -31,4 +31,30 @@ RSpec.describe Teacher, type: :model do
   describe 'factories' do
     it { expect(build(:teacher)).to be_valid }
   end
+
+  describe 'instance methods' do
+    let(:teacher) { create(:teacher) }
+
+    context 'exercises_from_level(level)' do
+      it 'fetches the exercises' do
+        exercise1 = create(:exercise)
+        exercise2 = create(:exercise)
+        exercise1.update(authors: [teacher])
+        exercise2.update(authors: [teacher])
+        level = Level.find(exercise1.level_ids.first)
+        expect(teacher.exercises_from_level(level)).to eq([exercise1])
+      end
+    end
+
+    context 'lessons_from_level(level)' do
+      it 'fetches the lessons' do
+        lesson1 = create(:lesson)
+        lesson2 = create(:lesson)
+        lesson1.update(authors: [teacher])
+        lesson2.update(authors: [teacher])
+        level = Level.find(lesson1.level_ids.first)
+        expect(teacher.lessons_from_level(level)).to eq([lesson1])
+      end
+    end
+  end
 end

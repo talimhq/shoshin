@@ -2,13 +2,20 @@ class Exercise < ApplicationRecord
   include Editable
 
   belongs_to :teaching, inverse_of: :exercises
-  has_many :copies, class_name: 'Exercise', inverse_of: :original, foreign_key: :original_id, dependent: :nullify
-  belongs_to :original, class_name: 'Exercise', foreign_key: :original_id, inverse_of: :copies, required: false
-  has_many :authors, through: :authorships, source: :author, inverse_of: :exercises
-  has_many :questions, -> { order(position: :asc) }, inverse_of: :exercise, dependent: :destroy
+  has_many :copies, class_name: 'Exercise', inverse_of: :original,
+                    foreign_key: :original_id, dependent: :nullify
+  belongs_to :original, class_name: 'Exercise', foreign_key: :original_id,
+                        inverse_of: :copies, required: false
+  has_many :authors, through: :authorships, source: :author,
+                     inverse_of: :exercises
+  has_many :questions, -> { order(position: :asc) }, inverse_of: :exercise,
+                                                     dependent: :destroy
   has_many :teacher_exercise_forms, inverse_of: :exercise, dependent: :destroy
+  has_many :chapter_exercises, inverse_of: :exercise, dependent: :destroy
+  has_many :chapters, through: :chapter_exercises
 
-  validates :name, :time, :level_ids, :popularity, :difficulty, :teaching, :questions_count, presence: true
+  validates :name, :time, :level_ids, :popularity, :difficulty, :teaching,
+            :questions_count, presence: true
   validates :exam, :shared, exclusion: { in: [nil] }
   validates :difficulty, inclusion: { in: [1, 2, 3] }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829133749) do
+ActiveRecord::Schema.define(version: 20160830005520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,9 +135,23 @@ ActiveRecord::Schema.define(version: 20160829133749) do
     t.index ["teacher_id"], name: "index_authorships_on_teacher_id", using: :btree
   end
 
+  create_table "chapter_exercises", force: :cascade do |t|
+    t.integer  "chapter_id",              null: false
+    t.integer  "exercise_id",             null: false
+    t.integer  "position"
+    t.integer  "max_tries",   default: 0, null: false
+    t.datetime "due_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["chapter_id"], name: "index_chapter_exercises_on_chapter_id", using: :btree
+    t.index ["exercise_id", "chapter_id"], name: "index_chapter_exercises_on_exercise_id_and_chapter_id", unique: true, using: :btree
+    t.index ["exercise_id"], name: "index_chapter_exercises_on_exercise_id", using: :btree
+  end
+
   create_table "chapter_lessons", force: :cascade do |t|
     t.integer  "chapter_id", null: false
     t.integer  "lesson_id",  null: false
+    t.integer  "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chapter_id"], name: "index_chapter_lessons_on_chapter_id", using: :btree
@@ -146,11 +160,13 @@ ActiveRecord::Schema.define(version: 20160829133749) do
   end
 
   create_table "chapters", force: :cascade do |t|
-    t.integer  "group_id",   null: false
-    t.string   "name",       null: false
+    t.integer  "group_id",                    null: false
+    t.string   "name",                        null: false
     t.integer  "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "lessons_count",   default: 0, null: false
+    t.integer  "exercises_count", default: 0, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["group_id"], name: "index_chapters_on_group_id", using: :btree
   end
 
@@ -405,6 +421,8 @@ ActiveRecord::Schema.define(version: 20160829133749) do
   add_foreign_key "answers_multiple_choices", "questions"
   add_foreign_key "answers_single_choices", "questions"
   add_foreign_key "authorships", "teachers"
+  add_foreign_key "chapter_exercises", "chapters"
+  add_foreign_key "chapter_exercises", "exercises"
   add_foreign_key "chapter_lessons", "chapters"
   add_foreign_key "chapter_lessons", "lessons"
   add_foreign_key "chapters", "groups"

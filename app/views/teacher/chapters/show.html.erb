@@ -10,17 +10,14 @@
 <div class="row">
   <div class="column">
     <div class="card">
-      <div class="content-area">
+      <div class="tabs-area">
         <div class="row">
           <ul class="tabs">
-            <li class="tab column xs4">
+            <li class="tab column xs6">
               <%= link_to 'Cours', '#lessons' %>
             </li>
-            <li class="tab column xs4">
+            <li class="tab column xs6">
               <%= link_to 'Exercices', '#exercises' %>
-            </li>
-            <li class="tab column xs4">
-              <%= link_to 'Évaluations', '#evaluations' %>
             </li>
           </ul>
         </div>
@@ -60,8 +57,39 @@
           </div>
         </div>
         <div class="tab-content column xs12" id="exercises">
-        </div>
-        <div class="tab-content column xs12" id="evaluations">
+          <div class="table-area">
+            <div class="header">
+              Exercices
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th class="text">Titre</th>
+                  <th class="actions"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @chapter.exercises.any? %>
+                  <% @chapter.exercises.each do |exercise| %>
+                    <tr>
+                      <td class="text"><%= exercise.name %></td>
+                      <td class="actions">
+                        <%= link_to material_icon.edit, [:edit, :teacher, @chapter, exercise], class: 'btn link-edit' %>
+                        <%= link_to material_icon.delete, [:teacher, @chapter, exercise], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="2">Vous n'avez pas encore associé d'exercices avec ce chapitre.</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="actions-area">
+            <%= link_to 'Ajouter', new_teacher_chapter_exercise_path(@chapter), class: 'btn' %>
+          </div>
         </div>
       </div>
     </div>

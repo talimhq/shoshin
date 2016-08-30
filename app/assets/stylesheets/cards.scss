@@ -1,6 +1,6 @@
 .card {
   border-radius: 2px;
-  margin: 0 16px 16px 16px;
+  margin: 0 0 16px 0;
   background: $white;
   .title-area {
     padding: 16px;
@@ -20,6 +20,9 @@
   }
   .title-area:first-child {
     padding-top: 24px;
+  }
+  .tabs-area {
+    padding: 16px 0;
   }
   .content-area {
     padding: 16px;
@@ -208,5 +211,10 @@
   color: rgba(0,0,0,0.54);
   i {
     font-size: 60px;
+  }
+}
+@media only screen and (min-width: $small-min) {
+  .card {
+    margin: 0 16px 16px 16px;
   }
 }

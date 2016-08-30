@@ -1,0 +1,10 @@
+<% content_for :title, 'Modifier un exercice' %>
+<div class="page-title">
+  <div class="title">
+    Modifier un exercice
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @chapter] %>
+  </div>
+</div>
+<%= render 'form' %>

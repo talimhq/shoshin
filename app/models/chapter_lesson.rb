@@ -1,5 +1,5 @@
 class ChapterLesson < ApplicationRecord
-  belongs_to :chapter, inverse_of: :chapter_lessons
+  belongs_to :chapter, inverse_of: :chapter_lessons, counter_cache: :lessons_count
   belongs_to :lesson, inverse_of: :chapter_lessons
 
   validates :chapter, :lesson, presence: true
@@ -11,8 +11,8 @@ class ChapterLesson < ApplicationRecord
   def chapter_and_lesson_from_same_teacher
     if chapter && lesson
       errors.add(:lesson_id,
-                 'Ce cours n\'est pas dans votre liste de cours') unless \
-        chapter.teacher.in?(lesson.authors)
+                 'Ce cours ne vous appartient pas') unless \
+        chapter.teacher.in? lesson.authors
     end
   end
 end

@@ -21,4 +21,12 @@ class Teacher < ApplicationRecord
   def can_do?(exercise)
     exercise.shared || in?(exercise.authors)
   end
+
+  def exercises_from_level(level)
+    exercises.where("level_ids @> '{#{level.id}}'::int[]")
+  end
+
+  def lessons_from_level(level)
+    lessons.where("level_ids @> '{#{level.id}}'::int[]")
+  end
 end

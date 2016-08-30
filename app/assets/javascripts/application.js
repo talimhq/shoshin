@@ -71,7 +71,7 @@ document.addEventListener('turbolinks:load', function () {
   $('ul.tabs > li.tab').first().addClass('active');
   $('ul.tabs:not(.vertical) > li.tab a').on('click', function(e) {
     e.preventDefault();
-    $(this).closest('.content-area').next().find('.tab-content').removeClass('active');
+    $(this).closest('.tabs-area').next().find('.tab-content').removeClass('active');
     $(this).closest('ul.tabs').find('li.tab').removeClass('active');
     $(this).closest('li.tab').addClass('active');
     $($(this).attr('href')).addClass('active');

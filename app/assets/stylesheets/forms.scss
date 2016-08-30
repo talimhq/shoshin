@@ -18,6 +18,27 @@ h4.label-title {
 .input + * {
   clear: both;
 }
+.input.date{
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  transition: .3s ease;
+  margin-top: 16px;
+  margin-right: 8px;
+  transition-delay: .4x;
+  // display: flex;
+  // flex-flow: row wrap;
+  // span.select2-container {
+  //   flex: 1 1 auto;
+  // }
+  label {
+    position: absolute;
+    top: -21%;
+    left: 0;
+    font-size: 14.4px;
+  }
+}
 .input.select,
 .input.grouped_select {
   left: 0;

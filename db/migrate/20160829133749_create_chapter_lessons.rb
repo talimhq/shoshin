@@ -3,6 +3,7 @@ class CreateChapterLessons < ActiveRecord::Migration[5.0]
     create_table :chapter_lessons do |t|
       t.references :chapter, foreign_key: true, index: true, null: false
       t.references :lesson, foreign_key: true, index: true, null: false
+      t.integer :position
 
       t.timestamps
     end

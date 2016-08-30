@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Teacher::ClassroomsController, type: :controller do
   let(:school) { create(:school) }
-  let(:classroom) { create(:classroom, school: school) }
+  let!(:classroom) { create(:classroom, school: school) }
   let(:teacher) { create(:teacher) }
   let(:valid_attributes) {
     { name: Faker::Company.profession, level_id: create(:level).id }
@@ -194,73 +194,136 @@ RSpec.describe Teacher::ClassroomsController, type: :controller do
     end
   end
 
-  # describe 'PATCH #update' do
-  #   context 'as a guest' do
-  #
-  #   end
-  #
-  #   context 'as a teacher' do
-  #     before(:each) { sign_in teacher.account }
-  #
-  #     context 'without a school' do
-  #       it 'does not update the classroom' do
-  #         patch :update, params: { id: classroom.id,
-  #                                  classroom: { name: 'foo' } }
-  #         expect(classroom.reload.name).not_to eq('foo')
-  #       end
-  #     end
-  #
-  #     context 'not approved in the school' do
-  #       it 'does not update the classroom' do
-  #         teacher.update(school: school, approved: false)
-  #         patch :update, params: { id: classroom.id,
-  #                                  classroom: { name: 'foo' } }
-  #         expect(classroom.reload.name).not_to eq('foo')
-  #       end
-  #     end
-  #
-  #     context 'approved in the school' do
-  #       before :each do
-  #         teacher.update(school: school, approved: true)
-  #       end
-  #
-  #       context 'with valid data' do
-  #         it 'updates the school' do
-  #           patch :update, params: { id: classroom.id,
-  #                                    classroom: { name: 'foo' } }
-  #           expect(classroom.reload.name).to eq('foo')
-  #         end
-  #
-  #         it 'redirects' do
-  #           patch :update, params: { id: classroom.id,
-  #                                    classroom: { name: 'foo' } }
-  #           expect(response).to have_http_status(302)
-  #         end
-  #       end
-  #
-  #       context 'with invalid data' do
-  #         it 'does not update the school' do
-  #           patch :update, params: { id: classroom.id,
-  #                                    classroom: { name: '' } }
-  #           expect(classroom.reload.name).not_to eq('')
-  #         end
-  #
-  #         it 're renders the page' do
-  #           patch :update, params: { id: classroom.id,
-  #                                    classroom: { name: '' } }
-  #           expect(response).to have_http_status(200)
-  #         end
-  #       end
-  #     end
-  #
-  #     context 'from another school' do
-  #       it 'does not update the classroom' do
-  #         teacher.update(approved: true)
-  #         patch :update, params: { id: classroom.id,
-  #                                  classroom: { name: 'foo' } }
-  #         expect(classroom.reload.name).not_to eq('foo')
-  #       end
-  #     end
-  #   end
-  # end
+  describe 'PATCH #update' do
+    context 'as a guest' do
+      it 'does not update the school' do
+        patch :update, params: { id: classroom.id, classroom: { name: 'foo' } }
+        expect(classroom.reload.name).not_to eq('foo')
+      end
+    end
+
+    context 'as a teacher' do
+      before(:each) { sign_in teacher.account }
+
+      context 'without a school' do
+        it 'does not update the classroom' do
+          patch :update, params: { id: classroom.id,
+                                   classroom: { name: 'foo' } }
+          expect(classroom.reload.name).not_to eq('foo')
+        end
+      end
+
+      context 'not approved in the school' do
+        it 'does not update the classroom' do
+          create(:school_teacher, school: school, teacher: teacher,
+                                  approved: false)
+          patch :update, params: { id: classroom.id,
+                                   classroom: { name: 'foo' } }
+          expect(classroom.reload.name).not_to eq('foo')
+        end
+      end
+
+      context 'approved in the school' do
+        before :each do
+          create(:school_teacher, school: school, teacher: teacher,
+                                  approved: true)
+        end
+
+        context 'with valid data' do
+          it 'updates the school' do
+            patch :update, params: { id: classroom.id,
+                                     classroom: { name: 'foo' } }
+            expect(classroom.reload.name).to eq('foo')
+          end
+
+          it 'redirects' do
+            patch :update, params: { id: classroom.id,
+                                     classroom: { name: 'foo' } }
+            expect(response).to have_http_status(302)
+          end
+        end
+
+        context 'with invalid data' do
+          it 'does not update the school' do
+            patch :update, params: { id: classroom.id,
+                                     classroom: { name: '' } }
+            expect(classroom.reload.name).not_to eq('')
+          end
+
+          it 're renders the page' do
+            patch :update, params: { id: classroom.id,
+                                     classroom: { name: '' } }
+            expect(response).to have_http_status(200)
+          end
+        end
+      end
+
+      context 'from another school' do
+        it 'does not update the classroom' do
+          create(:school_teacher, teacher: teacher, approved: true)
+          patch :update, params: { id: classroom.id,
+                                   classroom: { name: 'foo' } }
+          expect(classroom.reload.name).not_to eq('foo')
+        end
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'as a guest' do
+      it 'does not destroy the classroom' do
+        expect {
+          delete :destroy, params: { id: classroom.id }, format: :js
+        }.not_to change(Classroom, :count)
+      end
+    end
+
+    context 'as a teacher' do
+      before { sign_in teacher.account }
+
+      context 'approved in the school' do
+        before { create(:school_teacher, teacher: teacher, school: school,
+                                         approved: true) }
+        it 'destroys the classroom with no students' do
+          expect {
+            delete :destroy, params: { id: classroom.id }, format: :js
+          }.to change(Classroom, :count).by(-1)
+        end
+
+        it 'does not destroy the classroom with students' do
+          create(:student, classroom: classroom)
+          expect {
+            delete :destroy, params: { id: classroom.id }, format: :js
+          }.not_to change(Classroom, :count)
+        end
+      end
+
+      context 'not approved in the school' do
+        it 'does not destroy the school' do
+          create(:school_teacher, teacher: teacher, school: school,
+                                  approved: false)
+          expect {
+            delete :destroy, params: { id: classroom.id }, format: :js
+          }.not_to change(Classroom, :count)
+        end
+      end
+
+      context 'approved in another school' do
+        it 'does not destroy the school' do
+          create(:school_teacher, teacher: teacher, approved: true)
+          expect {
+            delete :destroy, params: { id: classroom.id }, format: :js
+          }.not_to change(Classroom, :count)
+        end
+      end
+
+      context 'without a school' do
+        it 'does not destroy the school' do
+          expect {
+            delete :destroy, params: { id: classroom.id }, format: :js
+          }.not_to change(Classroom, :count)
+        end
+      end
+    end
+  end
 end

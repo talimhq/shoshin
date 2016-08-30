@@ -34,7 +34,12 @@ class Teacher::ClassroomsController < TeacherController
   end
 
   def destroy
-    flash.now[:notice] = 'Action non permise'
+    if @classroom.students.any?
+      flash.now[:notice] = 'Vous ne pouvez pas supprimer une classe qui contient des élèves.'
+    else
+      @classroom.destroy
+      flash.now[:notice] = 'Classe supprimée.'
+    end
   end
 
   private
@@ -44,7 +49,8 @@ class Teacher::ClassroomsController < TeacherController
   end
 
   def authorize_based_on_classroom
-    @classroom = Classroom.includes(:level, :students, school: :teachers).find(params[:id])
+    @classroom = Classroom.includes(:level, :students, school: :teachers)
+                          .find(params[:id])
     redirect_to root_url unless current_user.in? @classroom.school.teachers
   end
 

@@ -36,9 +36,9 @@ class Teacher::StepsController < TeacherController
 
   def authorize_author
     if params[:lesson_id]
-      @step = Lesson.find(params[:lesson_id]).steps.new
+      @step = Lesson.includes(:authors).find(params[:lesson_id]).steps.new
     else
-      @step = Step.find(params[:id])
+      @step = Step.includes(lesson: :authors).find(params[:id])
     end
     redirect_to [:teacher, @step.lesson] unless current_user.in? @step.authors
   end

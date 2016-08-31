@@ -5,19 +5,33 @@
   </div>
 </div>
 <div class="row">
-  <div class="column">
+  <div class="column xs12 l8 offset-l2">
     <div class="card">
       <div class="title-area">
         <h3 class="main-title">Mon établissement</h3>
       </div>
       <%= simple_form_for [:teacher, @school_teacher] do |f| %>
-        <div class="content-area">
+        <div class="content-area" id="finding_school">
+          <div class="input select optional">
+            <%= select_tag :country_id, options_for_select(Country.all.map { |country| [country.translations['fr'], country.alpha2] }.unshift(['Choisir un pays', ''])) %>
+            <%= label_tag :country_id, 'Pays' %>
+            <div class="bar"></div>
+          </div>
+          <div id="state_select">
+          </div>
+          <div id="city_select">
+          </div>
           <%= f.association :school, label: 'Établissement' %>
         </div>
         <div class="actions-area">
           <%= f.button :submit, 'Enregistrer' %>
         </div>
       <% end %>
+    </div>
+    <div class="card">
+      <div class="content-area">
+      <p>Votre établissement n'est pas encore inscrit? <%= link_to 'Cliquez ici', new_teacher_school_path %> pour l'ajouter.</p>
+      </div>
     </div>
   </div>
 </div>

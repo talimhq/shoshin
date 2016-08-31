@@ -3,9 +3,9 @@ class Teacher::StudentPasswordsController < TeacherController
 
   def update
     if @student.account.update(password: '123456')
-      flash[:notice] = 'Le mot de passe de l\'élève a été changé.'
+      flash.now[:notice] = 'Le mot de passe de l\'élève a été changé.'
     else
-      flash[:notice] = 'Le mot de passe n\'a pas pu être modifié.'
+      flash.now[:notice] = 'Le mot de passe n\'a pas pu être modifié.'
     end
   end
 

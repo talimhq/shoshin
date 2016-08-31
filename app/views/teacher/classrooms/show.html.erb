@@ -46,7 +46,7 @@
                   <td class="text"><%= student.email %></td>
                   <td class="actions">
                     <%= link_to material_icon.edit, edit_teacher_student_path(student), class: 'btn link-edit' %>
-                    <%= link_to material_icon.security, teacher_student_password_path(student), method: :patch, data: { confirm: 'Souhaitez vous réinitialiser le mot de passe de l\'élève? Son nouveau mot de passe sera 123456.' }, class: 'btn'%>
+                    <%= link_to material_icon.security, teacher_student_password_path(student), method: :patch, data: { confirm: 'Souhaitez vous réinitialiser le mot de passe de l\'élève? Son nouveau mot de passe sera 123456.', remote: true }, class: 'btn'%>
                     <%= link_to material_icon.delete, [:teacher, student], method: :delete, data: { confirm: 'En êtes vous sûr? Cette action est définitive.' }, class: 'btn link-destroy' %>
                   </td>
                 </tr>

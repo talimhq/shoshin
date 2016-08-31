@@ -55,7 +55,7 @@ a {
   transition: all .4s ease-in-out;
   bottom: 0;
   left: 0;
-  top: 56px;
+  top: 0;
   z-index: 1;
   overflow-x: hidden;
   overflow-y: auto;
@@ -74,9 +74,9 @@ a {
     padding-top: 16px;
     .user-avatar {
       img {
-        height: 80px;
-        width: 80px;
-        border-radius: 40px;
+        height: 44px;
+        width: 44px;
+        border-radius: 22px;
         box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
       }
     }
@@ -147,7 +147,7 @@ a {
   }
   .navigations {
     position: absolute;
-    top: 174px;
+    top: 74px;
     bottom: 113px;
     overflow-y: auto;
     width: 100%;
@@ -221,7 +221,13 @@ main {
 }
 @media all and (max-width: $small-min) {
   #drawer  > header {
+    display: flex;
+    align-items: center;
+    align-content: space-between;
     padding: 16px 16px 8px 16px;
+    .user-avatar {
+      margin-right: 16px;
+    }
   }
   #drawer {
     left: -280px;
@@ -231,9 +237,6 @@ main {
   #drawer.visible {
     left: 0px;
   }
-  .action-bar {
-    height: 56px;
-  }
   .page-title .title {
     font-size: 36px;
   }
@@ -241,6 +244,24 @@ main {
 @media all and (min-width: $small-min) {
   #drawer > * {
     padding: 0 16px;
+  }
+  #drawer {
+    header {
+      display: block;
+      .user-avatar {
+        img {
+          height: 80px;
+          width: 80px;
+          border-radius: 40px;
+        }
+      }
+      .action-bar {
+        height: 64px;
+      }
+    }
+    .navigations {
+      top: 174px;
+    }
   }
   .action-bar {
     height: 64px;

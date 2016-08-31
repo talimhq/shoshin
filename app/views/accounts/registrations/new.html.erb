@@ -27,9 +27,18 @@
           <h3 class="main-title">Votre établissement</h3>
         </div>
 
-        <div class="content-area">
+        <div class="content-area" id="finding_school">
           <%= f.simple_fields_for :school_teacher do |s| %>
-            <%= s.association :school, label: 'Établissement' %>
+            <div class="input select optional">
+              <%= select_tag :country_id, options_for_select(Country.all.map { |country| [country.translations['fr'], country.alpha2] }.unshift(['Choisir un pays', ''])) %>
+              <%= label_tag :country_id, 'Pays' %>
+              <div class="bar"></div>
+            </div>
+            <div id="state_select">
+            </div>
+            <div id="city_select">
+            </div>
+            <%= s.association :school, label: 'Établissement', input_html: { class: 'no-select' } %>
           <% end %>
           <p>Votre établissement n'est pas encore inscrit? <%= link_to 'Cliquez ici pour l\'ajouter', new_public_school_path %></p>
         </div>

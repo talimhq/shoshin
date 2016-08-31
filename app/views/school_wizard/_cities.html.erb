@@ -1,0 +1,5 @@
+<div class="input select optional">
+  <%= select_tag :city_id, options_for_select(@cities.map { |c| [c, c] }.unshift(['Choisir une ville', ''])), class: 'no-select' %>
+  <%= label_tag :city_id, 'Ville' %>
+  <div class="bar"></div>
+</div>

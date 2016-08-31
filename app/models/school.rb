@@ -51,6 +51,10 @@ class School < ApplicationRecord
     STATES
   end
 
+  def self.cities
+    all.map(&:city).sort
+  end
+
   def country_name
     Country[country].translations['fr'] if country
   end

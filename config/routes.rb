@@ -121,6 +121,10 @@ Rails.application.routes.draw do
                           }
   end
 
+  get '/pays/:country_id' => 'school_wizard#states'
+  get '/pays/:country_id/dpt/:state_id' => 'school_wizard#cities'
+  get '/pays/:country_id/dpt/:state_id/ville/:city_id' => 'school_wizard#schools'
+
   authenticate :account, -> (account) { account.user.admin? } do
     mount Sidekiq::Web, at: '/admin/sidekiq'
   end

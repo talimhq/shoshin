@@ -24,13 +24,12 @@
 document.addEventListener('turbolinks:load', function () {
   var state_options = $('#school_state').html();
   $('#school_country').on('change', function() {
-    $('#school_state').empty();
-    $('#school_state').val('');
     if ($(this).val() === 'FR') {
       $('#school_state').html(state_options);
       $('option[value="99"]').remove();
+      $('#school_state').change();
     } else {
-      $('#school_state').html('<option value="99">Étranger</option>');
+      $('#school_state').html('<option></option><option value="99">Étranger</option>').change();
     }
   });
 

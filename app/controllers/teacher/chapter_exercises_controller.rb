@@ -1,7 +1,10 @@
 class Teacher::ChapterExercisesController < TeacherController
   before_action :authorize
-  before_action :set_chapter_exercise, only: [:edit, :update, :destroy]
-  before_action :set_exercises, except: :destroy
+  before_action :set_chapter_exercise, only: [:show, :edit, :update, :destroy]
+  before_action :set_exercises, except: [:show, :destroy]
+
+  def show
+  end
 
   def new
     @chapter_exercise = @chapter.chapter_exercises.new

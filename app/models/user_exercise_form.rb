@@ -18,4 +18,16 @@ class UserExerciseForm < ApplicationRecord
       results[question_id.to_s] = question.validate_answer(answer) if question.respond_to?(:validate_answer)
     end
   end
+
+  def score
+    "#{points}/#{total}"
+  end
+
+  def points
+    results.map { |_k, v| v ? 1 : 0 }.reduce(&:+)
+  end
+
+  def total
+    results.length
+  end
 end

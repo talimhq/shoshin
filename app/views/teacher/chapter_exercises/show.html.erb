@@ -1,0 +1,47 @@
+<%= content_for :title, @chapter_exercise.exercise_name + 'Résultats' %>
+<div class="page-title">
+  <div class="title">
+    Résultats
+  </div>
+  <div class="links">
+    <%= link_to material_icon.arrow_back, [:teacher, @chapter_exercise.chapter] %>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Résultats par élève
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="text">Nom</th>
+              <th class="text">Prénom</th>
+              <th class="numeric">Score</th>
+              <th class="numeric">Tentatives</th>
+              <th class="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @chapter_exercise.chapter.group.students.includes(:account).each do |student| %>
+              <% last_exercise = student.user_exercise_forms.where(exercise_id: @chapter_exercise.exercise_id).last %>
+              <tr>
+                <td class="text"><%= student.last_name %></td>
+                <td class="text"><%= student.first_name %></td>
+                <td class="numeric"><%=  last_exercise ? last_exercise.score : 0 %></td>
+                <td class="numeric"><%= student.user_exercise_forms.where(exercise_id: @chapter_exercise.exercise_id).count %></td>
+                <td class="actions">
+                  <% if last_exercise %>
+                    <%= link_to material_icon.visibility, teacher_chapter_exercise_result_path(@chapter_exercise.chapter_id, @chapter_exercise.exercise_id, last_exercise.id), class: 'btn' %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

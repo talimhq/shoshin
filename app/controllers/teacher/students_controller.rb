@@ -46,12 +46,12 @@ class Teacher::StudentsController < TeacherController
   end
 
   def authorize_on_school
-    @classroom = Classroom.includes(school: :teachers).find(params[:classroom_id])
+    @classroom = Classroom.includes(:school ).find(params[:classroom_id])
     redirect_to root_url unless current_user.in? @classroom.school.teachers
   end
 
   def authorize_on_student
-    @student = Student.includes(classroom: { school: :teachers }).find(params[:id])
+    @student = Student.includes(classroom: :school).find(params[:id])
     redirect_to root_url unless current_user.in? @student.classroom.school.teachers
   end
 end

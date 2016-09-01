@@ -67,7 +67,9 @@ Rails.application.routes.draw do
 
       resources :chapters, path: 'chapitres', except: [:index, :new, :create] do
         resources :chapter_exercises, path: 'exercices', as: :exercises,
-                                      except: [:index, :show]
+                                      except: [:index] do
+          resources :student_exercise_forms, only: :show, as: :result
+        end
       end
 
       get 'chapitres/:id/cours' => 'chapter_lessons#edit', as: :chapter_lessons

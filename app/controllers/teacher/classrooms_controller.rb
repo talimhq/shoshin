@@ -49,7 +49,7 @@ class Teacher::ClassroomsController < TeacherController
   end
 
   def authorize_based_on_classroom
-    @classroom = Classroom.includes(:level, :students, school: :teachers)
+    @classroom = Classroom.includes(:level, :school)
                           .find(params[:id])
     redirect_to root_url unless current_user.in? @classroom.school.teachers
   end

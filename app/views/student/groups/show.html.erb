@@ -5,7 +5,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="column xs12 s8 m12 l8">
+  <div class="column">
     <div class="card">
       <div class="table-area">
         <div class="header">
@@ -15,6 +15,8 @@
           <thead>
             <tr>
               <th class="text">Titre</th>
+              <th class="numeric">Cours</th>
+              <th class="numeric">Exercices</th>
               <th class="actions"></th>
             </tr>
           </thead>
@@ -22,6 +24,8 @@
             <% @group.chapters.each do |chapter| %>
               <tr>
                 <td class="text"><%= chapter.name %></td>
+                <td class="numeric"><%= chapter.lessons_count %></td>
+                <td class="numeric"><%= chapter.exercises_count %></td>
                 <td class="actions">
                   <%= link_to material_icon.visibility, [:student, chapter],class: 'btn' %>
                 </td>

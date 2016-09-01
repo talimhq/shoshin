@@ -7,6 +7,8 @@ class ChapterExercise < ApplicationRecord
   validates_uniqueness_of :exercise, scope: :chapter
   validate :chapter_and_exercise_from_same_teacher
 
+  delegate :name, to: :exercise, prefix: true
+
   private
 
   def chapter_and_exercise_from_same_teacher

@@ -60,6 +60,7 @@
                 <tr>
                   <td class="text"><%= exercise.name %></td>
                   <td class="actions">
+                    <%= link_to material_icon.timeline, [:teacher, @chapter, exercise], class: 'btn link-see' %>
                     <%= link_to material_icon.edit, [:edit, :teacher, @chapter, exercise], class: 'btn link-edit' %>
                     <%= link_to material_icon.delete, [:teacher, @chapter, exercise], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
                   </td>

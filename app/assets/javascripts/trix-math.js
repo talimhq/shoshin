@@ -19,22 +19,7 @@
     dialog.setAttribute("class", "dialog math-dialog");
     dialog.setAttribute("data-trix-dialog", "insertFormula");
     dialog.innerHTML =
-      `<div class="row">
-        <div class="column m6">
-          <p>Saisir une formule</p>
-          <textarea id="MathInput" style="width: 100%;"></textarea>
-        </div>
-        <div class="column m6">
-          <p>Prévisualisation</p>
-          <div id="MathPreview" data-tex-input=""></div>
-        </div>
-      </div>
-      <div class="input boolean">
-        <input id="inline_or_display" type="checkbox" class="boolean" value="0"></input>
-        <label for="inline_or_display" class="boolean">Insérer sur une nouvelle ligne?</label>
-      </div>
-      <button class="btn btn-insert-math">Insérer</button>
-      `;
+      '<div class="row"><div class="column m6"><p>Saisir une formule</p><textarea id="MathInput" style="width: 100%;"></textarea></div><div class="column m6"><p>Prévisualisation</p><div id="MathPreview" data-tex-input=""></div></div></div><div class="input boolean"><input id="inline_or_display" type="checkbox" class="boolean" value="0"></input><label for="inline_or_display" class="boolean">Insérer sur une nouvelle ligne?</label></div><button class="btn btn-insert-math">Insérer</button>';
 
     // Attaching the dialog
     toolBar.querySelector('.dialogs').appendChild(dialog);

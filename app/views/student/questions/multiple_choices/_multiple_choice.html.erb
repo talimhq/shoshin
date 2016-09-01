@@ -1,0 +1,2 @@
+<%= f.input question.id.to_s, as: :check_boxes, collection: question.answers.map(&:content), include_hidden: false, label: false %>
+

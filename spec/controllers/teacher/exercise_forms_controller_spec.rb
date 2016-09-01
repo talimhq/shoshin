@@ -74,10 +74,10 @@ describe Teacher::ExerciseFormsController, type: :controller do
         expect(response).to have_http_status(302)
       end
 
-      it 'should not create a new TeacherExerciseForm' do
+      it 'should not create a new UserExerciseForm' do
         expect {
           post :create, params: { id: exercise.id, answers: valid_attributes }
-        }.not_to change(TeacherExerciseForm, :count)
+        }.not_to change(UserExerciseForm, :count)
       end
     end
 
@@ -92,10 +92,10 @@ describe Teacher::ExerciseFormsController, type: :controller do
             expect(response).to have_http_status(302)
           end
 
-          it 'create an TeacherExerciseForm' do
+          it 'create an UserExerciseForm' do
             expect {
               post :create, params: { id: exercise.id, answers: valid_attributes }
-            }.to change(TeacherExerciseForm, :count).by(1)
+            }.to change(UserExerciseForm, :count).by(1)
           end
         end
 
@@ -107,10 +107,10 @@ describe Teacher::ExerciseFormsController, type: :controller do
             expect(response).to have_http_status(302)
           end
 
-          it 'does not create an TeacherExerciseForm' do
+          it 'does not create an UserExerciseForm' do
             expect {
               post :create, params: { id: exercise.id, answers: valid_attributes }
-            }.not_to change(TeacherExerciseForm, :count)
+            }.not_to change(UserExerciseForm, :count)
           end
         end
       end
@@ -123,10 +123,10 @@ describe Teacher::ExerciseFormsController, type: :controller do
           expect(response).to have_http_status(302)
         end
 
-        it 'create an TeacherExerciseForm' do
+        it 'create an UserExerciseForm' do
           expect {
             post :create, params: { id: exercise.id, answers: valid_attributes }
-          }.to change(TeacherExerciseForm, :count).by(1)
+          }.to change(UserExerciseForm, :count).by(1)
         end
       end
     end
@@ -139,10 +139,10 @@ describe Teacher::ExerciseFormsController, type: :controller do
         expect(response).to have_http_status(302)
       end
 
-      it 'does not create an TeacherExerciseForm' do
+      it 'does not create an UserExerciseForm' do
         expect {
           post :create, params: { id: exercise.id, answers: valid_attributes }
-        }.not_to change(TeacherExerciseForm, :count)
+        }.not_to change(UserExerciseForm, :count)
       end
     end
 
@@ -154,10 +154,10 @@ describe Teacher::ExerciseFormsController, type: :controller do
         expect(response).to have_http_status(302)
       end
 
-      it 'does not create an TeacherExerciseForm' do
+      it 'does not create an UserExerciseForm' do
         expect {
           post :create, params: { id: exercise.id, answers: valid_attributes }
-        }.not_to change(TeacherExerciseForm, :count)
+        }.not_to change(UserExerciseForm, :count)
       end
     end
   end
@@ -184,7 +184,7 @@ describe Teacher::ExerciseFormsController, type: :controller do
       end
 
       context 'accessing their exercise_form' do
-        before(:each) { exercise_form.update(teacher: teacher) }
+        before(:each) { exercise_form.update(user: teacher) }
 
         it 'should be a success' do
           get :show, params: { exercise_id: exercise_form.exercise_id,

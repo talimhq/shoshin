@@ -12,7 +12,7 @@ class Teacher < ApplicationRecord
   has_many :exercises, through: :authorships, source: :editable,
                        source_type: 'Exercise', inverse_of: :authors
   has_many :teacher_teaching_cycles, inverse_of: :teacher, dependent: :destroy
-  has_many :teacher_exercise_forms, inverse_of: :teacher, dependent: :destroy
+  has_many :user_exercise_forms, as: :user, dependent: :destroy
   has_many :groups, inverse_of: :teacher, dependent: :destroy
 
   validates :admin, :approved, exclusion: { in: [nil] }

@@ -6,6 +6,9 @@ class ChapterLesson < ApplicationRecord
   validates_uniqueness_of :chapter, scope: :lesson
   validate :chapter_and_lesson_from_same_teacher
 
+  delegate :name, to: :lesson, prefix: false
+  delegate :steps, to: :lesson, prefix: false
+
   private
 
   def chapter_and_lesson_from_same_teacher

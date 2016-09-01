@@ -43,4 +43,17 @@ RSpec.describe ChapterLesson, type: :model do
   describe 'factories' do
     it { expect(build(:chapter_lesson)).to be_valid }
   end
+
+  describe 'instance methods' do
+    let(:chapter_lesson) { create(:chapter_lesson) }
+
+    it 'delegates lesson_name to lesson' do
+      expect(chapter_lesson.name).to eq(chapter_lesson.lesson.name)
+    end
+
+    it 'delegates steps to lesson' do
+      create(:step, lesson: chapter_lesson.lesson)
+      expect(chapter_lesson.steps).to eq(chapter_lesson.lesson.steps)
+    end
+  end
 end

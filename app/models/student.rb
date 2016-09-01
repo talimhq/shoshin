@@ -7,6 +7,7 @@ class Student < ApplicationRecord
   belongs_to :classroom, inverse_of: :students, counter_cache: true
   has_many :student_groups, inverse_of: :student, dependent: :destroy
   has_many :groups, through: :student_groups
+  has_many :user_exercise_forms, as: :user, dependent: :destroy
 
   validates :account, :classroom, presence: true
 
@@ -18,25 +19,22 @@ class Student < ApplicationRecord
     true
   end
 
-  def can_access_lesson?(lesson)
-    return false unless lesson.chapters.any? && groups.any?
-    (groups & lesson.chapters.map(&:group).flatten) != []
-  end
-
   private
+
+  def transliterate_and_downcase(string)
+    I18n.transliterate(string).gsub(/\W+/, '').downcase
+  end
 
   def set_default_email
     if account && account.email.blank?
       suffix = classroom.school.identifier.downcase
-      prefix1 = I18n.transliterate(first_name).gsub(/\W+/, '').downcase
-      prefix2 = I18n.transliterate(last_name).gsub(/\W+/, '').downcase
+      prefix1 = transliterate_and_downcase(first_name)
+      prefix2 = transliterate_and_downcase(last_name)
       account.email = "#{prefix1}.#{prefix2}@#{suffix}"
     end
   end
 
   def set_default_password
-    if account && account.password.blank?
-      account.password = '123456'
-    end
+    account.password = '123456' if account && account.password.blank?
   end
 end

@@ -30,7 +30,7 @@ RSpec.describe Exercise, type: :model do
     it { is_expected.to have_many(:authorships) }
     it { is_expected.to have_many(:authors) }
     it { is_expected.to have_many(:questions) }
-    it { is_expected.to have_many(:teacher_exercise_forms) }
+    it { is_expected.to have_many(:user_exercise_forms) }
     it { is_expected.to have_many(:chapter_exercises) }
     it { is_expected.to have_many(:chapters) }
   end

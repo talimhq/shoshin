@@ -17,7 +17,7 @@ class Teacher::ChapterLessonsController < TeacherController
   private
 
   def authorize
-    @chapter = Chapter.includes(:teacher).find(params[:id])
+    @chapter = Chapter.includes(group: :level).find(params[:id])
     redirect_to root_url unless current_user == @chapter.teacher
     @lessons = current_user.lessons_from_level(@chapter.level)
   end

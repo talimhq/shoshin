@@ -97,9 +97,15 @@ Rails.application.routes.draw do
 
     namespace :student, path: 'eleve' do
       resources :groups, path: 'groupes', only: :show
-      resources :chapters, path: 'chapitres', only: :show
-      resources :lessons, path: 'cours', only: :show
-      resources :exercises, path: 'exercices', only: :show
+      resources :chapters, path: 'chapitres', only: :show do
+        resources :chapter_lessons, path: 'cours', only: :show, as: :lessons
+        resources :chapter_exercises, path: 'exercices', only: [:show],
+                                      as: :exercises do
+          resources :user_exercise_forms, path: 'resultats',
+                                          only: [:create, :show],
+                                          as: :results
+        end
+      end
     end
 
     authenticated :account do

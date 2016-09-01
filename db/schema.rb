@@ -342,19 +342,6 @@ ActiveRecord::Schema.define(version: 20160830005520) do
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
   end
 
-  create_table "teacher_exercise_forms", force: :cascade do |t|
-    t.integer  "teacher_id",               null: false
-    t.integer  "exercise_id",              null: false
-    t.jsonb    "answers",     default: {}, null: false
-    t.jsonb    "results",     default: {}, null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.index ["answers"], name: "index_teacher_exercise_forms_on_answers", using: :gin
-    t.index ["exercise_id"], name: "index_teacher_exercise_forms_on_exercise_id", using: :btree
-    t.index ["results"], name: "index_teacher_exercise_forms_on_results", using: :gin
-    t.index ["teacher_id"], name: "index_teacher_exercise_forms_on_teacher_id", using: :btree
-  end
-
   create_table "teacher_teaching_cycles", force: :cascade do |t|
     t.integer  "teacher_id",        null: false
     t.integer  "teaching_cycle_id", null: false
@@ -411,6 +398,20 @@ ActiveRecord::Schema.define(version: 20160830005520) do
     t.index ["teaching_cycle_id"], name: "index_themes_on_teaching_cycle_id", using: :btree
   end
 
+  create_table "user_exercise_forms", force: :cascade do |t|
+    t.string   "user_type",                null: false
+    t.integer  "user_id",                  null: false
+    t.integer  "exercise_id",              null: false
+    t.jsonb    "answers",     default: {}, null: false
+    t.jsonb    "results",     default: {}, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["answers"], name: "index_user_exercise_forms_on_answers", using: :gin
+    t.index ["exercise_id"], name: "index_user_exercise_forms_on_exercise_id", using: :btree
+    t.index ["results"], name: "index_user_exercise_forms_on_results", using: :gin
+    t.index ["user_type", "user_id"], name: "index_user_exercise_forms_on_user_type_and_user_id", using: :btree
+  end
+
   add_foreign_key "ability_items", "ability_sets"
   add_foreign_key "ability_sets", "teaching_cycles"
   add_foreign_key "answers_associations", "questions"
@@ -443,8 +444,6 @@ ActiveRecord::Schema.define(version: 20160830005520) do
   add_foreign_key "student_groups", "groups"
   add_foreign_key "student_groups", "students"
   add_foreign_key "students", "classrooms"
-  add_foreign_key "teacher_exercise_forms", "exercises"
-  add_foreign_key "teacher_exercise_forms", "teachers"
   add_foreign_key "teacher_teaching_cycles", "teachers"
   add_foreign_key "teacher_teaching_cycles", "teaching_cycles"
   add_foreign_key "teaching_cycles", "cycles"
@@ -452,4 +451,5 @@ ActiveRecord::Schema.define(version: 20160830005520) do
   add_foreign_key "theme_levels", "levels"
   add_foreign_key "theme_levels", "themes"
   add_foreign_key "themes", "teaching_cycles"
+  add_foreign_key "user_exercise_forms", "exercises"
 end

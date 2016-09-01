@@ -1,15 +1,15 @@
-<% content_for :title, @lesson.name %>
+<% content_for :title, @chapter_lesson.name %>
 <div class="page-title">
   <div class="title">
-    <%= @lesson.name %>
+    <%= @chapter_lesson.name %>
   </div>
   <div class="links">
-    <%= link_to material_icon.arrow_back, :back %>
+    <%= link_to material_icon.arrow_back, [:student, @chapter_lesson.chapter] %>
   </div>
 </div>
 <div class="row">
   <div class="column">
-    <% @lesson.steps.each do |step| %>
+    <% @chapter_lesson.steps.each do |step| %>
       <div class="card">
         <div class="title-area">
           <h3 class="main-title"><%= step.print_title %></h3>

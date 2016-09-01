@@ -10,7 +10,7 @@ class Exercise < ApplicationRecord
                      inverse_of: :exercises
   has_many :questions, -> { order(position: :asc) }, inverse_of: :exercise,
                                                      dependent: :destroy
-  has_many :teacher_exercise_forms, inverse_of: :exercise, dependent: :destroy
+  has_many :user_exercise_forms, inverse_of: :exercise, dependent: :destroy
   has_many :chapter_exercises, inverse_of: :exercise, dependent: :destroy
   has_many :chapters, through: :chapter_exercises
 

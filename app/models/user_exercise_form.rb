@@ -1,11 +1,12 @@
-class TeacherExerciseForm < ApplicationRecord
-  belongs_to :teacher, inverse_of: :teacher_exercise_forms
-  belongs_to :exercise, inverse_of: :teacher_exercise_forms
+class UserExerciseForm < ApplicationRecord
+  belongs_to :user, polymorphic: true
+  belongs_to :exercise, inverse_of: :user_exercise_forms
 
   store_accessor :answers
   store_accessor :results
 
-  validates :teacher, :exercise, presence: true
+  validates :user, :exercise, presence: true
+  validates :user_type, inclusion: { in: %w(Student Teacher) }
 
   delegate :name, to: :exercise, prefix: true
   delegate :statement, to: :exercise, prefix: true

@@ -4,7 +4,7 @@
     <%= @exercise_form.exercise_name %> - Résultat
   </div>
   <div class="links">
-    <%= link_to material_icon.arrow_back, teacher_exercise_path(@exercise_form.exercise) %>
+    <%= link_to material_icon.arrow_back, [:student, @chapter_exercise.chapter] %>
   </div>
 </div>
 <div class="row">

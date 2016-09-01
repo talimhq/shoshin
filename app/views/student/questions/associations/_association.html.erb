@@ -1,0 +1,5 @@
+<%= f.fields_for question.id.to_s.to_sym do |s| %>
+  <% question.answers.shuffle.each do |answer| %>
+    <%= s.input answer.id, collection: question.answers.map(&:right).shuffle, as: :radio_buttons, label: answer.left %>
+  <% end %>
+<% end %>

@@ -65,6 +65,7 @@ a {
   header {
     position: absolute;
     top: 0;
+    box-sizing: border-box;
     width: 100%;
     background-image: image-url('profile_background.jpg');
     background-size: cover;

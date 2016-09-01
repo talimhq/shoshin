@@ -7,6 +7,7 @@ class Lesson < ApplicationRecord
   has_many :authors, through: :authorships, source: :author, inverse_of: :lessons
   has_many :steps, -> { order(position: :asc) }, inverse_of: :lesson, dependent: :destroy
   has_many :chapter_lessons, inverse_of: :lesson, dependent: :destroy
+  has_many :chapters, through: :chapter_lessons
 
   validates :name, :popularity, :level_ids, :teaching, presence: true
   validates :shared, exclusion: { in: [nil] }

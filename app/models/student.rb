@@ -18,6 +18,11 @@ class Student < ApplicationRecord
     true
   end
 
+  def can_access_lesson?(lesson)
+    return false unless lesson.chapters.any? && groups.any?
+    (groups & lesson.chapters.map(&:group).flatten) != []
+  end
+
   private
 
   def set_default_email

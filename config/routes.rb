@@ -95,6 +95,13 @@ Rails.application.routes.draw do
       get '/exercices/:exercise_id/resultats/:id' => 'exercise_forms#show', as: :exercise_result
     end
 
+    namespace :student, path: 'eleve' do
+      resources :groups, path: 'groupes', only: :show
+      resources :chapters, path: 'chapitres', only: :show
+      resources :lessons, path: 'cours', only: :show
+      resources :exercises, path: 'exercices', only: :show
+    end
+
     authenticated :account do
       root to: 'home#user'
     end

@@ -74,4 +74,61 @@ RSpec.describe Student, type: :model do
       end
     end
   end
+
+  describe 'instance methods' do
+    let(:student) { create(:student) }
+
+    context 'can_access_lesson?' do
+      let(:lesson) { create(:lesson) }
+
+      it 'is true if lesson is in a chapter accessible by student' do
+        teacher = create(:teacher)
+        lesson.update(authors: [teacher])
+        group = create(:group, teacher: teacher,
+                               teaching: lesson.teaching,
+                               level: lesson.levels.first)
+        group.update(students: [student])
+        chapter = create(:chapter, group: group)
+        chapter.update(lessons: [lesson])
+        expect(student.can_access_lesson?(lesson)).to be_truthy
+      end
+
+      it 'returns false if lesson does not have a chapter' do
+        teacher = create(:teacher)
+        lesson.update(authors: [teacher])
+        group = create(:group, teacher: teacher,
+                               teaching: lesson.teaching,
+                               level: lesson.levels.first)
+        group.update(students: [student])
+        create(:chapter, group: group)
+        expect(student.can_access_lesson?(lesson)).to be_falsy
+      end
+
+      it 'returns false if student does not have a group' do
+        teacher = create(:teacher)
+        lesson.update(authors: [teacher])
+        group = create(:group, teacher: teacher,
+                               teaching: lesson.teaching,
+                               level: lesson.levels.first)
+        chapter = create(:chapter, group: group)
+        chapter.update(lessons: [lesson])
+        expect(student.can_access_lesson?(lesson)).to be_falsy
+      end
+
+      it 'returns false if chapter and student belong in diff groups' do
+        teacher = create(:teacher)
+        lesson.update(authors: [teacher])
+        group1 = create(:group, teacher: teacher,
+                                teaching: lesson.teaching,
+                                level: lesson.levels.first)
+        group2 = create(:group, teacher: teacher,
+                                teaching: lesson.teaching,
+                                level: lesson.levels.first)
+        group2.update(students: [student])
+        chapter = create(:chapter, group: group1)
+        chapter.update(lessons: [lesson])
+        expect(student.can_access_lesson?(lesson)).to be_falsy
+      end
+    end
+  end
 end

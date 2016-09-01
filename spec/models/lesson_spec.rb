@@ -25,6 +25,7 @@ RSpec.describe Lesson, type: :model do
     it { is_expected.to have_many(:authors) }
     it { is_expected.to have_many(:steps) }
     it { is_expected.to have_many(:chapter_lessons) }
+    it { is_expected.to have_many(:chapters) }
   end
 
   describe 'validations' do
@@ -38,12 +39,35 @@ RSpec.describe Lesson, type: :model do
     let!(:lesson) { create(:lesson) }
     let(:teacher) { create(:teacher) }
 
-    it { expect(lesson.teaching.name).to eq(lesson.teaching.name) }
-    it { expect { lesson.create_copy(teacher) }.to change(Lesson, :count).by(1) }
-    it { expect { lesson.create_copy(teacher) }.to change(teacher.lessons, :count).by(1) }
-    it { expect { lesson.create_copy(teacher) }.to change(lesson, :popularity).by(1) }
-    it { expect(lesson.create_copy(teacher).original_id).to eq(lesson.id) }
-    it { expect(lesson.create_copy(teacher).steps_count).to eq(lesson.steps_count) }
+    it 'delegate teaching_name to teaching' do
+      expect(lesson.teaching.name).to eq(lesson.teaching.name)
+    end
+
+    context 'create_copy' do
+      it 'creates a new Lesson' do
+        expect { lesson.create_copy(teacher) }.to change(Lesson, :count).by(1)
+      end
+
+      it 'assign the copy to the teacher' do
+        expect {
+          lesson.create_copy(teacher)
+        }.to change(teacher.lessons, :count).by(1)
+      end
+
+      it 'increases the original popularity' do
+        expect {
+          lesson.create_copy(teacher)
+        }.to change(lesson, :popularity).by(1)
+      end
+
+      it 'sets the original_id of the copy' do
+        expect(lesson.create_copy(teacher).original_id).to eq(lesson.id)
+      end
+
+      it 'copies the steps' do
+        expect(lesson.create_copy(teacher).steps_count).to eq(lesson.steps_count)
+      end
+    end
   end
 
   describe 'factories' do

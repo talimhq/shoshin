@@ -9,9 +9,19 @@
     </div>
   </div>
 </header>
-<div class="navigation">
-  <div class="link">
-    <%= link_to (material_icon.home.to_s + 'Accueil'), root_url %>
+<div class="navigations">
+  <div class="navigation">
+    <div class="link">
+      <%= link_to (material_icon.home.to_s + 'Accueil'), root_url %>
+    </div>
+  </div>
+  <div class="navigation">
+    <div class="subheader">Mes groupes</div>
+    <% current_user.groups.includes(:level, :teaching).each do |group| %>
+    <div class="link">
+      <%= link_to material_icon.group_work.to_s + group.display_name, [:student, group] %>
+    </div>
+    <% end %>
   </div>
 </div>
 <div class="navigation bottom">

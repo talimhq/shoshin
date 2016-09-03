@@ -23,7 +23,7 @@
     toolBar.querySelector('.dialogs').appendChild(dialog);
 
     // Insert math
-    $('a.btn-insert-embed').on('click', function(event) {
+    $('button.btn-insert-embed').on('click', function(event) {
       event.preventDefault();
       var element = document.querySelector('trix-editor');
       var embedded = $('#EmbeddedCode').val();

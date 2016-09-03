@@ -1,4 +1,14 @@
+button.embed::before {
+  background-image: image_url('globe.svg');
+  background-size: 18px 18px;
+}
 button.formula::before {
   background-image: image_url('sigma.svg');
   background-size: 15px 18px;
+}
+.dialog {
+  textarea {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
 }

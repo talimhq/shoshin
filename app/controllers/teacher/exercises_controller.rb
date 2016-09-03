@@ -7,7 +7,7 @@ class Teacher::ExercisesController < TeacherController
   end
 
   def show
-    @exercise = Exercise.includes(:authors, :questions).find(params[:id])
+    @exercise = Exercise.includes(:questions, authors: :account).find(params[:id])
   end
 
   def new
@@ -50,7 +50,7 @@ class Teacher::ExercisesController < TeacherController
   end
 
   def authorize_author
-    @exercise = Exercise.find(params[:id])
+    @exercise = Exercise.includes(:levels).find(params[:id])
     redirect_to teacher_exercises_path unless current_user.in? @exercise.authors
   end
 end

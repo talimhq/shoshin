@@ -3,6 +3,11 @@ class Level < ApplicationRecord
   has_many :theme_levels, inverse_of: :level, dependent: :destroy
   has_many :classrooms, inverse_of: :level, dependent: :destroy
   has_many :groups, inverse_of: :level, dependent: :destroy
+  has_many :editable_levels, inverse_of: :level, dependent: :destroy
+  has_many :exercises, through: :editable_levels, source: :editable,
+                       source_type: 'Exercise', inverse_of: :exercise
+  has_many :lessons, through: :editable_levels, source: :editable,
+                       source_type: 'Lesson'
 
   acts_as_list scope: :cycle
 

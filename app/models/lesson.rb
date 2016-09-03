@@ -8,8 +8,9 @@ class Lesson < ApplicationRecord
   has_many :steps, -> { order(position: :asc) }, inverse_of: :lesson, dependent: :destroy
   has_many :chapter_lessons, inverse_of: :lesson, dependent: :destroy
   has_many :chapters, through: :chapter_lessons
+  has_many :levels, through: :editable_levels, source: :level, inverse_of: :lessons
 
-  validates :name, :popularity, :level_ids, :teaching, presence: true
+  validates :name, :popularity, :teaching, presence: true
   validates :shared, exclusion: { in: [nil] }
 
   delegate :name, to: :teaching, prefix: true

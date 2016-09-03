@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Teacher::ExercisesController, type: :controller do
   let!(:exercise) { create(:exercise) }
   let(:valid_attributes) {
-    attributes_for(:exercise).merge(teaching_id: create(:teaching).id)
+    attributes_for(:exercise).merge(teaching_id: create(:teaching).id,
+                                    level_ids: [create(:level).id])
   }
 
   describe 'GET #index' do

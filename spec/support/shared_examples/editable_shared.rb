@@ -1,6 +1,13 @@
 RSpec.shared_examples Editable do
-  it { is_expected.to have_db_column(:level_ids).of_type(:integer) }
-  it { is_expected.to validate_presence_of(:level_ids) }
-  it { expect(editable.levels).to eq(Level.find(editable.level_ids)) }
-  it { expect(editable.level_names).to eq(editable.levels.map(&:short_name).join(', ')) }
+  describe 'associations' do
+    it { is_expected.to have_many(:editable_levels) }
+    it { is_expected.to have_many(:levels) }
+  end
+
+  describe 'instance methods' do
+    it 'delegate level_names to levels' do
+      expect(editable.level_names).to \
+        eq(editable.levels.map(&:short_name).join(', '))
+    end
+  end
 end

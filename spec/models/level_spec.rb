@@ -17,6 +17,9 @@ RSpec.describe Level, type: :model do
     it { is_expected.to have_many(:theme_levels) }
     it { is_expected.to have_many(:classrooms) }
     it { is_expected.to have_many(:groups) }
+    it { is_expected.to have_many(:editable_levels) }
+    it { is_expected.to have_many(:exercises) }
+    it { is_expected.to have_many(:lessons) }
   end
 
   describe 'validations' do

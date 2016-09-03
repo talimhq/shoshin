@@ -14,7 +14,7 @@ class Exercise < ApplicationRecord
   has_many :chapter_exercises, inverse_of: :exercise, dependent: :destroy
   has_many :chapters, through: :chapter_exercises
 
-  validates :name, :time, :level_ids, :popularity, :difficulty, :teaching,
+  validates :name, :time, :popularity, :difficulty, :teaching,
             :questions_count, presence: true
   validates :exam, :shared, exclusion: { in: [nil] }
   validates :difficulty, inclusion: { in: [1, 2, 3] }
@@ -22,7 +22,9 @@ class Exercise < ApplicationRecord
   delegate :name, to: :teaching, prefix: true
 
   def create_copy(user)
-    copy = Exercise.new(name: name, teaching: teaching, level_ids: level_ids, original_id: id, statement: statement, time: time, exam: exam, difficulty: difficulty)
+    copy = Exercise.new(name: name, teaching: teaching, level_ids: level_ids,
+                        original_id: id, statement: statement, time: time,
+                        exam: exam, difficulty: difficulty)
     questions.map { |question| question.build_copy(copy) }
     copy.save!
     copy.update(authors: [user])

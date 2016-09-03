@@ -23,10 +23,10 @@ class Teacher < ApplicationRecord
   end
 
   def exercises_from_level(level)
-    exercises.where("level_ids @> '{#{level.id}}'::int[]")
+    exercises.joins(:editable_levels).where(editable_levels: { level: level })
   end
 
   def lessons_from_level(level)
-    lessons.where("level_ids @> '{#{level.id}}'::int[]")
+    lessons.joins(:editable_levels).where(editable_levels: { level: level })
   end
 end

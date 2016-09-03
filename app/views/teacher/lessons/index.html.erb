@@ -17,6 +17,7 @@
         <div class="content-area">
           <%= f.input :name_cont, label: 'Titre' %>
           <%= f.input :teaching_id_eq, collection: @lessons.map(&:teaching).uniq, label: 'Enseignement' %>
+          <%= f.input :editable_levels_level_id_eq, collection: Level.all, label: 'Niveau' %>
         </div>
         <div class="actions-area">
           <%= f.submit 'Filtrer', class: 'btn' %>

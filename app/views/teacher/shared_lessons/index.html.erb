@@ -9,19 +9,18 @@
   <div class="column xs12">
     <div class="card">
       <div class="title-area">
-      <h3 class="main-title"><%= material_icon.search %> Chercher un cours</h3>
+        <h3 class="main-title"><%= material_icon.search %> Chercher un cours</h3>
       </div>
+      <%= search_form_for @q, url: [:search, :teacher, :lessons], defaults: { required: false } do |f| %>
       <div class="content-area">
-        <%= search_form_for @q, url: [:search, :teacher, :lessons], defaults: { required: false } do |f| %>
-        <div class="content-area">
-          <%= f.input :name_cont, label: 'Titre contient' %>
-          <%= f.input :teaching_id_eq, collection: Teaching.ordered, label: 'Enseignement' %>
-        </div>
-        <div class="actions-area">
-          <%= f.submit 'Chercher', class: 'btn' %>
-        </div>
-        <% end %>
+        <%= f.input :name_cont, label: 'Titre contient' %>
+        <%= f.input :teaching_id_eq, collection: Teaching.ordered, label: 'Enseignement' %>
+        <%= f.input :editable_levels_level_id_eq, collection: Level.all, label: 'Niveau' %>
       </div>
+      <div class="actions-area">
+        <%= f.submit 'Chercher', class: 'btn' %>
+      </div>
+      <% end %>
     </div>
     <div class="card">
       <div class="table-area">
@@ -64,13 +63,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  $('input').each(function() {
-    animateLabels(this);
-  });
-  $('select').select2({
-    language: 'fr',
-    allowClear: true,
-    placeholder: 'Tous'
-  });
-</script>

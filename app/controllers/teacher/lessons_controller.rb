@@ -3,7 +3,7 @@ class Teacher::LessonsController < TeacherController
 
   def index
     @q = current_user.lessons.ransack(params[:q])
-    @lessons = @q.result.includes(:teaching).page(params[:page]).per(10)
+    @lessons = @q.result.includes(:teaching, :levels).page(params[:page]).per(10)
   end
 
   def show

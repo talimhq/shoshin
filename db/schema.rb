@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830005520) do
+ActiveRecord::Schema.define(version: 20160902223636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,17 @@ ActiveRecord::Schema.define(version: 20160830005520) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "editable_levels", force: :cascade do |t|
+    t.string   "editable_type", null: false
+    t.integer  "editable_id",   null: false
+    t.integer  "level_id",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["editable_id", "editable_type", "level_id"], name: "index_editable_levels_on_editable_and_level", unique: true, using: :btree
+    t.index ["editable_type", "editable_id"], name: "index_editable_levels_on_editable_type_and_editable_id", using: :btree
+    t.index ["level_id"], name: "index_editable_levels_on_level_id", using: :btree
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string   "name",                              null: false
     t.text     "statement"
@@ -208,7 +219,6 @@ ActiveRecord::Schema.define(version: 20160830005520) do
     t.integer  "teaching_id",                       null: false
     t.integer  "questions_count",   default: 0,     null: false
     t.integer  "old_id"
-    t.integer  "level_ids",         default: [],                 array: true
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.index ["old_id"], name: "index_exercises_on_old_id", using: :btree
@@ -253,7 +263,6 @@ ActiveRecord::Schema.define(version: 20160830005520) do
     t.integer  "steps_count",       default: 0,    null: false
     t.integer  "authorships_count", default: 0,    null: false
     t.integer  "teaching_id",                      null: false
-    t.integer  "level_ids",         default: [],                array: true
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["old_id"], name: "index_lessons_on_old_id", using: :btree
@@ -429,6 +438,7 @@ ActiveRecord::Schema.define(version: 20160830005520) do
   add_foreign_key "chapters", "groups"
   add_foreign_key "classrooms", "levels"
   add_foreign_key "classrooms", "schools"
+  add_foreign_key "editable_levels", "levels"
   add_foreign_key "exercises", "teachings"
   add_foreign_key "expectations", "themes"
   add_foreign_key "groups", "levels"

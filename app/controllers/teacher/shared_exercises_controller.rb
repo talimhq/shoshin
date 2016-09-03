@@ -1,7 +1,7 @@
 class Teacher::SharedExercisesController < TeacherController
   def index
     @q = Exercise.where(shared: true).order(popularity: :desc).ransack(params[:q])
-    @exercises = @q.result.includes(:teaching).page(params[:page]).per(10)
+    @exercises = @q.result.includes(:teaching, :levels).page(params[:page]).per(10)
   end
 
   def create

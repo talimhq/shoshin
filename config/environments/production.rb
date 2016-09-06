@@ -1,15 +1,15 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.action_mailer.default_url_options = { host: 'https://hidden-wildwood-81096.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'https://shoshin.academy' }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
-    :port           => '587',
+    :port           => '2525',
+    :enable_starttls_auto => true,
+    :user_name      => 'apikey',
+    :password       => ENV['SENDGRID_API_KEY'],
     :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com',
-    :enable_starttls_auto => true
+    :domain         => 'shoshin.academy'
   }
 
   # Code is not reloaded between requests.
@@ -51,7 +51,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

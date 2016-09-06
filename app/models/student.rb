@@ -30,8 +30,8 @@ class Student < ApplicationRecord
   def set_default_email
     if account && account.email.blank?
       suffix = classroom.school.identifier.downcase
-      prefix1 = transliterate_and_downcase(first_name)
-      prefix2 = transliterate_and_downcase(last_name)
+      prefix2 = transliterate_and_downcase(first_name)
+      prefix1 = transliterate_and_downcase(last_name)
       account.email = "#{prefix1}.#{prefix2}@#{suffix}"
     end
   end

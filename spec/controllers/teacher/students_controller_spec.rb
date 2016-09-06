@@ -80,7 +80,7 @@ RSpec.describe Teacher::StudentsController, type: :controller do
         post :create, params: { classroom_id: classroom.id,
                                 student: valid_attributes }
         expect(Account.last.email).to eq(
-          "foo.bar@#{classroom.school.identifier.downcase}"
+          "bar.foo@#{classroom.school.identifier.downcase}"
         )
       end
 

@@ -71,7 +71,7 @@ RSpec.describe Student, type: :model do
                                 password: '123456' }
         )
         school = student.classroom.school
-        expect(student.email).to eq("foo.bar@#{school.identifier.downcase}")
+        expect(student.email).to eq("bar.foo@#{school.identifier.downcase}")
       end
     end
   end

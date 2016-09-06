@@ -42,6 +42,12 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'bullet'
   gem 'rails-erd'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-puma'
+  gem 'capistrano-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

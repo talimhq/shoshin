@@ -11,13 +11,13 @@
 
   // Debug functions
   //
-  var uploadComplete = function(event) {
-    alert("Done - " + event.target.responseText);
-  };
-
-  var uploadFailed = function(event) {
-    alert("There was an error" + event);
-  };
+  // var uploadComplete = function(event) {
+  //   alert("Done - " + event.target.responseText);
+  // };
+  //
+  // var uploadFailed = function(event) {
+  //   alert("There was an error" + event);
+  // };
 
   host = "https://shoshin-bucket.s3.amazonaws.com/";
 
@@ -34,8 +34,8 @@
     form.append("signature", "VOPyMOJOQgiJsVbvMqsBzX0l3es=");
     form.append("file", file);
     xhr = new XMLHttpRequest;
-    xhr.addEventListener("load", uploadComplete, false);
-    xhr.addEventListener("error", uploadFailed, false);
+    // xhr.addEventListener("load", uploadComplete, false);
+    // xhr.addEventListener("error", uploadFailed, false);
     xhr.upload.onprogress = function(event) {
       var progress;
       progress = event.loaded / event.total * 100;

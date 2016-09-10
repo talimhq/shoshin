@@ -27,7 +27,8 @@
 7. Ouvrez in navigateur et naviguez à l'addresse [localhost:3000](localhost:3000)
 
 ### Tests
-`./bin/spring rspec`
+1. `rails db:test:prepare`
+2. `./bin/spring rspec`
 
 ### Contribuer
 1. Faire une "Fork"

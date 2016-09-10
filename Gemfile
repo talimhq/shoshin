@@ -21,6 +21,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false, git: 'git://github.com/sinatra/sinatra.git'
 gem 'rack-protection', require: false, git: 'git://github.com/sinatra/rack-protection.git'
 gem 'inline_svg'
+gem 'autoprefixer-rails'
 
 group :development, :test do
   gem 'spring-commands-rspec'

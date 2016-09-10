@@ -79,6 +79,18 @@
       background-color:  $alt-green;
     }
   }
+  &.secondary {
+    background-color: $secondary;
+    &:hover {
+      background-color:  $tertiary;
+    }
+  }
+  &.tertiary {
+    background-color: $tertiary;
+    &:hover {
+      background-color:  $secondary;
+    }
+  }
 }
 .btn.round {
   height: 56px;

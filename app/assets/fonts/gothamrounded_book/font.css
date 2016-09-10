@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'GothamRounded-Book';
+  src: url('GothamRounded-Book.eot');
+  src: url('GothamRounded-Book.woff2') format('woff2'),
+       url('GothamRounded-Book.woff') format('woff'),
+       url('GothamRounded-Book.ttf') format('truetype'),
+       url('GothamRounded-Book.svg#GothamRounded-Book') format('svg'),
+       url('GothamRounded-Book.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+

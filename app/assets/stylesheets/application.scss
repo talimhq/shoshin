@@ -1,10 +1,13 @@
 // COLORS
-$primary: #2196F3;
-$alt-primary: darken($primary, 5%);
-$light-primary: lighten($primary, 30%);
+$primary: #1967BB;
+$secondary: #40BEA3;
+$tertiary: #A0D856;
+$alt-primary: #6D93D4;
+$alt-secondary: #8CD8C0;
+$alt-tertiary: #C6E793;
 $red: #e57373;
 $alt-red: darken($red, 5%);
-$yellow: #FFCA28;
+$yellow: #E7CE0B;
 $green: #00897B;
 $alt-green: darken($green, 5%);
 $pale-green: rgb(175,228,188);
@@ -38,6 +41,7 @@ $large-min: 75em;
 @import 'cards';
 @import 'guest';
 @import 'trix-override';
+@import 'homepage';
 // CONTROLLER SPECIFIC
 @import 'ability_sets';
 @import 'exercise_forms';

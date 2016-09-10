@@ -1,18 +1,130 @@
-<div class="page-title">
+<div id="homepage-title">
+  <div class="hero">
+    <div class="brand">
+      <%= inline_svg('shoshin_horizontal.svg') %>
+      <h2 class="logo-subtitle">Plateforme de connaissances</h2>
+    </div>
+    <div class="actions">
+      <%= link_to 'Inscription', new_account_registration_path, class: 'btn secondary' %>
+      <%= link_to 'Connexion', new_account_session_path, class: 'btn secondary' %>
+    </div>
+  </div>
 </div>
-<div class="row">
-  <div class="column xs12 offset-l1 l10">
-    <div class="card">
-      <div class="content-area">
-        <div class="text-center">
-          <%= image_tag('shoshin-200.png') %>
-          <h1>Shoshin - <em>L'esprit du débutant</em></h1>
-          <h3>Plateforme d'acquisition de compétences</h3>
-          <%= link_to 'Inscription', new_account_registration_path, class: 'btn' %>
-          <%= link_to 'Connexion', new_account_session_path, class: 'btn' %>
+<div class="presentation">
+  <h3>Présentation</h3>
+  <p>
+    Pensée par des professeurs, Shoshin est le fruit d'un travail collectif visant à moderniser, simplifier et améliorer la relation entre les différents acteurs de l'éducation que sont les professeurs, les élèves et les parents.
+  </p>
+  <p>
+  Cette plateforme en ligne est un projet <strong>libre</strong> et <strong>gratuit</strong> destiné aux établissements scolaires français, en France comme à l'étranger, et peut être utilisé <strong>du primaire au lycée</strong>. Le maintien de Shoshin est assuré par <%= link_to 'Ta\'lim', 'http://talim.solutions/fr', target: '_blank' %>.
+  </p>
+  <p>
+    Shoshin est un terme japonais qui signifie « esprit du débutant », utilisé dans le bouddhisme zen et dans les arts martiaux. C'est une attitude d'humilité que le pratiquant doit conserver tout au long de sa progression, quel que soit le niveau atteint.
+  </p>
+</div>
+<div class="quote">
+  <blockquote>
+    <p>L'esprit du débutant contient beaucoup de possibilités, mais celui de l'expert en contient peu.</p>
+    <footer>
+      Shunryu Suzuki
+    </footer>
+  </blockquote>
+</div>
+<div class="teachers">
+  <h3>Enseignants</h3>
+  <div class="row item-stretch-s">
+    <div class="image column xs12 s4 l3">
+    </div>
+    <div class="column xs12 s8 l9 description">
+      <div class="row">
+        <div class="column xs12 l4">
+          <p class="description-item">
+            Shoshin est une <strong>plateforme collaborative</strong>. Vous pouvez travailler seul ou à plusieurs sur la création de cours et exercices, partager vos ressources, ou encore vous inspirer de celles créées par des collègues.
+          </p>
+        </div>
+        <div class="column xs12 l4">
+          <p class="description-item">
+            Shoshin est un <strong>espace numérique de travail</strong>. Créez vos classes, organisez votre contenu et décidez quand, comment et pendant combien de temps vos élèves y auront accès.
+          </p>
+        </div>
+        <div class="column xs12 l4">
+          <p class="description-item">
+            Shoshin est un outil d'<strong>évaluation</strong>. À partir de différents types d'exercices, vous pouvez lier le niveau d'acquisition des compétences et capacités en fonction du taux de réussite de vos élèves.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<div class="students">
+  <h3>Élèves</h3>
+  <div class="row item-stretch-s">
+    <div class="image column xs12 s4 l3">
+    </div>
+    <div class="column xs12 s8 l9 description">
+      <div class="row">
+        <div class="column xs12 l4">
+          <p class="description-item">
+          <strong>Un seul endroit</strong> pour toutes vos disciplines. Retrouvez-les dans un espace réunissant de manière organisée vos cours, exercices et évaluations.
+          </p>
+        </div>
+        <div class="column xs12 l4">
+          <p class="description-item">
+            Faites un <strong>bilan</strong> en quelques clics, déterminez facilement quels sont les points que vous devez travailler, et accédez rapidement aux ressources mises à disposition par votre professeur pour progresser.
+          </p>
+        </div>
+        <div class="column xs12 l4">
+          <p class="description-item">
+          Amenez vos cours avec vous. Le site est optimisé pour les smartphones, tablettes et ordinateurs. <strong>Plus de livres</strong> lourds et encombrants, Shoshin vous offre la possibilité de travailler de n'importe où!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="parents">
+  <h3>Parents</h3>
+  <div class="row item-stretch-s">
+    <div class="image column xs12 s4 l3">
+    </div>
+    <div class="column xs12 s8 l9 description">
+      <div class="row">
+        <div class="column xs12 l4">
+          <p class="description-item">
+          À l'aide d'une interface simple, Shoshin vous présente l'<strong>évolution</strong> de vos enfants dans chaque discipline d'une manière claire afin que vous puissiez réellement accompagner leur scolarité.
+          </p>
+        </div>
+        <div class="column xs12 l4">
+          <p class="description-item">
+            Un accompagnement en <strong>temps réel</strong>. Paramétrez et recevez une notification quand votre enfant a un devoir à faire, quand une évaluation approche, ou quand il est évalué.
+          </p>
+        </div>
+        <div class="column xs12 l4">
+          <p class="description-item">
+          Gardez le <strong>contact</strong> avec l'équipe pédagogique qui suit votre enfant, grâce à une messagerie interne gérée par l'établissement scolaire.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="getinvolved">
+  <h2>Comment contribuer?</h2>
+  <ul>
+    <li>Vous êtes enseignant ? <%= link_to 'Créer votre compte', new_account_registration_path %> gratuitement.</li>
+    <li>Parlez-en autour de vous ou téléchargez notre <%= link_to 'brochure de présentation' %>.</li>
+    <li>Aidez nous à développer notre <%= link_to 'Wiki', 'https://github.com/idabmat/shoshin/wiki/Accueil', target: '_blank' %> en y ajoutant des guides d'utilisation, des tutoriels.</li>
+    <li>Vous avez des idées pour améliorer la plateforme ou vous avez rencontré un bug? Créez un <%= link_to 'Ticket', 'https://github.com/idabmat/shoshin/issues', target: '_blank' %>.</li>
+    <li>Vous avez des compétences en informatique? Notre code est disponible sur <%= link_to 'GitHub', 'https://github.com/idabmat/shoshin', target: '_blank' %>.</li>
+    <li>Vous souhaitez apporter un soutien financier à la plateforme? <%= link_to 'Écrivez-nous', 'mailto:info@talim.solutions' %>.</li>
+  </ul>
+</div>
+<div class="footer">
+  <div class="brand">
+    <%= inline_svg 'shoshin_vertical.svg' %> est soutenu par :
+  </div>
+  <div class="sponsor">
+    <%= image_tag 'talim.png' %>
+    <%= link_to 'www.talim.solutions', 'http://talim.solutions/fr', target: '_blank' %>
+  </div>
+</div>

@@ -18,3 +18,14 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+  font-family: 'GothamRounded-Book';
+  src: asset-url('gothamrounded_book/GothamRounded-Book.eot');
+  src: asset-url('gothamrounded_book/GothamRounded-Book.woff2') format('woff2'),
+       asset-url('gothamrounded_book/GothamRounded-Book.woff') format('woff'),
+       asset-url('gothamrounded_book/GothamRounded-Book.ttf') format('truetype'),
+       asset-url('gothamrounded_book/GothamRounded-Book.svg#GothamRounded-Book') format('svg'),
+       asset-url('gothamrounded_book/GothamRounded-Book.eot?#iefix') format('embedded-opentype');
+       font-weight: normal;
+       font-style: normal;
+}

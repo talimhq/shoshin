@@ -14,6 +14,7 @@ main.guest {
   padding: 50px 20px;
   background-image: image-url('background.png');
   background-size: cover;
+  background-color: $primary;
   .hero {
     width: 100%;
     text-align: center;

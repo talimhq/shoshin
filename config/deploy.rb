@@ -7,7 +7,7 @@ set :deploy_via, :remote_cache
 
 # git
 set :scm, :git
-set :repo_url, 'git@github.com:idabmat/shoshin.git'
+set :repo_url, 'git@github.com:TalimSolutions/shoshin.git'
 set :branch, 'master'
 set :keep_releases, 5
 set :ssh_options, { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }

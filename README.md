@@ -2,9 +2,9 @@
 
 ## Liens utiles
 * Pour discuter d'améliorations possibles ou pour signaler un bug, [ouvrez un
-  ticket](www.github.com/idabmat/shoshin/issues).
+  ticket](www.github.com/TalimSolutions/shoshin/issues).
 * Pour des guides ou des tutoriels d'utilisation, rendez-vous sur notre
-  [wiki](www.github.com/idabmat/shoshin/wiki).
+  [wiki](www.github.com/TalimSolutions/shoshin/wiki).
 
 ## Informations techniques
 
@@ -16,7 +16,7 @@
 * [mailcatcher](www.github.com/sj26/mailcatcher) pour ouvrir les emails en développement.
 
 ### Développement local
-1. Copiez ce repo: `git clone https://github.com/idabmat/shoshin.git && cd
+1. Copiez ce repo: `git clone https://github.com/TalimSolutions/shoshin.git && cd
    shoshin`
 2. Installez les gems: `bundle install`
 3. Créez un fichier `config/database.yml` avec la configuration pour accéder à

@@ -2,9 +2,9 @@
 
 ## Liens utiles
 * Pour discuter d'améliorations possibles ou pour signaler un bug, [ouvrez un
-  ticket](www.github.com/TalimSolutions/shoshin/issues).
+  ticket](https://www.github.com/TalimSolutions/shoshin/issues).
 * Pour des guides ou des tutoriels d'utilisation, rendez-vous sur notre
-  [wiki](www.github.com/TalimSolutions/shoshin/wiki).
+  [wiki](https://www.github.com/TalimSolutions/shoshin/wiki).
 
 ## Informations techniques
 
@@ -13,7 +13,7 @@
 * Rails _5.0.0.1_
 * Base de donnéee: postgresql
 * Redis pour les background jobs
-* [mailcatcher](www.github.com/sj26/mailcatcher) pour ouvrir les emails en développement.
+* [mailcatcher](https://www.github.com/sj26/mailcatcher) pour ouvrir les emails en développement.
 
 ### Développement local
 1. Copiez ce repo: `git clone https://github.com/TalimSolutions/shoshin.git && cd
@@ -24,7 +24,7 @@
 4. Créez la base de donnée: `rails db:create && rails db:migrate && rails db:seed`
 5. Lancez les background jobs: `bundle exec sidekiq`
 6. Lancez le serveur: `rails s`
-7. Ouvrez in navigateur et naviguez à l'addresse [localhost:3000](localhost:3000)
+7. Ouvrez in navigateur et naviguez à l'addresse [localhost:3000](http://localhost:3000)
 
 ### Tests
 1. `rails db:test:prepare`

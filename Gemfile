@@ -34,7 +34,7 @@ end
 
 group :test do
   gem 'shoulda-matchers', require: false
-  gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', require: false
   gem 'capybara', require: false
   gem 'capybara-webkit'
   gem 'database_cleaner', require: false

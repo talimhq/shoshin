@@ -4,7 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? 'Shoshin - ' + yield(:title) : 'Shoshin' %></title>
+    <title>
+      <%= content_for?(:title) ? 'Shoshin - ' + yield(:title) : 'Shoshin' %>
+    </title>
+
+    <meta name="description" content="Plateforme pédagogique libre et gratuite pour l'école primaire, le collège et le lycée.">
+    <meta name="keywords" content="Shoshin, ENT, libre, gratuit, exercices, cours, primaire, collège, lycée, brevet, bac">
+    <meta name="google-site-verification" content="lLW6ILuva0A3ZgcRYADjDWEV9q0sbUlPFMwnrK03EqQ" />
 
     <%= csrf_meta_tags %>
 

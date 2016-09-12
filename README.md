@@ -1,5 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/TalimSolutions/shoshin/badges/gpa.svg)](https://codeclimate.com/github/TalimSolutions/shoshin)
 [![Test Coverage](https://codeclimate.com/github/TalimSolutions/shoshin/badges/coverage.svg)](https://codeclimate.com/github/TalimSolutions/shoshin/coverage)
+[![Build Status](https://travis-ci.org/TalimSolutions/shoshin.svg?branch=master)](https://travis-ci.org/TalimSolutions/shoshin)
 # SHOSHIN - _Plateforme pédagogique_ 
 
 ## Liens utiles

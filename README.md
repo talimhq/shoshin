@@ -44,4 +44,4 @@
 ### LICENCE
 Copyright &copy; Ta'lim - soluções inteligentes - LTDA ME
 
-Shoshin est un logiciel libre disponibilisé sous les termes de la licence APGLv3. Voir la [licence](https://www.github.com/TalimSolutions/shoshin/LICENSE).
+Shoshin est un logiciel libre disponibilisé sous les termes de la licence APGLv3. Voir la [LICENCE](https://github.com/TalimSolutions/shoshin/blob/master/LICENSE).

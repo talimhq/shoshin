@@ -282,6 +282,8 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     sixarm_ruby_unaccent (1.1.1)
+    skylight (0.10.6)
+      activesupport (>= 3.0.0)
     slop (3.6.0)
     spring (1.7.2)
     spring-commands-rspec (1.0.4)
@@ -359,6 +361,7 @@ DEPENDENCIES
   simple_form
   simplecov
   sinatra!
+  skylight
   spring-commands-rspec
   turbolinks (~> 5)
   tzinfo-data

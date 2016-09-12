@@ -40,3 +40,8 @@
 4. Enregistrez vos modifications (`git add -A` puis `git commit -am 'Fonctionnalité ajoutée'`)
 5. Envoyez votre contribution sur une nouvelle branche (`git push origin ma-nouvelle-contribution`)
 6. Créez une "Pull Request"
+
+### LICENCE
+Copyright &copy; Ta'lim - soluções inteligentes - LTDA ME
+
+Shoshin est un logiciel libre disponibilisé sous les termes de la licence APGLv3. Voir la [licence](https://www.github.com/TalimSolutions/shoshin/LICENSE).

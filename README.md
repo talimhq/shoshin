@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/TalimSolutions/shoshin.svg?branch=master)](https://travis-ci.org/TalimSolutions/shoshin)
 # SHOSHIN - _Plateforme pédagogique_ 
 
+[![Join the chat at https://gitter.im/shoshin-academy/Lobby](https://badges.gitter.im/shoshin-academy/Lobby.svg)](https://gitter.im/shoshin-academy/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Liens utiles
 * Pour discuter d'améliorations possibles ou pour signaler un bug, [ouvrez un
   ticket](https://www.github.com/TalimSolutions/shoshin/issues).

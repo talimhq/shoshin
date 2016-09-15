@@ -9,27 +9,29 @@
          <div class="header">
            Compétences
          </div>
-         <table>
-           <thead>
-             <tr>
-               <th class="text">Titre</th>
-               <th class="numeric">Items</th>
-               <th class="actions"></th>
-             </tr>
-           </thead>
-           <tbody>
-             <% @teaching_cycle.ability_sets.each do |ability_set| %>
-               <tr>
-                 <td class="text"><%= ability_set.name %></td>
-                 <td class="numeric"><%= ability_set.ability_items.size %></td>
-                 <td class="actions">
-                   <%= link_to material_icon.edit, edit_admin_ability_set_path(ability_set), class: 'btn' %>
-                   <%= link_to material_icon.delete, admin_ability_set_path(ability_set), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
-                 </td>
-               </tr>
-             <% end %>
-           </tbody>
-         </table>
+         <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th class="text">Titre</th>
+                <th class="numeric">Items</th>
+                <th class="actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @teaching_cycle.ability_sets.each do |ability_set| %>
+                <tr>
+                  <td class="text"><%= ability_set.name %></td>
+                  <td class="numeric"><%= ability_set.ability_items.size %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.edit, edit_admin_ability_set_path(ability_set), class: 'btn' %>
+                    <%= link_to material_icon.delete, admin_ability_set_path(ability_set), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+         </div>
        </div>
        <div class="actions-area">
          <%= link_to 'Ajouter', new_admin_teaching_cycle_ability_set_path(@teaching_cycle), class: 'btn link-add' %>
@@ -42,30 +44,32 @@
          <div class="header">
            Thèmes
          </div>
-         <table>
-           <thead>
-             <tr>
-               <th class="text">Titre</th>
-               <th class="numeric">Items</th>
-               <th class="text">Niveaux</th>
-               <th class="actions"></th>
-             </tr>
-           </thead>
-           <tbody>
-             <% @teaching_cycle.themes.each do |theme| %>
-               <tr>
-                 <td class="text"><%= theme.name %></td>
-                 <td class="numeric"><%= theme.expectations.size %></td>
-                 <td class="text"><%= theme.level_names %></td>
-                 <td class="actions">
-                   <%= link_to material_icon.visibility, admin_theme_path(theme), class: 'btn' %>
-                   <%= link_to material_icon.edit, edit_admin_theme_path(theme), class: 'btn' %>
-                   <%= link_to material_icon.delete, admin_theme_path(theme), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
-                 </td>
-               </tr>
-             <% end %>
-           </tbody>
-         </table>
+         <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th class="text">Titre</th>
+                <th class="numeric">Items</th>
+                <th class="text">Niveaux</th>
+                <th class="actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @teaching_cycle.themes.each do |theme| %>
+                <tr>
+                  <td class="text"><%= theme.name %></td>
+                  <td class="numeric"><%= theme.expectations.size %></td>
+                  <td class="text"><%= theme.level_names %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.visibility, admin_theme_path(theme), class: 'btn' %>
+                    <%= link_to material_icon.edit, edit_admin_theme_path(theme), class: 'btn' %>
+                    <%= link_to material_icon.delete, admin_theme_path(theme), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+         </div>
        </div>
        <div class="actions-area">
          <%= link_to 'Ajouter', new_admin_teaching_cycle_theme_path(@teaching_cycle), class: 'btn link-add' %>

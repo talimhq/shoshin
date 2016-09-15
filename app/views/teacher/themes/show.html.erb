@@ -16,20 +16,22 @@
           <div class="header">
             <%= expectation.name %>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th class="text">Connaissances associées</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% expectation.knowledge_items.each do |knowledge_item| %>
+          <div class="table">
+            <table>
+              <thead>
                 <tr>
-                  <td class="text"><%= knowledge_item.name %></td>
+                  <th class="text">Connaissances associées</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% expectation.knowledge_items.each do |knowledge_item| %>
+                  <tr>
+                    <td class="text"><%= knowledge_item.name %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     <% end %>

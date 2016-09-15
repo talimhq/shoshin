@@ -570,3 +570,10 @@ input[type="radio"] {
   padding-top: 1rem;
   text-align: center;
 }
+.select2-results__option {
+  height: 30px;
+  box-sizing: border-box;
+}
+.select2-results {
+  font: 13px robotoregular, sans-serif;
+}

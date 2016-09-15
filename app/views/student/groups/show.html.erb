@@ -11,28 +11,30 @@
         <div class="header">
           Chapitres
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th class="text">Titre</th>
-              <th class="numeric">Cours</th>
-              <th class="numeric">Exercices</th>
-              <th class="actions"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @group.chapters.each do |chapter| %>
+        <div class="table">
+          <table>
+            <thead>
               <tr>
-                <td class="text"><%= chapter.name %></td>
-                <td class="numeric"><%= chapter.lessons_count %></td>
-                <td class="numeric"><%= chapter.exercises_count %></td>
-                <td class="actions">
-                  <%= link_to material_icon.visibility, [:student, chapter],class: 'btn' %>
-                </td>
+                <th class="text">Titre</th>
+                <th class="numeric">Cours</th>
+                <th class="numeric">Exercices</th>
+                <th class="actions"></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @group.chapters.each do |chapter| %>
+                <tr>
+                  <td class="text"><%= chapter.name %></td>
+                  <td class="numeric"><%= chapter.lessons_count %></td>
+                  <td class="numeric"><%= chapter.exercises_count %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.visibility, [:student, chapter],class: 'btn' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

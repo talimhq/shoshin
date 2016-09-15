@@ -52,12 +52,42 @@ RSpec.describe Exercise, type: :model do
     let!(:question) { create(:input_question, exercise: exercise) }
     let(:teacher) { create(:teacher) }
 
-    it { expect(exercise.teaching_name).to eq(exercise.teaching.name) }
-    it { expect { exercise.create_copy(teacher) }.to change(Exercise, :count).by(1) }
-    it { expect { exercise.create_copy(teacher) }.to change(teacher.exercises, :count).by(1) }
-    it { expect { exercise.create_copy(teacher) }.to change(exercise, :popularity).by(1) }
-    it { expect(exercise.create_copy(teacher).original_id).to eq(exercise.id) }
-    it { expect(exercise.create_copy(teacher).questions_count).to eq(exercise.questions_count) }
+    it 'delegates name to teaching' do
+      expect(exercise.teaching_name).to eq(exercise.teaching.name)
+    end
+
+    it 'delegates short_name to teaching' do
+      expect(exercise.teaching_short_name).to eq(exercise.teaching.short_name)
+    end
+
+    context 'create_copy' do
+      it 'creates a new exercise' do
+        expect {
+          exercise.create_copy(teacher)
+        }.to change(Exercise, :count).by(1)
+      end
+
+      it 'associates the new exercise to the right teacher' do
+        expect {
+          exercise.create_copy(teacher)
+        }.to change(teacher.exercises, :count).by(1)
+      end
+
+      it 'increases the popularity of the original' do
+        expect {
+          exercise.create_copy(teacher)
+        }.to change(exercise, :popularity).by(1)
+      end
+
+      it 'sets the original_id for the copy' do
+        expect(exercise.create_copy(teacher).original_id).to eq(exercise.id)
+      end
+
+      it 'copies the questions' do
+        expect(exercise.create_copy(teacher).questions_count).to \
+          eq(exercise.questions_count)
+      end
+    end
   end
 
   describe 'factories' do

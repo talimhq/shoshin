@@ -17,18 +17,20 @@
           <div class="header">
             <%= expectation.name %>
           </div>
-          <table>
-            <thead>
-              <th class="text">Connaissances associées</th>
-            </thead>
-            <tbody>
-              <% expectation.knowledge_items.each do |knowledge_item| %>
-                <tr>
-                  <td class="text"><%= knowledge_item.name %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+          <div class="table">
+            <table>
+              <thead>
+                <th class="text">Connaissances associées</th>
+              </thead>
+              <tbody>
+                <% expectation.knowledge_items.each do |knowledge_item| %>
+                  <tr>
+                    <td class="text"><%= knowledge_item.name %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="actions-area">
           <%= link_to 'Modifier', edit_admin_expectation_path(expectation), class: 'btn' %>

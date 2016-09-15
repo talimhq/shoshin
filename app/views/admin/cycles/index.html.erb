@@ -14,24 +14,26 @@
             <%= material_icon.reorder.css_class('draggable') %>
             <span class="text"><%= cycle.name %></span>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th class="text">Type</th>
-                <th class="text">Nom</th>
-                <th class="numeric"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% cycle.levels.each do |level| %>
+          <div class="table">
+            <table>
+              <thead>
                 <tr>
-                  <td class="text"><%= level.level_type %></td>
-                  <td class="text"><%= level.name %></td>
-                  <td class="numeric"><%= link_to 'Enseignements', '#' %></td>
+                  <th class="text">Type</th>
+                  <th class="text">Nom</th>
+                  <th class="numeric"></th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% cycle.levels.each do |level| %>
+                  <tr>
+                    <td class="text"><%= level.level_type %></td>
+                    <td class="text"><%= level.name %></td>
+                    <td class="numeric"><%= link_to 'Enseignements', '#' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="actions-area">
           <%= link_to 'Modifier', edit_admin_cycle_path(cycle), class: 'btn' %>

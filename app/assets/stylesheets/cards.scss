@@ -65,10 +65,8 @@
     padding: 16px 0;
   }
   .table-area {
-    overflow-x: auto;
-    white-space: nowrap;
-    min-width: 100%;
     .header {
+      position: relative;
       height: 64px;
       padding-left: 24px;
       padding-right: 14px;
@@ -76,93 +74,101 @@
       color: rgba(0,0,0,0.87);
       display: flex;
       align-items: center;
-      // i {
-      //   width: 18px;
-      //   height: 18px;
-      //   margin: 3px;
-      // }
       i:first-child{
         margin-right: 8px;
       }
+      .btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font: 15px robotoregular, sans-serif;
+        margin: 13.5px 8px;
+      }
     }
-    table {
-      width: 100%;
-      border-spacing: 0;
-      th, td {
-        &.text {
-          text-align: left;
-        }
-        &.numeric, &.actions, &.boolean {
-          text-align: right;
-        }
-        &.image {
-          text-align: center;
-        }
-      }
-      thead {
-        tr {
-          height: 56px;
-          th {
-            vertical-align: middle;
-            color: rgba(0,0,0,0.54);
-            font: 12px robotomedium, sans-serif;
-            padding-left: 56px;
-            &:first-child {
-              padding-left: 24px;
-            }
-            &:last-child {
-              padding-right: 24px;
-            }
+    .table {
+      overflow-x: auto;
+      min-width: 100%;
+      white-space: nowrap;
+      table {
+        width: 100%;
+        border-spacing: 0;
+        overflow: auto;
+        th, td {
+          &.text {
+            text-align: left;
+          }
+          &.numeric, &.actions, &.boolean {
+            text-align: right;
+          }
+          &.image {
+            text-align: center;
           }
         }
-      }
-      tbody {
-        tr.collapsed, tr.expanded {
-          cursor: pointer;
-        }
-        tr.subrow {
-          transition: all 1s ease-in-out;
-          &.hidden {
-           display: none;
-          }
-        }
-        tr {
-          height: 48px;
-          &:hover {
-            background-color: #eee;
-          }
-          td {
-            padding-left: 56px;
-            border-top: 1px solid rgba(0,0,0,0.15);
-            vertical-align: middle;
-            color: rgba(0,0,0,0.87);
-            font: 13px robotoregular, sans-serif;
-            .btn {
-              display: inline-block;
-              height: 18px;
-              width: 18px;
-              padding: 3px;
-              margin: 0;
-              background: transparent;
-              box-shadow: none;
+        thead {
+          tr {
+            height: 56px;
+            th {
+              vertical-align: middle;
               color: rgba(0,0,0,0.54);
-              font-size: 18px;
-              i { width: 18px; }
-              & + .btn {
+              font: 12px robotomedium, sans-serif;
+              padding-left: 56px;
+              &:first-of-type {
                 padding-left: 24px;
               }
-              &:hover {
-                color: $primary;
-              }
-              &.link-destroy:hover {
-                color: $red;
+              &:last-child {
+                padding-right: 24px;
               }
             }
-            &:first-child {
-              padding-left: 24px;
+          }
+        }
+        tbody {
+          tr.collapsed, tr.expanded {
+            cursor: pointer;
+          }
+          tr.subrow {
+            transition: all 1s ease-in-out;
+            &.hidden {
+            display: none;
             }
-            &:last-child {
-              padding-right: 24px;
+          }
+          tr {
+            height: 48px;
+            &:hover {
+              background-color: #eee;
+            }
+            td {
+              padding-left: 56px;
+              border-top: 1px solid rgba(0,0,0,0.15);
+              vertical-align: middle;
+              color: rgba(0,0,0,0.87);
+              font: 13px robotoregular, sans-serif;
+              .btn {
+                display: inline-block;
+                height: 18px;
+                width: 18px;
+                padding: 3px;
+                margin: 0;
+                background: transparent;
+                box-shadow: none;
+                color: rgba(0,0,0,0.54);
+                font-size: 18px;
+                i { width: 18px; }
+                & + .btn {
+                  padding-left: 24px;
+                }
+                &:hover {
+                  color: $primary;
+                }
+                &.link-destroy:hover {
+                  color: $red;
+                }
+              }
+              &:first-child {
+                padding-left: 24px;
+              }
+              &:last-child {
+                padding-right: 24px;
+              }
             }
           }
         }

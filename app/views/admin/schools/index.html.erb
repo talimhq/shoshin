@@ -31,22 +31,24 @@
         <div class="header">
           Établissements
         </div>
-        <table id="schools_table">
-          <thead>
-            <tr>
-              <th class="text"><%= sort_link(@q, :name, 'Nom') %></th>
-              <th class="text"><%= sort_link(@q, :identifier, 'Identifiant') %></th>
-              <th class="text"><%= sort_link(@q, :country, 'Pays') %></th>
-              <th class="text"><%= sort_link(@q, :state, 'Département') %></th>
-              <th class="text"><%= sort_link(@q, :city, 'Ville') %></th>
-              <th class="numeric"><%= sort_link(@q, :school_users_count, 'Utilisateurs') %></th>
-              <th class="actions"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= render 'schools_row' %>
-          </tbody>
-        </table>
+        <div class="table">
+          <table id="schools_table">
+            <thead>
+              <tr>
+                <th class="text"><%= sort_link(@q, :name, 'Nom') %></th>
+                <th class="text"><%= sort_link(@q, :identifier, 'Identifiant') %></th>
+                <th class="text"><%= sort_link(@q, :country, 'Pays') %></th>
+                <th class="text"><%= sort_link(@q, :state, 'Département') %></th>
+                <th class="text"><%= sort_link(@q, :city, 'Ville') %></th>
+                <th class="numeric"><%= sort_link(@q, :school_users_count, 'Utilisateurs') %></th>
+                <th class="actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render 'schools_row' %>
+            </tbody>
+          </table>
+        </div>
         <div class="footer">
           <%= render 'schools_footer' %>
         </div>
@@ -54,4 +56,3 @@
     </div>
   </div>
 </div>
-

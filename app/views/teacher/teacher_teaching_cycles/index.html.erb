@@ -25,30 +25,32 @@
         <div class="header">
           Mes référentiels
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th class="text">Enseignement</th>
-              <th class="text">Cycle</th>
-              <th class="text"></th>
-              <th class="text"></th>
-              <th class="actions"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @user_teaching_cycles.each do |user_teaching_cycle| %>
+        <div class="table">
+          <table>
+            <thead>
               <tr>
-                <td class="text"><%= user_teaching_cycle.teaching_name %></td>
-                <td class="text"><%= user_teaching_cycle.cycle_name %></td>
-                <td class="text"><%= link_to 'Compétences', teacher_teaching_cycle_ability_sets_path(user_teaching_cycle.teaching_cycle) %></td>
-                <td class="text"><%= link_to 'Thèmes', teacher_teaching_cycle_themes_path(user_teaching_cycle.teaching_cycle) %></td>
-                <td class="actions">
-                  <%= link_to material_icon.delete, teacher_teacher_teaching_cycle_path(user_teaching_cycle), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
-                </td>
+                <th class="text">Enseignement</th>
+                <th class="text">Cycle</th>
+                <th class="text"></th>
+                <th class="text"></th>
+                <th class="actions"></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @user_teaching_cycles.each do |user_teaching_cycle| %>
+                <tr>
+                  <td class="text"><%= user_teaching_cycle.teaching_name %></td>
+                  <td class="text"><%= user_teaching_cycle.cycle_name %></td>
+                  <td class="text"><%= link_to 'Compétences', teacher_teaching_cycle_ability_sets_path(user_teaching_cycle.teaching_cycle) %></td>
+                  <td class="text"><%= link_to 'Thèmes', teacher_teaching_cycle_themes_path(user_teaching_cycle.teaching_cycle) %></td>
+                  <td class="actions">
+                    <%= link_to material_icon.delete, teacher_teacher_teaching_cycle_path(user_teaching_cycle), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

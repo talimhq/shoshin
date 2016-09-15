@@ -32,31 +32,33 @@
             <div class="header">
               Mes élèves
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th class="text">Nom</th>
-                  <th class="text">Prénom</th>
-                  <th class="actions"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% if @group.students.any? %>
-                  <% @group.students.includes(:account).each do |student| %>
+            <div class="table">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="text">Nom</th>
+                    <th class="text">Prénom</th>
+                    <th class="actions"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if @group.students.any? %>
+                    <% @group.students.includes(:account).each do |student| %>
+                      <tr>
+                        <td class="text"><%= student.last_name %></td>
+                        <td class="text"><%= student.first_name %></td>
+                        <td class="actions">
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% else %>
                     <tr>
-                      <td class="text"><%= student.last_name %></td>
-                      <td class="text"><%= student.first_name %></td>
-                      <td class="actions">
-                      </td>
+                      <td colspan="3">Vous n'avez pas encore ajouté d'élèves à ce groupe.</td>
                     </tr>
                   <% end %>
-                <% else %>
-                  <tr>
-                    <td colspan="3">Vous n'avez pas encore ajouté d'élèves à ce groupe.</td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="actions-area">
             <%= link_to 'Modifier', teacher_group_students_path, class: 'btn' %>
@@ -67,40 +69,42 @@
             <div class="header">
               Chapitres
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th class="actions"></th>
-                  <th class="text">Titre</th>
-                  <th class="numeric">Cours</th>
-                  <th class="numeric">Exercices</th>
-                  <th class="Actions"></th>
-                </tr>
-              </thead>
-              <tbody id="chapters_rows" data-sort-url="<%= sort_teacher_group_chapters_path(@group) %>">
-                <% if @group.chapters.any? %>
-                  <% @group.chapters.each do |chapter| %>
-                    <tr id="chapter_<%= chapter.id %>">
-                      <td class="action">
-                        <%= material_icon.reorder.css_class('draggable') %>
-                      </td>
-                      <td class="text"><%= chapter.name %></td>
-                      <td class="numeric"><%= chapter.lessons_count%></td>
-                      <td class="numeric"><%= chapter.exercises_count%></td>
-                      <td class="actions">
-                        <%= link_to material_icon.visibility, [:teacher, chapter], class: 'btn link-see' %>
-                        <%= link_to material_icon.edit, edit_teacher_chapter_path(chapter), class: 'btn link-edit' %>
-                        <%= link_to material_icon.delete, [:teacher, chapter], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
-                      </td>
+            <div class="table">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="actions"></th>
+                    <th class="text">Titre</th>
+                    <th class="numeric">Cours</th>
+                    <th class="numeric">Exercices</th>
+                    <th class="Actions"></th>
+                  </tr>
+                </thead>
+                <tbody id="chapters_rows" data-sort-url="<%= sort_teacher_group_chapters_path(@group) %>">
+                  <% if @group.chapters.any? %>
+                    <% @group.chapters.each do |chapter| %>
+                      <tr id="chapter_<%= chapter.id %>">
+                        <td class="action">
+                          <%= material_icon.reorder.css_class('draggable') %>
+                        </td>
+                        <td class="text"><%= chapter.name %></td>
+                        <td class="numeric"><%= chapter.lessons_count%></td>
+                        <td class="numeric"><%= chapter.exercises_count%></td>
+                        <td class="actions">
+                          <%= link_to material_icon.visibility, [:teacher, chapter], class: 'btn link-see' %>
+                          <%= link_to material_icon.edit, edit_teacher_chapter_path(chapter), class: 'btn link-edit' %>
+                          <%= link_to material_icon.delete, [:teacher, chapter], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr>
+                      <td colspan="5">Vous n'avez pas encore créé de chapitres pour ce groupe.</td>
                     </tr>
                   <% end %>
-                <% else %>
-                  <tr>
-                    <td colspan="5">Vous n'avez pas encore créé de chapitres pour ce groupe.</td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="actions-area">
             <%= link_to 'Ajouter', new_teacher_group_chapter_path(@group), class: 'btn' %>

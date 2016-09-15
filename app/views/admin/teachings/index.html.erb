@@ -9,33 +9,35 @@
         <div class="header">
           Enseignements
         </div>
-        <table id="teachings_table">
-          <thead>
-            <tr>
-              <th class="text">Nom</th>
-              <th class="text">Abbr.</th>
-              <th class="text">Cycles</th>
-              <th class="actions"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @teachings.each do |teaching| %>
+        <div class="table">
+          <table id="teachings_table">
+            <thead>
               <tr>
-                <td class="text"><%= teaching.name %></td>
-                <td class="text"><%= teaching.short_name %></td>
-                <td class="text">
-                  <% teaching.teaching_cycles.each do |teaching_cycle| %>
-                    <%= link_to teaching_cycle.cycle_name, admin_teaching_cycle_path(teaching_cycle) %>
-                  <% end %>
-                </td>
-                <td class="actions">
-                  <%= link_to material_icon.edit, edit_admin_teaching_path(teaching), class: 'btn' %>
-                  <%= link_to material_icon.delete, admin_teaching_path(teaching), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
-                </td>
+                <th class="text">Nom</th>
+                <th class="text">Abbr.</th>
+                <th class="text">Cycles</th>
+                <th class="actions"></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @teachings.each do |teaching| %>
+                <tr>
+                  <td class="text"><%= teaching.name %></td>
+                  <td class="text"><%= teaching.short_name %></td>
+                  <td class="text">
+                    <% teaching.teaching_cycles.each do |teaching_cycle| %>
+                      <%= link_to teaching_cycle.cycle_name, admin_teaching_cycle_path(teaching_cycle) %>
+                    <% end %>
+                  </td>
+                  <td class="actions">
+                    <%= link_to material_icon.edit, edit_admin_teaching_path(teaching), class: 'btn' %>
+                    <%= link_to material_icon.delete, admin_teaching_path(teaching), method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="actions-area">
         <%= link_to 'Ajouter', new_admin_teaching_path, class: 'btn link-add' %>

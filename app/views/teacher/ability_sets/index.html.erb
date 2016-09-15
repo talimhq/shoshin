@@ -16,20 +16,22 @@
           <div class="header">
             <%= ability_set.name %> 
           </div> 
-          <table>
-            <thead>
-              <tr>
-                <th class="text">Item</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% ability_set.ability_items.each do |ability_item| %>
+          <div class="table">
+            <table>
+              <thead>
                 <tr>
-                  <td class="text"><%= ability_item.name %></td>
+                  <th class="text">Item</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% ability_set.ability_items.each do |ability_item| %>
+                  <tr>
+                    <td class="text"><%= ability_item.name %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     <% end %>

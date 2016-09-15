@@ -49,29 +49,31 @@
           <div class="header">
             Nouveaux professeurs
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th class="text">Nom</th>
-                <th class="text">Prénom</th>
-                <th class="text">Courriel</th>
-                <th class="actions"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @school.pending_school_teachers.includes(teacher: :account).each do |school_teacher| %>
+          <div class="table">
+            <table>
+              <thead>
                 <tr>
-                  <td class="text"><%= school_teacher.teacher.last_name %></td>
-                  <td class="text"><%= school_teacher.teacher.first_name %></td>
-                  <td class="text"><%= school_teacher.teacher.email %></td>
-                  <td class="actions">
-                    <%= link_to material_icon.check, [:teacher, school_teacher], method: :patch, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-add' %>
-                    <%= link_to material_icon.close, [:teacher, school_teacher], method: :delete, data: { confirm: 'En êtes vous sûr?' },class: 'btn link-destroy' %>
-                  </td>
+                  <th class="text">Nom</th>
+                  <th class="text">Prénom</th>
+                  <th class="text">Courriel</th>
+                  <th class="actions"></th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% @school.pending_school_teachers.includes(teacher: :account).each do |school_teacher| %>
+                  <tr>
+                    <td class="text"><%= school_teacher.teacher.last_name %></td>
+                    <td class="text"><%= school_teacher.teacher.first_name %></td>
+                    <td class="text"><%= school_teacher.teacher.email %></td>
+                    <td class="actions">
+                      <%= link_to material_icon.check, [:teacher, school_teacher], method: :patch, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-add' %>
+                      <%= link_to material_icon.close, [:teacher, school_teacher], method: :delete, data: { confirm: 'En êtes vous sûr?' },class: 'btn link-destroy' %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     <% elsif current_user.in?(@school.pending_teachers) %>
@@ -82,30 +84,32 @@
         <div class="header">
           Professeurs
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th class="text">Nom</th>
-              <th class="text">Prénom</th>
-              <th class="text">Courriel</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% if @school.teachers.any? %>
-              <% @school.teachers.includes(:account).each do |teacher| %>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th class="text">Nom</th>
+                <th class="text">Prénom</th>
+                <th class="text">Courriel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @school.teachers.any? %>
+                <% @school.teachers.includes(:account).each do |teacher| %>
+                  <tr>
+                    <td class="text"><%= teacher.last_name %></td>
+                    <td class="text"><%= teacher.first_name %></td>
+                    <td class="text"><%= teacher.email %></td>
+                  </tr>
+                <% end %>
+              <% else %>
                 <tr>
-                  <td class="text"><%= teacher.last_name %></td>
-                  <td class="text"><%= teacher.first_name %></td>
-                  <td class="text"><%= teacher.email %></td>
+                  <td colspan="3">Aucun professeur enregistré dans cet établissement.</td>
                 </tr>
               <% end %>
-            <% else %>
-              <tr>
-                <td colspan="3">Aucun professeur enregistré dans cet établissement.</td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <% if current_user.in? @school.teachers %>
@@ -122,19 +126,21 @@
         <div class="header">
           Classes
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th class="text">Nom</th>
-              <th class="text">Niveau</th>
-              <th class="numeric">Élèves</th>
-              <th class="actions"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= render 'classrooms_row' %>
-          </tbody>
-        </table>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th class="text">Nom</th>
+                <th class="text">Niveau</th>
+                <th class="numeric">Élèves</th>
+                <th class="actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render 'classrooms_row' %>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="actions-area">
         <% if current_user.in? @school.teachers %>
@@ -144,4 +150,3 @@
     </div>
   </div>
 </div>
-

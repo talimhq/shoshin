@@ -40,7 +40,11 @@ RSpec.describe Lesson, type: :model do
     let(:teacher) { create(:teacher) }
 
     it 'delegate teaching_name to teaching' do
-      expect(lesson.teaching.name).to eq(lesson.teaching.name)
+      expect(lesson.teaching_name).to eq(lesson.teaching.name)
+    end
+
+    it 'delegate short_name to teaching' do
+      expect(lesson.teaching_short_name).to eq(lesson.teaching.short_name)
     end
 
     context 'create_copy' do

@@ -20,6 +20,7 @@ class Exercise < ApplicationRecord
   validates :difficulty, inclusion: { in: [1, 2, 3] }
 
   delegate :name, to: :teaching, prefix: true
+  delegate :short_name, to: :teaching, prefix: true
 
   def create_copy(user)
     copy = Exercise.new(name: name, teaching: teaching, level_ids: level_ids,

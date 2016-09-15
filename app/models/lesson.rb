@@ -14,6 +14,7 @@ class Lesson < ApplicationRecord
   validates :shared, exclusion: { in: [nil] }
 
   delegate :name, to: :teaching, prefix: true
+  delegate :short_name, to: :teaching, prefix: true
 
   def create_copy(teacher)
     copy = Lesson.new(name: name, teaching: teaching, level_ids: level_ids, original_id: id)

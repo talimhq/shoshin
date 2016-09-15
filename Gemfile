@@ -18,8 +18,6 @@ gem 'material_icons'
 gem 'countries', '2.0.0.pre.4', require: 'countries/global'
 gem 'devise'
 gem 'sidekiq'
-gem 'sinatra', require: false, git: 'git://github.com/sinatra/sinatra.git'
-gem 'rack-protection', require: false, git: 'git://github.com/sinatra/rack-protection.git'
 gem 'inline_svg'
 gem 'autoprefixer-rails'
 gem 'skylight'
@@ -38,7 +36,6 @@ group :test do
   gem 'capybara', require: false
   gem 'capybara-webkit'
   gem 'database_cleaner', require: false
-  gem 'capybara-select2', git: 'git://github.com/goodwill/capybara-select2.git'
 end
 
 group :development do

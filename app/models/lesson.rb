@@ -16,6 +16,10 @@ class Lesson < ApplicationRecord
   delegate :name, to: :teaching, prefix: true
   delegate :short_name, to: :teaching, prefix: true
 
+  ransacker :is_used do
+    Arel.sql('(SELECT EXISTS (SELECT 1 FROM chapter_lessons WHERE chapter_lessons.lesson_id = lessons.id))')
+  end
+
   def create_copy(teacher)
     copy = Lesson.new(name: name, teaching: teaching, level_ids: level_ids, original_id: id)
     steps.map { |step| step.build_copy(copy) }

@@ -23,6 +23,14 @@
                 <%= f.input :editable_levels_level_id_eq, collection: Level.all, label: 'Niveau' %>
               </div>
             </div>
+            <div class="row">
+              <div class="column xs12 s6 l12">
+                <%= f.input :is_used_true, collection: [['Oui', 1], ['Non', 0]], label: 'Utilisé ?' %>
+              </div>
+              <div class="column xs12 s6 l12">
+                <%= f.input :shared_eq, collection: [['Oui', true], ['Non', false]], label: 'Partagé ?' %>
+              </div>
+            </div>
           </div>
           <div class="actions-area">
             <%= f.submit 'Filtrer', class: 'btn' %>
@@ -58,7 +66,8 @@
                 <th class="text"><%= sort_link(@q, :name, 'Titre') %></th>
                 <th class="text"><%= sort_link(@q, :teaching_name, 'Enseignement') %></th>
                 <th class="text"><%= sort_link(@q, :levels_short_name, 'Niveaux') %></th>
-                <th class="text"><%= sort_link(@q, :shared, 'Partagé ?') %></th>
+                <th class="boolean">Utilisé ?</th>
+                <th class="boolean"><%= sort_link(@q, :shared, 'Partagé ?') %></th>
                 <th class="actions"></th>
               </tr>
             </thead>
@@ -68,7 +77,12 @@
                   <td class="text"><%= exercise.name %></td>
                   <td class="text"><%= exercise.teaching_short_name %></td>
                   <td class="text"><%= exercise.level_names %></td>
-                  <td class="text"><%= exercise.shared ? 'Oui' : 'Non' %></td>
+                  <td class="boolean">
+                    <%= material_icon.check.css_class('icon-success') if exercise.chapter_exercises.any? %>
+                  </td>
+                  <td class="boolean">
+                    <%= material_icon.check.css_class('icon-success') if exercise.shared %>
+                  </td>
                   <td class="actions">
                     <%= link_to material_icon.visibility, teacher_try_exercise_path(exercise), class: 'btn' %>
                     <%= link_to material_icon.edit, [:teacher, exercise ], class: 'btn link-edit' %>

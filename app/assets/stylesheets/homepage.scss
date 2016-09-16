@@ -43,7 +43,7 @@ main.guest {
     }
   }
 }
-.quote {
+#quote {
   font-family: 'GothamRounded-Book';
   box-sizing: border-box;
   display: flex;
@@ -68,7 +68,7 @@ main.guest {
     }
   }
 }
-.presentation, .teachers, .students, .parents {
+#presentation, #teachers, #students, #parents {
   font-family: 'GothamRounded-Book';
   padding: 20px;
   h3 {
@@ -78,7 +78,7 @@ main.guest {
     color: $secondary;
   }
 }
-.presentation {
+#presentation {
   a {
     font-weight: bold;
     color: $tertiary;
@@ -88,7 +88,7 @@ main.guest {
     }
   }
 }
-.teachers, .students, .parents {
+#teachers, #students, #parents {
   .description {
     display: flex;
     flex-flow: column nowrap;
@@ -102,20 +102,20 @@ main.guest {
     background-size: cover;
   }
 }
-.teachers .image {
+#teachers .image {
   background-image: image_url('blackboard.jpg');
   background-position: right center;
 }
-.students .image {
+#students .image {
   background-image: image_url('backpack.jpg');
   background-position: right center;
 }
-.parents .image {
+#parents .image {
   background-image: image_url('couch.jpg');
   background-position: left top;
 }
 
-.getinvolved {
+#getinvolved {
   font-family: 'GothamRounded-Book';
   padding: 30px 20px;
   background-color: $primary;
@@ -141,7 +141,7 @@ main.guest {
     }
   }
 }
-.footer {
+#footer {
   font-family: 'GothamRounded-Book';
   padding: 30px 20px;
   display: flex;
@@ -191,7 +191,7 @@ main.guest {
       font-size: 20px;
     }
   }
-  .quote {
+  #quote {
     blockquote {
       p {
         font-size: 18px;
@@ -201,7 +201,7 @@ main.guest {
       }
     }
   }
-  .teachers {
+  #teachers {
     .description {
       order: 1;
       padding-right: 20px;
@@ -213,7 +213,7 @@ main.guest {
       order: 2;
     }
   }
-  .students {
+  #students {
     .description {
       order: 2;
       padding-left: 20px;
@@ -225,7 +225,7 @@ main.guest {
       order: 1;
     }
   }
-  .parents {
+  #parents {
     .description {
       order: 1;
       padding-right: 20px;
@@ -246,15 +246,15 @@ main.guest {
       font-size: 25px;
     }
   }
-  .presentation {
+  #presentation {
     font-size: 18px;
     padding: 50px 10%;
   }
-  .teachers, .students, .parents {
+  #teachers, #students, #parents {
     padding: 50px 10% 0;
     font-size: 18px;
   }
-  .teachers, .students, .parents {
+  #teachers, #students, #parents {
     .description {
       padding: 0;
       .row .column {
@@ -262,7 +262,7 @@ main.guest {
       }
     }
   }
-  .teachers, .parents {
+  #teachers, #parents {
     .description .row .column:first-child {
       padding-left: 0;
     }
@@ -273,7 +273,7 @@ main.guest {
       border-left: 20px solid #f2f2f2;
     }
   }
-  .students {
+  #students {
     .description .row .column:first-child {
       padding-left: 20px;
     }
@@ -284,10 +284,10 @@ main.guest {
       border-right: 20px solid #f2f2f2;
     }
   }
-  .parents {
+  #parents {
     padding-bottom: 50px;
   }
-  .quote {
+  #quote {
     blockquote {
       p {
         font-size: 25px;
@@ -297,11 +297,11 @@ main.guest {
       }
     }
   }
-  .getinvolved {
+  #getinvolved {
     font-size: 18px;
     padding: 50px 10%;
   }
-  .footer {
+  #footer {
     font-size: 18px;
     padding: 20px 10%;
   }

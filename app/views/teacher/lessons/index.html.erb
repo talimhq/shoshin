@@ -4,38 +4,52 @@
 </div>
 <div class="row">
   <div class="column xs12 l3">
-    <div class="card">
-      <div class="title-area">
-        <h3 class="main-title">Filtrer</h3>
-      </div>
-      <%= search_form_for @q, url: [:teacher, :lessons], defaults: { required: false } do |f| %>
-      <div class="content-area">
-        <div class="row">
-          <div class="column xs12 s6 l12">
-            <%= f.input :name_cont, label: 'Titre' %>
+    <div class="row">
+      <div class="column xs12 s8 m12">
+        <div class="card">
+          <div class="title-area">
+            <h3 class="main-title">Filtrer</h3>
           </div>
-          <div class="column xs12 s3 l12">
-            <%= f.input :teaching_id_eq, collection: @lessons.map(&:teaching).uniq, label: 'Enseignement' %>
+          <%= search_form_for @q, url: [:teacher, :lessons], defaults: { required: false } do |f| %>
+          <div class="content-area">
+            <div class="row">
+              <div class="column xs12 s6 l12">
+                <%= f.input :name_cont, label: 'Titre' %>
+              </div>
+              <div class="column xs12 s3 l12">
+                <%= f.input :teaching_id_eq, collection: @lessons.map(&:teaching).uniq, label: 'Enseignement' %>
+              </div>
+              <div class="column xs12 s3 l12">
+                <%= f.input :editable_levels_level_id_eq, collection: Level.all, label: 'Niveau' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column xs12 s6 l12">
+                <%= f.input :is_used_true, collection: [['Oui', 1], ['Non', 0]], label: 'Utilisé ?' %>
+              </div>
+              <div class="column xs12 s6 l12">
+                <%= f.input :shared_eq, collection: [['Oui', true], ['Non', false]], label: 'Partagé ?' %>
+              </div>
+            </div>
           </div>
-          <div class="column xs12 s3 l12">
-            <%= f.input :editable_levels_level_id_eq, collection: Level.all, label: 'Niveau' %>
+          <div class="actions-area">
+            <%= f.submit 'Filtrer', class: 'btn' %>
           </div>
+          <% end %>
         </div>
       </div>
-      <div class="actions-area">
-        <%= f.submit 'Filtrer', class: 'btn' %>
-      </div>
-      <% end %>
-    </div>
-    <div class="card">
-      <div class="title-area">
-        <h3 class="main-title">Besoin d'inspiration?</h3>
-      </div>
-      <div class="content-area">
-        <p>Vous pouvez consulter, copier et modifier les cours partagés par des collègues.</p>
-      </div>
-      <div class="actions-area">
-        <%= link_to 'Cours partagés', [:search, :teacher, :lessons], class: 'btn' %>
+      <div class="column xs12 s4 m12">
+        <div class="card">
+          <div class="title-area">
+            <h3 class="main-title">Besoin d'inspiration?</h3>
+          </div>
+          <div class="content-area">
+            <p>Vous pouvez consulter, copier et modifier les cours partagés par des collègues.</p>
+          </div>
+          <div class="actions-area">
+            <%= link_to 'Cours partagés', [:search, :teacher, :lessons], class: 'btn' %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -52,9 +66,8 @@
                 <th class="text"><%= sort_link(@q, :name, 'Titre') %></th>
                 <th class="text"><%= sort_link(@q, :teaching_name, 'Enseignement') %></th>
                 <th class="text"><%= sort_link(@q, :levels_short_name, 'Niveaux') %></th>
-                <th class="numeric"><%= sort_link(@q, :popularity, 'Popularité', default_order: :desc) %></th>
-                <th class="numeric"><%= sort_link(@q, :authorships_count, 'Auteurs', default_order: :desc) %></th>
-                <th class="text"><%= sort_link(@q, :shared, 'Partagé ?') %></th>
+                <th class="boolean">Utilisé ?</th>
+                <th class="boolean"><%= sort_link(@q, :shared, 'Partagé ?') %></th>
                 <th class="actions"></th>
               </tr>
             </thead>
@@ -64,9 +77,12 @@
                   <td class="text"><%= lesson.name %></td>
                   <td class="text"><%= lesson.teaching_short_name %></td>
                   <td class="text"><%= lesson.level_names %></td>
-                  <td class="numeric"><%= lesson.popularity %></td>
-                  <td class="numeric"><%= lesson.authorships.size %></td>
-                  <td class="text"><%= lesson.shared ? 'Oui' : 'Non' %></td>
+                  <td class="boolean">
+                    <%= material_icon.check.css_class('icon-success') if lesson.chapter_lessons.any? %>
+                  </td>
+                  <td class="boolean">
+                    <%= material_icon.check.css_class('icon-success') if lesson.shared %>
+                  </td>
                   <td class="actions">
                     <%= link_to material_icon.edit, [:teacher, lesson ], class: 'btn link-edit' %>
                     <%= link_to material_icon.delete, [:teacher, lesson ], method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>

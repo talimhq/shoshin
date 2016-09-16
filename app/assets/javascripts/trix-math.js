@@ -50,8 +50,8 @@
     $('button.btn-insert-math').on('click', function(event) {
       event.preventDefault();
       var element = document.querySelector('trix-editor');
-      var math_input = $('#MathPreview').data('tex-input');
-      element.editor.insertString(math_input);
+      var math_to_insert = $('#MathPreview').data('tex-input');
+      element.editor.insertString(math_to_insert);
       element.focus();
     });
   });

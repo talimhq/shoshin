@@ -8,14 +8,14 @@
 <div class="row">
   <div class="column xs12 offset-l2 l8">
     <div class="card">
-        <%= simple_form_for @editable.authorships.new, url: [:teacher, @editable, :authorships], defaults: { required: false } do |f| %>
-          <div class="content-area">
-            <%= f.association :author, collection: Teacher.where.not(id: @editable.author_ids), label_method: :full_name, label: 'Auteur' %>
-          </div>
-          <div class="actions-area">
-            <%= f.button :submit, 'Ajouter' %>
-          </div>
-        <% end %>
+      <%= simple_form_for @editable.authorships.new, url: [:teacher, @editable, :authorships], defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <%= f.association :author, collection: Teacher.includes(:account).where.not(id: @editable.author_ids), label_method: :full_name, label: 'Auteur' %>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Ajouter' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

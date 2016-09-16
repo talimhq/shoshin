@@ -22,6 +22,10 @@ class Exercise < ApplicationRecord
   delegate :name, to: :teaching, prefix: true
   delegate :short_name, to: :teaching, prefix: true
 
+  ransacker :is_used do
+    Arel.sql('(SELECT EXISTS (SELECT 1 FROM chapter_exercises WHERE chapter_exercises.exercise_id = exercises.id))')
+  end
+
   def create_copy(user)
     copy = Exercise.new(name: name, teaching: teaching, level_ids: level_ids,
                         original_id: id, statement: statement, time: time,

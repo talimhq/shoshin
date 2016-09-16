@@ -5,35 +5,37 @@
   </div>
 </div>
 <div class="row">
-  <div class="column xs12">
+  <div class="column xs12 l3">
     <div class="card">
       <div class="title-area">
         <h3 class="main-title"><%= material_icon.search.to_s + 'Rechercher' %></h3>
       </div>
-        <%= search_form_for @q, url: [:admin, :users], defaults: { required: false } do |f| %>
-        <div class="content-area">
-          <%= f.input :last_name_or_first_name_cont, label: 'Nom contient' %>
-          <div class="row">
-            <div class="column xs7 s8 m9 l10">
-              <%= f.input :email_cont, label: 'Courriel' %>
-            </div>
-            <div class="column xs5 s4 m3 l2">
-              <%= f.input :confirmed_at_not_null, collection: [['Oui', '1'], ['Non', '0']], label: 'Confirmé ?' %>
-            </div>
+      <%= search_form_for @q, url: [:admin, :users], defaults: { required: false } do |f| %>
+      <div class="content-area">
+        <div class="row">
+          <div class="column xs12 s6 l12">
+            <%= f.input :last_name_or_first_name_cont, label: 'Nom contient' %>
           </div>
-          <div class="row">
-            <div class="column xs12 s4">
-              <%= f.input :user_type_eq, collection: Account.role_options, label: 'Role' %>
-            </div>
+          <div class="column xs12 s6 l12">
+            <%= f.input :email_cont, label: 'Courriel' %>
           </div>
         </div>
-        <div class="actions-area">
-          <%= f.submit 'Rechercher', class: 'btn' %>
+        <div class="row">
+          <div class="column xs12 s6 l12">
+            <%= f.input :user_type_eq, collection: Account.role_options, label: 'Role' %>
+          </div>
+          <div class="column xs12 s6 l12">
+            <%= f.input :confirmed_at_not_null, collection: [['Oui', '1'], ['Non', '0']], label: 'Confirmé ?' %>
+          </div>
         </div>
-        <% end %>
+      </div>
+      <div class="actions-area">
+        <%= f.submit 'Rechercher', class: 'btn' %>
+      </div>
+      <% end %>
     </div>
   </div>
-  <div class="column xs12">
+  <div class="column xs12 l9">
     <div class="card">
       <div class="table-area">
         <div class="header">

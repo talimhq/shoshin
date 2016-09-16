@@ -3,7 +3,7 @@ class Teacher::LessonsController < TeacherController
 
   def index
     @q = current_user.lessons.ransack(params[:q])
-    @lessons = @q.result.includes(:teaching, :levels).page(params[:page]).per(10)
+    @lessons = @q.result.includes(:teaching, :levels, :chapter_lessons).page(params[:page]).per(10)
   end
 
   def show
@@ -50,7 +50,7 @@ class Teacher::LessonsController < TeacherController
   end
 
   def authorize_author
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.includes(:levels).find(params[:id])
     redirect_to teacher_lessons_path unless current_user.in? @lesson.authors
   end
 end

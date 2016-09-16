@@ -50,7 +50,7 @@ class Teacher::LessonsController < TeacherController
   end
 
   def authorize_author
-    @lesson = Lesson.find(params[:id])
+    @lesson = Lesson.includes(:levels).find(params[:id])
     redirect_to teacher_lessons_path unless current_user.in? @lesson.authors
   end
 end

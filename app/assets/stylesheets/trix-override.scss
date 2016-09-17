@@ -12,3 +12,26 @@ button.formula::before {
     border-radius: 3px;
   }
 }
+.trix-content {
+  font-family: GothamRounded-Book, sans-serif;
+  h1 {
+    color: $primary;
+  }
+  blockquote {
+    list-style: none;
+    border-left: 5px solid $primary;
+  }
+  strong {
+    color: $secondary;
+  }
+  pre {
+    font-family: GothamRounded-Book, sans-serif;
+    font-size: inherit;
+    background-color: $primary;
+    color: white;
+    white-space: pre-wrap;
+    strong {
+      color: $tertiary;
+    }
+  }
+}

@@ -84,6 +84,7 @@
                     <%= material_icon.check.css_class('icon-success') if lesson.shared %>
                   </td>
                   <td class="actions">
+                    <%= link_to material_icon.visibility, [:preview, :teacher, lesson ], class: 'btn link-see' %>
                     <%= link_to material_icon.edit, [:teacher, lesson ], class: 'btn link-edit' %>
                     <%= link_to material_icon.delete, [:teacher, lesson ], method: :delete, data: { confirm: 'En êtes vous sûr ?' }, class: 'btn link-destroy' %>
                   </td>

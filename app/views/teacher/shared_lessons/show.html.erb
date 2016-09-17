@@ -1,0 +1,40 @@
+<% content_for :title, @lesson.name %>
+<div class="page-title">
+  <div class="title">
+    <%= @lesson.name %>
+  </div>
+  <div class="links">
+    <% if current_user.in? @lesson.authors %>
+      <%= link_to material_icon.arrow_back, [:teacher, @lesson] %>
+    <% else %>
+      <%= link_to material_icon.arrow_back, [:search, :teacher, :lessons] %>
+      <%= link_to material_icon.content_copy, [:teacher, @lesson, :copy], method: :post %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="column xs12 l8 offset-l2">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @lesson.name %></h3>
+      </div>
+      <div class="content-area">
+        <strong>Enseignement :</strong> <%= @lesson.teaching_name %><br>
+        <strong>Niveaux :</strong> <%= @lesson.level_names %><br>
+        <strong>Popularité :</strong> <%= @lesson.popularity %>
+      </div>
+    </div>
+    <% @lesson.steps.each do |step| %>
+      <div class="card">
+        <div class="title-area">
+          <h3 class="main-title"><%= step.print_title %></h3>
+        </div>
+        <div class="content-area">
+          <div class="trix-content">
+            <%= step.content.html_safe %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

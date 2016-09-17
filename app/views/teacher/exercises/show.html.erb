@@ -2,12 +2,7 @@
 <div class="page-title">
   <div class="title"><%= @exercise.name %></div>
   <div class="links">
-    <% if current_user.in? @exercise.authors %>
-      <%= link_to material_icon.arrow_back, teacher_exercises_path %>
-    <% else %>
-      <%= link_to material_icon.arrow_back, search_teacher_exercises_path %>
-      <%= link_to material_icon.content_copy, teacher_exercise_copy_path(@exercise), method: :post %>
-    <% end %>
+    <%= link_to material_icon.arrow_back, teacher_exercises_path %>
     <%= link_to material_icon.visibility, teacher_try_exercise_path(@exercise) %>
   </div>
 </div>

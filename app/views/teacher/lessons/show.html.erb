@@ -2,12 +2,8 @@
 <div class="page-title">
   <div class="title"><%= @lesson.name %></div>
   <div class="links">
-    <% if current_user.in? @lesson.authors %>
-      <%= link_to material_icon.arrow_back, teacher_lessons_path %>
-    <% else %>
-      <%= link_to material_icon.arrow_back, [:search, :teacher, :lessons] %>
-      <%= link_to material_icon.content_copy, [:teacher, @lesson, :copy], method: :post %>
-    <% end %>
+    <%= link_to material_icon.arrow_back, teacher_lessons_path %>
+    <%= link_to material_icon.visibility, [:preview, :teacher, @lesson] %>
   </div>
 </div>
 <div class="row">

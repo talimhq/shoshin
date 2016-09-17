@@ -21,7 +21,7 @@ class Teacher::ExerciseFormsController < TeacherController
 
   def authorize_exercise
     @exercise = Exercise.includes(:questions).find(params[:id])
-    redirect_to root_url unless current_user.can_do?(@exercise)
+    redirect_to root_url unless @exercise.is_accessible_by(current_user)
   end
 
   def authorize_exercise_form

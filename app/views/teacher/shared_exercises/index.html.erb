@@ -58,7 +58,7 @@
                   <td class="numeric"><%= exercise.popularity %></td>
                   <td class="numeric"><%= exercise.authorships.size %></td>
                   <td class="actions">
-                    <%= link_to material_icon.visibility, [:teacher, exercise ], class: 'btn link-see' %>
+                    <%= link_to material_icon.visibility, [:teacher, :try, exercise ], class: 'btn link-see' %>
                   </td>
                 </tr>
               <% end %>

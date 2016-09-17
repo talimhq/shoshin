@@ -18,15 +18,18 @@ class Teacher < ApplicationRecord
   validates :admin, :approved, exclusion: { in: [nil] }
   validates :account, presence: true
 
-  def can_do?(exercise)
-    exercise.shared || in?(exercise.authors)
-  end
-
   def exercises_from_level(level)
-    exercises.joins(:editable_levels).where(editable_levels: { level: level })
+    editables_by_level(:exercises, level)
   end
 
   def lessons_from_level(level)
-    lessons.joins(:editable_levels).where(editable_levels: { level: level })
+    editables_by_level(:lessons, level)
+  end
+
+  private
+
+  def editables_by_level(editable, level)
+    send(editable).joins(:editable_levels)
+                  .where(editable_levels: { level: level })
   end
 end

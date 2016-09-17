@@ -79,6 +79,7 @@ Rails.application.routes.draw do
         concerns :editable, editable_type: 'Lesson'
         resources :steps, path: 'seances', except: [:index, :show], shallow: true
         get 'chercher', to: 'shared_lessons#index', as: :search, on: :collection
+        get 'apercu', to: 'shared_lessons#show', as: :preview, on: :member
         post 'copier', to: 'shared_lessons#create', as: :copy
       end
 

@@ -60,7 +60,7 @@
                   <td class="numeric"><%= lesson.popularity %></td>
                   <td class="numeric"><%= lesson.authorships.size %></td>
                   <td class="actions">
-                    <%= link_to material_icon.visibility, [:teacher, lesson ], class: 'btn link-see' %>
+                    <%= link_to material_icon.visibility, [:preview, :teacher, lesson ], class: 'btn link-see' %>
                   </td>
                 </tr>
               <% end %>

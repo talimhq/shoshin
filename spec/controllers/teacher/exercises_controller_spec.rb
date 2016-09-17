@@ -70,11 +70,22 @@ RSpec.describe Teacher::ExercisesController, type: :controller do
     end
 
     context 'as a teacher' do
-      before { sign_in create(:teacher_account) }
+      let(:teacher) { create(:teacher) }
+      before { sign_in teacher.account }
 
-      it 'redirects' do
-        get :show, params: { id: exercise.id }
-        expect(response).to have_http_status(200)
+      context 'who is not an author' do
+        it 'redirects' do
+          get :show, params: { id: exercise.id }
+          expect(response).to have_http_status(302)
+        end
+      end
+
+      context 'who is an author' do
+        it 'is a success' do
+          exercise.update(authors: [teacher])
+          get :show, params: { id: exercise.id }
+          expect(response).to have_http_status(200)
+        end
       end
     end
   end

@@ -12,4 +12,8 @@ module Editable
   def level_names
     levels.map(&:short_name).join(', ')
   end
+
+  def is_accessible_by(user)
+    shared || authors.include?(user)
+  end
 end

@@ -116,23 +116,47 @@
     color: $green !important;
   }
 }
+.show-xs-only {
+  display: none;
+}
+.show-s-only {
+  display: none;
+}
+.show-m-only {
+  display: none;
+}
+.show-l-only {
+  display: none;
+}
 @media all and (max-width: $small-min) {
   .hide-xs-only {
     display: none;
+  }
+  .show-xs-only {
+    display: initial;
   }
 }
 @media all and (min-width: $small-min) and (max-width: $medium-min) {
   .hide-s-only {
     display: none;
   }
+  .show-s-only {
+    display: initial;
+  }
 }
 @media all and (min-width: $medium-min) and (max-width: $large-min) {
   .hide-m-only {
     display: none;
   }
+  .show-m-only {
+    display: initial;
+  }
 }
 @media all and (min-width: $large-min) {
   .hide-l-only {
     display: none;
+  }
+  .show-l-only {
+    display: initial;
   }
 }

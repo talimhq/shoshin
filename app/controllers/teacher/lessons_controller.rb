@@ -1,5 +1,5 @@
 class Teacher::LessonsController < TeacherController
-  before_action :authorize_author, only: [:edit, :update, :destroy]
+  before_action :authorize_author, only: [:show, :edit, :update, :destroy]
 
   def index
     @q = current_user.lessons.ransack(params[:q])

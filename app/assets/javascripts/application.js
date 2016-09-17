@@ -33,8 +33,6 @@ document.addEventListener('turbolinks:load', function () {
     }
   });
 
-  $('main').animate({opacity: '1'});
-
   $('input').each(function() {
     animateLabels(this);
   });
@@ -80,7 +78,6 @@ document.addEventListener('turbolinks:load', function () {
 });
 
 document.addEventListener('turbolinks:request-start', function () {
-  $('main').animate({opacity: '0'});
 });
 
 function animateLabels(input) {

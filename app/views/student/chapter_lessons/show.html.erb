@@ -8,14 +8,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="column">
+  <div class="column xs12 l8 offset-l2">
     <% @chapter_lesson.steps.each do |step| %>
       <div class="card">
         <div class="title-area">
           <h3 class="main-title"><%= step.print_title %></h3>
         </div>
         <div class="content-area">
-          <div class="trix-editor">
+          <div class="trix-content">
             <%= step.content.html_safe %>
           </div>
         </div>

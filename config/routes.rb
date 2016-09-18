@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  concern :paginable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+
   scope path_names: { new: 'nouveau', edit: 'modifier' } do
     namespace :admin do
       resources :teachings, path: 'enseignements',
@@ -23,8 +27,8 @@ Rails.application.routes.draw do
       post 'cycles/classer', to: 'cycles#sort', as: :sort_cycles
       post 'niveaux/classer', to: 'levels#sort', as: :sort_levels
       resources :users, only: [:index, :edit, :update, :destroy],
-                        path: 'utilisateurs'
-      resources :schools, path: 'etablissements'
+                        path: 'utilisateurs', concerns: :paginable
+      resources :schools, path: 'etablissements', concerns: :paginable
       patch 'etablissements/:school_id/professeurs/:teacher_id' => 'school_teachers#update', as: :school_teacher
       delete 'etablissements/:school_id/professeurs/:teacher_id' => 'school_teachers#destroy'
     end
@@ -77,19 +81,22 @@ Rails.application.routes.draw do
 
       resources :lessons, path: 'cours' do
         concerns :editable, editable_type: 'Lesson'
+        concerns :paginable
         resources :steps, path: 'seances', except: [:index, :show], shallow: true
-        get 'chercher', to: 'shared_lessons#index', as: :search, on: :collection
+        get 'chercher(/page/:page)', to: 'shared_lessons#index',
+                                     as: :search, on: :collection
         get 'apercu', to: 'shared_lessons#show', as: :preview, on: :member
         post 'copier', to: 'shared_lessons#create', as: :copy
       end
 
       resources :exercises, path: 'exercices' do
         concerns :editable, editable_type: 'Exercise'
+        concerns :paginable
         resources :questions, except: [:index, :show], shallow: true do
           get 'reponses', to: 'answers#index', as: :answers, on: :member
           patch 'reponses', to: 'answers#update', on: :member
         end
-        get 'chercher', to: 'shared_exercises#index', as: :search, on: :collection
+        get 'chercher(/page/:page)', to: 'shared_exercises#index', as: :search, on: :collection
         post 'copier', to: 'shared_exercises#create', as: :copy
       end
 

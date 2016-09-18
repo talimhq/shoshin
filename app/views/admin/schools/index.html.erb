@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="column xs12">
+  <div class="column xs12 l3">
     <div class="card">
       <div class="title-area">
         <h3 class="main-title"><%= material_icon.search.to_s + 'Rechercher' %></h3>
@@ -25,7 +25,7 @@
         <% end %>
     </div>
   </div>
-  <div class="column xs12">
+  <div class="column xs12 l9">
     <div class="card">
       <div class="table-area">
         <div class="header">
@@ -40,7 +40,7 @@
                 <th class="text"><%= sort_link(@q, :country, 'Pays') %></th>
                 <th class="text"><%= sort_link(@q, :state, 'Département') %></th>
                 <th class="text"><%= sort_link(@q, :city, 'Ville') %></th>
-                <th class="numeric"><%= sort_link(@q, :school_users_count, 'Utilisateurs') %></th>
+                <th class="numeric"><%= sort_link(@q, :teachers_count, 'Enseignants') %></th>
                 <th class="actions"></th>
               </tr>
             </thead>

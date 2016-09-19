@@ -15,7 +15,7 @@ class Admin::AbilitySetsController < AdminController
   end
 
   def edit
-    @ability_set = AbilitySet.find(params[:id])
+    @ability_set = AbilitySet.includes(:ability_items, teaching_cycle: [:teaching, :cycle]).find(params[:id])
   end
 
   def update

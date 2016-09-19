@@ -15,7 +15,7 @@ class Admin::ExpectationsController < AdminController
   end
 
   def edit
-    @expectation = Expectation.find(params[:id])
+    @expectation = Expectation.includes(:theme, :knowledge_items).find(params[:id])
   end
 
   def update

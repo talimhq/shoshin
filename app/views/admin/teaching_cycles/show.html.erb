@@ -1,7 +1,5 @@
 <% content_for :title, "#{@teaching_cycle.teaching_name} - #{@teaching_cycle.cycle_name}" %>
-<div class="page-title">
-  <div class="title"><%= @teaching_cycle.teaching_name %> - <%= @teaching_cycle.cycle_name %></div>
-</div>
+<% content_for :parent_url, admin_teachings_path %>
 <div class="row">
   <div class="column x12 l6">
      <div class="card">

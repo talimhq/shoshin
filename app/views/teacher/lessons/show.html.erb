@@ -1,33 +1,34 @@
 <% content_for :title, @lesson.name %>
-<div class="page-title">
-  <div class="title"><%= @lesson.name %></div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, teacher_lessons_path %>
-    <%= link_to material_icon.visibility, [:preview, :teacher, @lesson] %>
-  </div>
-</div>
+<% content_for :parent_url, teacher_lessons_path %>
 <div class="row">
   <div class="column xs12 s6 m12 l6">
     <div class="card">
       <div class="title-area">
-        <h3 class="main-title"><%= @lesson.name %> <%= link_to material_icon.edit, [:edit, :teacher, @lesson] if current_user.in? @lesson.authors %></h3>
+        <h3 class="main-title"><%= @lesson.name %></h3>
       </div>
       <div class="content-area">
         <strong>Enseignement :</strong> <%= @lesson.teaching_name %><br>
         <strong>Niveaux :</strong> <%= @lesson.level_names %><br>
         <strong>Popularité :</strong> <%= @lesson.popularity %>
       </div>
+      <div class="actions-area">
+        <%= link_to 'Modifier', [:edit, :teacher, @lesson], class: 'btn' %>
+        <%= link_to 'Voir', [:preview, :teacher, @lesson], class: 'btn' %>
+      </div>
     </div>
   </div>
   <div class="column xs12 s6 m12 l6">
     <div class="card">
       <div class="title-area">
-        <h3 class="main-title">Auteurs <%= link_to material_icon.edit, [:teacher, @lesson, :authorships] if current_user.in? @lesson.authors %></h3>
+        <h3 class="main-title">Auteurs</h3>
       </div>
       <div class="content-area">
         <% @lesson.authors.each do |author| %>
           <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
         <% end %>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Modifier', [:teacher, @lesson, :authorships], class: 'btn' %>
       </div>
     </div>
   </div>

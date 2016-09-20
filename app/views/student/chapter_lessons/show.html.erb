@@ -1,12 +1,5 @@
 <% content_for :title, @chapter_lesson.name %>
-<div class="page-title">
-  <div class="title">
-    <%= @chapter_lesson.name %>
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:student, @chapter_lesson.chapter] %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:student, @chapter_lesson.chapter]) %>
 <div class="row">
   <div class="column xs12 l8 offset-l2">
     <% @chapter_lesson.steps.each do |step| %>

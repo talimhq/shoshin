@@ -1,12 +1,5 @@
 <% content_for :title, 'Ajouter une classe' %>
-<div class="page-title">
-  <div class="title">
-    Ajouter une classe
-  </div>
-  <div class="links">
-    <%= link_to material_icon.back_arrow, teacher_school_path(@classroom.school) %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:teacher, @classroom.school]) %>
 <div class="row">
   <div class="column">
     <div class="card">

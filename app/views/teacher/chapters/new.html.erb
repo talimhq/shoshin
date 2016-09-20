@@ -1,12 +1,5 @@
-<%= content_for :title, 'Nouveau chapitre' %>
-<div class="page-title">
-  <div class="title">
-    <%= @group.display_name %>
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @group] %>
-  </div>
-</div>
+<% content_for :title, "#{@group.display_name} - Nouceau chapitre" %>
+<% content_for :parent_url, url_for([:teacher, @group]) %>
 <div class="row">
   <div class="column">
     <div class="card">

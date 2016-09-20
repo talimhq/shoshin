@@ -1,17 +1,9 @@
 <% content_for :title, @lesson.name %>
-<div class="page-title">
-  <div class="title">
-    <%= @lesson.name %>
-  </div>
-  <div class="links">
-    <% if current_user.in? @lesson.authors %>
-      <%= link_to material_icon.arrow_back, [:teacher, @lesson] %>
-    <% else %>
-      <%= link_to material_icon.arrow_back, [:search, :teacher, :lessons] %>
-      <%= link_to material_icon.content_copy, [:teacher, @lesson, :copy], method: :post %>
-    <% end %>
-  </div>
-</div>
+<% if current_user.in? @lesson.authors %>
+  <% content_for :parent_url, teacher_lessons_path %>
+<% else %>
+  <% content_for :parent_url, search_teacher_lessons_path %>
+<% end %>
 <div class="row">
   <div class="column xs12 l8 offset-l2">
     <div class="card">
@@ -22,6 +14,13 @@
         <strong>Enseignement :</strong> <%= @lesson.teaching_name %><br>
         <strong>Niveaux :</strong> <%= @lesson.level_names %><br>
         <strong>Popularité :</strong> <%= @lesson.popularity %>
+      </div>
+      <div class="actions-area">
+        <% if current_user.in? @lesson.authors %>
+          <%= link_to 'Modifier', [:teacher, @lesson], class: 'btn' %>
+        <% else %>
+          <%= link_to 'Copier', [:teacher, @lesson, :copy], method: :post, class: 'btn' %>
+        <% end %>
       </div>
     </div>
     <% @lesson.steps.each do |step| %>

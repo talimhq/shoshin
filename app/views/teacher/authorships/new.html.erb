@@ -1,10 +1,5 @@
 <% content_for :title, "#{@editable.name} - Ajouter un auteur" %>
-<div class="page-title">
-  <div class="title"><%= "#{@editable.name} - Ajouter un auteur" %></div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @editable, :authorships] %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:teacher, @editable, :authorships]) %>
 <div class="row">
   <div class="column xs12 offset-l2 l8">
     <div class="card">

@@ -1,13 +1,8 @@
-<% content_for :title, 'Modifier une competence' %>
-<div class="page-title">
-  <div class="title">
-    <%= @ability_set.teaching_name %> - <%= @ability_set.cycle_name %><br>
-    Modifier une compétence
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, admin_teaching_cycle_path(@ability_set.teaching_cycle) %>
-  </div>
-</div>
+<% content_for :title do %>
+  <%= @ability_set.teaching_name %> - <%= @ability_set.cycle_name %><br>
+  Modifier une compétence
+<% end %>
+<% content_for :parent_url, admin_teaching_cycle_path(@ability_set.teaching_cycle) %>
 <div class="row">
   <div class="column xs-12 offset-l1 l10">
     <div class="card">

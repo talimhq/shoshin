@@ -1,13 +1,8 @@
-<% content_for :title, "Modifier un theme" %>
-<div class="page-title">
-  <div class="title">
-    <%= @theme.teaching_name %> - <%= @theme.cycle_name %><br>
-    Modifier un thème
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, admin_teaching_cycle_path(@theme.teaching_cycle) %>
-  </div>
-</div>
+<% content_for :title do %>
+  <%= @theme.teaching_name %> - <%= @theme.cycle_name %><br>
+  Modifier un thème
+<% end %>
+<% content_for :parent_url, admin_teaching_cycle_path(@theme.teaching_cycle) %>
 <div class="row">
   <div class="column xs11 offset-l1 l10">
     <div class="card">

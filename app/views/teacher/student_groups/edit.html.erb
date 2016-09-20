@@ -1,12 +1,5 @@
-<% content_for :title, 'Groupes - Mes eleves' %>
-<div class="page-title">
-  <div class="title">
-    <%= @group.display_name %>
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @group] %>
-  </div>
-</div>
+<% content_for :title, "#{@group.display_name} - Mes eleves" %>
+<% content_for :parent_url, url_for([:teacher, @group]) %>
 <div class="row">
   <div class="column">
     <div class="card">
@@ -18,14 +11,14 @@
           <div class="row">
             <% current_user.school.classrooms.includes(students: :account).where(level: @group.level).each do |classroom| %>
               <div class="column vertical-checkboxes classroom_students_checkboxes" id="classroom_<%= classroom.id %>">
-                <h5><%= classroom.name %></h5>
-                <%= f.collection_check_boxes :student_ids, classroom.students, :id, :full_name do |b| %>
-                  <%= b.check_box %> <%= b.label %>
-                <% end %>
+                <h4 class="no-margin"><%= classroom.name %></h4>
                 <div class="actions-checkbox">
                   <%= link_to 'Tous', '#', class: 'btn select-all' %>
                   <%= link_to 'Aucun', '#', class: 'btn alert unselect-all' %>
                 </div>
+                <%= f.collection_check_boxes :student_ids, classroom.students, :id, :full_name do |b| %>
+                  <%= b.check_box %> <%= b.label %>
+                <% end %>
               </div>
             <% end %>
           </div>

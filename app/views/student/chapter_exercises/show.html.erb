@@ -1,12 +1,5 @@
 <% content_for :title, @exercise_form.exercise_name %>
-<div class="page-title">
-  <div class="title">
-    <%= @exercise_form.exercise_name %>
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:student, @chapter_exercise.chapter] %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:student, @chapter_exercise.chapter]) %>
 <div class="row">
   <div class="column xs-12">
     <div class="card">

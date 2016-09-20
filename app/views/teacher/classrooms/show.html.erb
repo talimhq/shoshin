@@ -1,12 +1,5 @@
 <% content_for :title, @classroom.name %>
-<div class="page-title">
-  <div class="title">
-    <%= @classroom.name %>
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @classroom.school] %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:teacher, @classroom.school]) %>
 <div class="row">
   <div class="column xs12 s6 m12 l5">
     <div class="card">

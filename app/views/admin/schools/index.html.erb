@@ -1,12 +1,4 @@
 <% content_for :title, "Établissements" %>
-<div class="page-title">
-  <div class="title">
-    Établissements
-  </div>
-  <div class="links">
-    <%= link_to material_icon.add, new_admin_school_path %>
-  </div>
-</div>
 <div class="row">
   <div class="column xs12 l3">
     <div class="card">
@@ -52,6 +44,9 @@
         <div class="footer">
           <%= render 'schools_footer' %>
         </div>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Ajouter', new_admin_school_path, class: 'btn' %>
       </div>
     </div>
   </div>

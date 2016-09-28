@@ -12,6 +12,10 @@
     <meta name="keywords" content="Shoshin, ENT, libre, gratuit, exercices, cours, primaire, collège, lycée, brevet, bac">
     <meta name="google-site-verification" content="lLW6ILuva0A3ZgcRYADjDWEV9q0sbUlPFMwnrK03EqQ" />
 
+    <% if account_signed_in? %>
+      <%= tag :meta, name: 'current-account', data: { id: current_account.id } %>
+    <% end %>
+
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>

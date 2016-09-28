@@ -59,14 +59,28 @@ RSpec.describe Account, type: :model do
         expect(account.role).to eq('student')
       end
 
-      # it 'returns parent for parent' do
-      #   account.update(user_type: 'Parent')
-      #   expect(account.role).to eq('parent')
-      # end
+      it 'returns parent for parent' do
+        account = create(:parent).account
+        expect(account.role).to eq('parent')
+      end
 
       it 'returns teacher for Teacher' do
         account = create(:teacher).account
         expect(account.role).to eq('teacher')
+      end
+    end
+
+    context 'full_name' do
+      it 'joins fist and last name' do
+        account = create(:user_account, first_name: 'foo', last_name: 'bar')
+        expect(account.full_name).to eq('foo bar')
+      end
+    end
+
+    context 'formal_name' do
+      it 'joins last and first name' do
+        account = create(:user_account, first_name: 'foo', last_name: 'bar')
+        expect(account.formal_name).to eq('bar, foo')
       end
     end
   end

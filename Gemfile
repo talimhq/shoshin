@@ -21,6 +21,7 @@ gem 'sidekiq'
 gem 'inline_svg'
 gem 'autoprefixer-rails'
 gem 'skylight'
+gem 'redis'
 
 group :development, :test do
   gem 'spring-commands-rspec'

@@ -1,12 +1,5 @@
 <% content_for :title, 'Nouveau groupe' %>
-<div class="page-title">
-  <div class="title">
-    Nouveau groupe
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, teacher_groups_path %>
-  </div>
-</div>
+<% content_for :parent_url, teacher_groups_path %>
 <div class="row">
   <div class="column">
     <div class="card">

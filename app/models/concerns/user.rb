@@ -8,6 +8,7 @@ module User
       delegate :last_name, to: :account
       delegate :email, to: :account
       delegate :full_name, to: :account
+      delegate :formal_name, to: :account
     end
   end
 end

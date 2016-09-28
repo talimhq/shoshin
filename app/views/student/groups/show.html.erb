@@ -1,39 +1,66 @@
-<%= content_for :title, @group.display_name %>
-<div class="page-title">
-  <div class="title">
-    <%= @group.display_name %>
-  </div>
-</div>
+<% content_for :title, @group.display_name %>
 <div class="row">
   <div class="column">
     <div class="card">
-      <div class="table-area">
-        <div class="header">
-          Chapitres
+      <div class="tabs-area">
+        <div class="row">
+          <ul class="tabs">
+            <li class="tab column xs6 active">
+              <%= link_to 'Discussion', '#group_chat' %>
+            </li>
+            <li class="tab column xs6">
+              <%= link_to 'Chapitres', '#group_chapters' %>
+            </li>
+          </ul>
         </div>
-        <div class="table">
-          <table>
-            <thead>
-              <tr>
-                <th class="text">Titre</th>
-                <th class="numeric">Cours</th>
-                <th class="numeric">Exercices</th>
-                <th class="actions"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @group.chapters.each do |chapter| %>
-                <tr>
-                  <td class="text"><%= chapter.name %></td>
-                  <td class="numeric"><%= chapter.lessons_count %></td>
-                  <td class="numeric"><%= chapter.exercises_count %></td>
-                  <td class="actions">
-                    <%= link_to material_icon.visibility, [:student, chapter],class: 'btn' %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+      </div>
+      <div class="row tabs-container">
+        <div class="tab-content column xs12 active" id="group_chat">
+          <div class="chat-area">
+            <div class="chat-body">
+              <div class="chat-messages" data-behaviour="chat-messages" data-group-id="<%= @group.id %>">
+                <% @group.group_notifications.includes(:user).each do |notification| %>
+                  <%= ApplicationController.render notification %>
+                <% end %>
+              </div>
+              <div class="chat-form">
+                <%= simple_form_for GroupNotification.new, url: student_group_messages_path(@group), method: :post, remote: true do |f| %>
+                  <%= f.text_area :body, rows: 1, placeholder: 'Écrire un message' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content column xs12" id="group_chapters">
+          <div class="table-area">
+            <div class="header">
+              Chapitres
+            </div>
+            <div class="table">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="text">Titre</th>
+                    <th class="numeric">Cours</th>
+                    <th class="numeric">Exercices</th>
+                    <th class="actions"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @group.chapters.each do |chapter| %>
+                    <tr>
+                      <td class="text"><%= chapter.name %></td>
+                      <td class="numeric"><%= chapter.lessons_count %></td>
+                      <td class="numeric"><%= chapter.exercises_count %></td>
+                      <td class="actions">
+                        <%= link_to material_icon.visibility, [:student, chapter],class: 'btn' %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,70 +1,41 @@
 <% content_for :title, "#{@group.teaching_name} (#{@group.level_name})" %>
-<div class="page-title">
-  <div class="title">
-    <%= @group.teaching_name %> (<%= @group.level_name %>)
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, teacher_groups_path %>
-    <%= link_to material_icon.delete, [:teacher, @group], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'link-destroy' %>
-  </div>
-</div>
+<% content_for :parent_url, teacher_groups_path %>
 <div class="row">
   <div class="column">
     <div class="card">
       <div class="tabs-area">
         <div class="row">
           <ul class="tabs">
+            <li class="tab column xs4 active">
+              <%= link_to 'Discussion', '#group_chat' %>
+            </li>
+            <li class="tab column xs4">
+              <%= link_to 'Chapitres', '#group_chapters' %>
+            </li>
             <li class="tab column xs4">
               <%= link_to 'Élèves', '#group_students' %>
-            </li>
-            <li class="tab column xs4">
-              <%= link_to 'Chapitres', '#chapters' %>
-            </li>
-            <li class="tab column xs4">
-              <%= link_to 'Discussion', '#discussion' %>
             </li>
           </ul>
         </div>
       </div>
       <div class="row tabs-container">
-        <div class="tab-content column xs12" id="group_students">
-          <div class="table-area">
-            <div class="header">
-              Mes élèves
+        <div class="tab-content column xs12 active" id="group_chat">
+          <div class="chat-area">
+            <div class="chat-body">
+              <div class="chat-messages" data-behaviour="chat-messages" data-group-id="<%= @group.id %>">
+                <% @group.group_notifications.includes(:user).each do |notification| %>
+                  <%= ApplicationController.render notification %>
+                <% end %>
+              </div>
+              <div class="chat-form">
+                <%= simple_form_for GroupNotification.new, url: teacher_group_messages_path(@group), method: :post, remote: true do |f| %>
+                  <%= f.text_area :body, rows: 1, placeholder: 'Écrire un message' %>
+                <% end %>
+              </div>
             </div>
-            <div class="table">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="text">Nom</th>
-                    <th class="text">Prénom</th>
-                    <th class="actions"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% if @group.students.any? %>
-                    <% @group.students.includes(:account).each do |student| %>
-                      <tr>
-                        <td class="text"><%= student.last_name %></td>
-                        <td class="text"><%= student.first_name %></td>
-                        <td class="actions">
-                        </td>
-                      </tr>
-                    <% end %>
-                  <% else %>
-                    <tr>
-                      <td colspan="3">Vous n'avez pas encore ajouté d'élèves à ce groupe.</td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="actions-area">
-            <%= link_to 'Modifier', teacher_group_students_path, class: 'btn' %>
           </div>
         </div>
-        <div class="tab-content column xs12" id="chapters">
+        <div class="tab-content column xs12" id="group_chapters">
           <div class="table-area">
             <div class="header">
               Chapitres
@@ -110,14 +81,38 @@
             <%= link_to 'Ajouter', new_teacher_group_chapter_path(@group), class: 'btn' %>
           </div>
         </div>
-        <div class="tab-content column xs12" id="discussion">
-          <div class="content-area">
-            <div class="empty-state">
-              <%= material_icon.watch_later %>
-              <p>
-                Cette fonctionnalité n'est pas encore disponible sur Shoshin.
-              </p>
+        <div class="tab-content column xs12" id="group_students">
+          <div class="table-area">
+            <div class="header">
+              Élèves
             </div>
+            <div class="table">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="text">Nom</th>
+                    <th class="text">Prénom</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if @group.students.any? %>
+                    <% @group.students.includes(:account).each do |student| %>
+                      <tr>
+                        <td class="text"><%= student.last_name %></td>
+                        <td class="text"><%= student.first_name %></td>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr>
+                      <td colspan="2">Vous n'avez pas encore ajouté d'élèves à ce groupe.</td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="actions-area">
+            <%= link_to 'Modifier', [:teacher, @group, :students], class: 'btn' %>
           </div>
         </div>
       </div>

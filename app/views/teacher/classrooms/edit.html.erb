@@ -1,12 +1,5 @@
 <% content_for :title, 'Modifier une classe' %>
-<div class="page-title">
-  <div class="title">
-    Modifier une classe
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @classroom] %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:teacher, @classroom]) %>
 <div class="row">
   <div class="column">
     <div class="card">

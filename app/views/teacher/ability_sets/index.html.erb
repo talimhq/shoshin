@@ -1,13 +1,8 @@
-<% content_for :title, 'Compétences' %>
-<div class="page-title">
-  <div class="title">
-    <%= @teaching_cycle.teaching_name %> - <%= @teaching_cycle.cycle_name %><br>
-    Compétences
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, teacher_teacher_teaching_cycles_path %>
-  </div>
-</div>
+<% content_for :title do %>
+  <%= @teaching_cycle.teaching_name %> - <%= @teaching_cycle.cycle_name %><br>
+  Compétences
+<% end %>
+<% content_for :parent_url, teacher_teacher_teaching_cycles_path %>
 <div class="row">
   <div class="column xs12 offset-l1 l10">
     <% @teaching_cycle.ability_sets.each do |ability_set| %>

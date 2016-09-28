@@ -1,11 +1,5 @@
 <% content_for :title, "Modifier une seance" %>
-<div class="page-title">
-  <div class="title">Modifier une séance</div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @step.lesson] %>
-    <%= link_to material_icon.delete, [:teacher, @step], method: :delete, data: { confirm: 'En êtes vous sûr?' } %>
-  </div>
-</div>
+<% content_for :parent_url, teacher_lesson_path(@step.lesson) %>
 <div class="row">
   <div class="column xs12 l8 offset-l2">
     <div class="card">

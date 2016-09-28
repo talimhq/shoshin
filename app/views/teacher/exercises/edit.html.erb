@@ -1,10 +1,5 @@
 <% content_for :title, "Modifier un exercice" %>
-<div class="page-title">
-  <div class="title">Modifier un exercice</div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, [:teacher, @exercise] %>
-  </div>
-</div>
+<% content_for :parent_url, url_for([:teacher, @exercise]) %>
 <div class="row">
   <div class="column xs12 l8 offset-l2">
     <div class="card">

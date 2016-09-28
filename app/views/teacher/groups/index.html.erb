@@ -1,9 +1,4 @@
 <% content_for :title, 'Mes groupes' %>
-<div class="page-title">
-  <div class="title">
-    Mes groupes
-  </div>
-</div>
 <div class="row">
   <div class="column">
     <div class="card">
@@ -28,6 +23,7 @@
                     <td class="text"><%= group.level_name %></td>
                     <td class="actions">
                       <%= link_to material_icon.visibility, [:teacher, group], class: 'btn' %>
+                      <%= link_to material_icon.edit, [:edit, :teacher, group], class: 'btn' %>
                       <%= link_to material_icon.delete, [:teacher, group], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
                     </td>
                   </tr>

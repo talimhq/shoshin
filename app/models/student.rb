@@ -10,6 +10,7 @@ class Student < ApplicationRecord
   has_many :user_exercise_forms, -> { order(created_at: :asc) },
            as: :user, dependent: :destroy
   has_many :done_exercises, through: :user_exercise_forms, source: :exercise
+  has_many :group_notifications, as: :user, dependent: :destroy
 
   validates :account, :classroom, presence: true
 

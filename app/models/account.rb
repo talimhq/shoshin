@@ -34,6 +34,10 @@ class Account < ApplicationRecord
     [first_name, last_name].join(' ')
   end
 
+  def formal_name
+    [last_name, first_name].join(', ')
+  end
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end

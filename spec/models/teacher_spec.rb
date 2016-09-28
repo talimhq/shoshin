@@ -21,6 +21,7 @@ RSpec.describe Teacher, type: :model do
     it { is_expected.to have_many(:teacher_teaching_cycles) }
     it { is_expected.to have_many(:user_exercise_forms) }
     it { is_expected.to have_many(:groups) }
+    it { is_expected.to have_many(:group_notifications) }
   end
 
   describe 'validations' do

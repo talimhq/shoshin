@@ -64,6 +64,7 @@ Rails.application.routes.draw do
             post 'classer' => 'chapters#sort', as: :sort
           end
         end
+        resources :messages, only: [:create]
       end
 
       get 'groupes/:id/eleves' => 'student_groups#edit', as: :group_students
@@ -106,7 +107,9 @@ Rails.application.routes.draw do
     end
 
     namespace :student, path: 'eleve' do
-      resources :groups, path: 'groupes', only: :show
+      resources :groups, path: 'groupes', only: :show do
+        resources :messages, only: [:create]
+      end
       resources :chapters, path: 'chapitres', only: :show do
         resources :chapter_lessons, path: 'cours', only: :show, as: :lessons
         resources :chapter_exercises, path: 'exercices', only: [:show],

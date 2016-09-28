@@ -1,12 +1,5 @@
-<% content_for :title, @exercise_form.exercise_name %>
-<div class="page-title">
-  <div class="title">
-    <%= @exercise_form.exercise_name %> - Résultat
-  </div>
-  <div class="links">
-    <%= link_to material_icon.arrow_back, teacher_chapter_exercise_path(@chapter_exercise.chapter_id, @chapter_exercise.exercise_id) %>
-  </div>
-</div>
+<% content_for :title, "#{@exercise_form.exercise_name} - Résultat" %>
+<% content_for :parent_url, teacher_chapter_exercise_path(@chapter_exercise.chapter_id, @chapter_exercise.exercise_id) %>
 <div class="row">
   <div class="column xs-12">
     <div class="card">

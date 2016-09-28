@@ -14,6 +14,7 @@ class Teacher < ApplicationRecord
   has_many :teacher_teaching_cycles, inverse_of: :teacher, dependent: :destroy
   has_many :user_exercise_forms, as: :user, dependent: :destroy
   has_many :groups, inverse_of: :teacher, dependent: :destroy
+  has_many :group_notifications, as: :user, dependent: :destroy
 
   validates :admin, :approved, exclusion: { in: [nil] }
   validates :account, presence: true

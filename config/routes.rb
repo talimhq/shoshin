@@ -154,4 +154,6 @@ Rails.application.routes.draw do
   authenticate :account, -> (account) { account.user.admin? } do
     mount Sidekiq::Web, at: '/admin/sidekiq'
   end
+
+  mount ActionCable.server => "/cable"
 end

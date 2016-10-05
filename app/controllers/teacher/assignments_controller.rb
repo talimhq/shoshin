@@ -21,6 +21,7 @@ class Teacher::AssignmentsController < TeacherController
   end
 
   def edit
+    @exercises.unshift(@assignment.exercise)
   end
 
   def update
@@ -55,6 +56,6 @@ class Teacher::AssignmentsController < TeacherController
   end
 
   def set_exercises
-    @exercises = current_user.exercises_from_level(@chapter.level)
+    @exercises = current_user.exercises_from_level(@chapter.level) - @chapter.exercises
   end
 end

@@ -1,5 +1,5 @@
 <% content_for :title, @exercise_form.exercise_name %>
-<% content_for :parent_url, url_for([:student, @chapter_exercise.chapter]) %>
+<% content_for :parent_url, url_for([:student, @assignment.chapter]) %>
 <div class="row">
   <div class="column xs-12">
     <div class="card">
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="card">
-      <%= simple_form_for @exercise_form, url: student_chapter_exercise_results_path(@chapter_exercise.chapter, @chapter_exercise.exercise), method: :post do |f| %>
+      <%= simple_form_for @exercise_form, url: student_chapter_assignment_results_path(@assignment.chapter, @assignment.exercise), method: :post do |f| %>
         <% @exercise_form.questions.each do |question| %>
           <div class="title-area">
             <h3 class="main-title"><%= question.print_title %></h3>

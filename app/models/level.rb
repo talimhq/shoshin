@@ -5,7 +5,7 @@ class Level < ApplicationRecord
   has_many :groups, inverse_of: :level, dependent: :destroy
   has_many :editable_levels, inverse_of: :level, dependent: :destroy
   has_many :exercises, through: :editable_levels, source: :editable,
-                       source_type: 'Exercise', inverse_of: :exercise
+                       source_type: 'Exercise'
   has_many :lessons, through: :editable_levels, source: :editable,
                        source_type: 'Lesson'
 

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Student::ChapterExercisesController, type: :controller do
-  let(:chapter_exercise) { create(:chapter_exercise) }
-  let(:exercise) { chapter_exercise.exercise }
-  let(:chapter) { chapter_exercise.chapter }
+RSpec.describe Student::AssignmentsController, type: :controller do
+  let(:assignment) { create(:assignment) }
+  let(:exercise) { assignment.exercise }
+  let(:chapter) { assignment.chapter }
 
   describe 'GET #show' do
     context 'as a guest' do

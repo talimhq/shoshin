@@ -14,7 +14,7 @@ RSpec.describe Chapter, type: :model do
     it { is_expected.to belong_to(:group) }
     it { is_expected.to have_many(:chapter_lessons) }
     it { is_expected.to have_many(:lessons) }
-    it { is_expected.to have_many(:chapter_exercises) }
+    it { is_expected.to have_many(:assignments) }
     it { is_expected.to have_many(:exercises) }
     it { is_expected.to have_one(:teacher) }
   end

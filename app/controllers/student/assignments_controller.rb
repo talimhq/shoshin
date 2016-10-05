@@ -1,4 +1,4 @@
-class Student::ChapterExercisesController < StudentController
+class Student::AssignmentsController < StudentController
   before_action :authorize
 
   def show
@@ -9,10 +9,10 @@ class Student::ChapterExercisesController < StudentController
   private
 
   def authorize
-    @chapter_exercise = ChapterExercise.includes(chapter: :group)
+    @assignment = Assignment.includes(chapter: :group)
                                        .find_by(chapter_id: params[:chapter_id],
                                                 exercise_id: params[:id])
-    unless current_user.in? @chapter_exercise.chapter.group.students
+    unless current_user.in? @assignment.chapter.group.students
       redirect_to root_url
     end
   end

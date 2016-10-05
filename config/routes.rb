@@ -71,8 +71,7 @@ Rails.application.routes.draw do
       patch 'groupes/:id/eleves' => 'student_groups#update'
 
       resources :chapters, path: 'chapitres', except: [:index, :new, :create] do
-        resources :chapter_exercises, path: 'exercices', as: :exercises,
-                                      except: [:index] do
+        resources :assignments, path: 'exercices', except: [:index] do
           resources :student_exercise_forms, only: :show, as: :result
         end
       end
@@ -112,8 +111,7 @@ Rails.application.routes.draw do
       end
       resources :chapters, path: 'chapitres', only: :show do
         resources :chapter_lessons, path: 'cours', only: :show, as: :lessons
-        resources :chapter_exercises, path: 'exercices', only: [:show],
-                                      as: :exercises do
+        resources :assignments, path: 'exercices', only: [:show] do
           resources :user_exercise_forms, path: 'resultats',
                                           only: [:create, :show],
                                           as: :results

@@ -75,7 +75,7 @@
                   <td class="text"><%= exercise.teaching_short_name %></td>
                   <td class="text"><%= exercise.level_names %></td>
                   <td class="boolean">
-                    <%= material_icon.check.css_class('icon-success') if exercise.chapter_exercises.any? %>
+                    <%= material_icon.check.css_class('icon-success') if exercise.assignments.any? %>
                   </td>
                   <td class="boolean">
                     <%= material_icon.check.css_class('icon-success') if exercise.shared %>

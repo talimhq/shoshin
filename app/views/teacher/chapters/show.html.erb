@@ -56,9 +56,9 @@
                   <tr>
                     <td class="text"><%= exercise.name %></td>
                     <td class="actions">
-                      <%= link_to material_icon.timeline, [:teacher, @chapter, exercise], class: 'btn link-see' %>
-                      <%= link_to material_icon.edit, [:edit, :teacher, @chapter, exercise], class: 'btn link-edit' %>
-                      <%= link_to material_icon.delete, [:teacher, @chapter, exercise], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+                      <%= link_to material_icon.timeline, teacher_chapter_assignment_path(@chapter, exercise), class: 'btn link-see' %>
+                      <%= link_to material_icon.edit, edit_teacher_chapter_assignment_path(@chapter, exercise), class: 'btn link-edit' %>
+                      <%= link_to material_icon.delete, teacher_chapter_assignment_path(@chapter, exercise), method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
                     </td>
                   </tr>
                 <% end %>
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="actions-area">
-        <%= link_to 'Ajouter', new_teacher_chapter_exercise_path(@chapter), class: 'btn' %>
+        <%= link_to 'Ajouter', new_teacher_chapter_assignment_path(@chapter), class: 'btn' %>
       </div>
     </div>
   </div>

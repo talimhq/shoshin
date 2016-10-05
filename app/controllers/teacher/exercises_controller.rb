@@ -3,7 +3,7 @@ class Teacher::ExercisesController < TeacherController
 
   def index
     @q = current_user.exercises.ransack(params[:q])
-    @exercises = @q.result.includes(:teaching, :levels, :chapter_exercises).page(params[:page]).per(10)
+    @exercises = @q.result.includes(:teaching, :levels, :assignments).page(params[:page]).per(10)
   end
 
   def show

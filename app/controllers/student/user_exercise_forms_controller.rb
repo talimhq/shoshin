@@ -3,11 +3,11 @@ class Student::UserExerciseFormsController < StudentController
   before_action :authorize_access, only: :show
 
   def create
-    @exercise_form = current_user.user_exercise_forms.new(exercise: @chapter_exercise.exercise)
+    @exercise_form = current_user.user_exercise_forms.new(exercise: @assignment.exercise)
     @exercise_form.answers = answer_attributes
     @exercise_form.auto_correct
     @exercise_form.save
-    redirect_to student_chapter_exercise_result_path(@chapter_exercise.chapter_id, @chapter_exercise.exercise_id, @exercise_form.id)
+    redirect_to student_chapter_assignment_result_path(@assignment.chapter_id, @assignment.exercise_id, @exercise_form.id)
   end
 
   def show
@@ -16,10 +16,10 @@ class Student::UserExerciseFormsController < StudentController
   private
 
   def authorize
-    @chapter_exercise = ChapterExercise.includes(chapter: :group)
+    @assignment = Assignment.includes(chapter: :group)
                                        .find_by(chapter_id: params[:chapter_id],
-                                                exercise_id: params[:exercise_id])
-    unless current_user.in? @chapter_exercise.chapter.group.students
+                                                exercise_id: params[:assignment_id])
+    unless current_user.in? @assignment.chapter.group.students
       redirect_to root_url
     end
   end

@@ -1,18 +1,18 @@
-class Teacher::ChapterExercisesController < TeacherController
+class Teacher::AssignmentsController < TeacherController
   before_action :authorize
-  before_action :set_chapter_exercise, only: [:show, :edit, :update, :destroy]
+  before_action :set_assignment, only: [:show, :edit, :update, :destroy]
   before_action :set_exercises, except: [:show, :destroy]
 
   def show
   end
 
   def new
-    @chapter_exercise = @chapter.chapter_exercises.new
+    @assignment = @chapter.assignments.new
   end
 
   def create
-    @chapter_exercise = @chapter.chapter_exercises.new(chapter_exercise_params)
-    if @chapter_exercise.save
+    @assignment = @chapter.assignments.new(assignment_params)
+    if @assignment.save
       flash[:notice] = 'Exercice ajouté.'
       redirect_to [:teacher, @chapter]
     else
@@ -24,7 +24,7 @@ class Teacher::ChapterExercisesController < TeacherController
   end
 
   def update
-    if @chapter_exercise.update(chapter_exercise_params)
+    if @assignment.update(assignment_params)
       flash[:notice] = 'Exercice mis à jour.'
       redirect_to [:teacher, @chapter]
     else
@@ -33,7 +33,7 @@ class Teacher::ChapterExercisesController < TeacherController
   end
 
   def destroy
-    @chapter_exercise.destroy
+    @assignment.destroy
     flash[:notice] = 'Exercice supprimé.'
     redirect_to [:teacher, @chapter]
   end
@@ -45,13 +45,13 @@ class Teacher::ChapterExercisesController < TeacherController
     redirect_to root_url unless current_user == @chapter.teacher
   end
 
-  def set_chapter_exercise
-    @chapter_exercise = ChapterExercise.find_by(chapter: @chapter,
+  def set_assignment
+    @assignment = Assignment.find_by(chapter: @chapter,
                                                 exercise_id: params[:id])
   end
 
-  def chapter_exercise_params
-    params.require(:chapter_exercise).permit(:exercise_id, :max_tries, :due_date)
+  def assignment_params
+    params.require(:assignment).permit(:exercise_id, :max_tries, :due_date)
   end
 
   def set_exercises

@@ -54,7 +54,7 @@
                   <tr>
                     <td class="text"><%= exercise.name %></td>
                     <td class="actions">
-                      <%= link_to material_icon.edit, [:student, @chapter, exercise], class: 'btn' %>
+                      <%= link_to material_icon.edit, student_chapter_assignment_path(@chapter, exercise), class: 'btn' %>
                     </td>
                   </tr>
                 <% end %>
@@ -90,10 +90,10 @@
                     <td class="text"><%= exercise.name %></td>
                     <td class="numeric"><%= current_user.user_exercise_forms.where(exercise: exercise).last.score %></td>
                     <td class="actions">
-                      <%= link_to material_icon.visibility, student_chapter_exercise_result_path(@chapter.id, exercise.id, current_user.user_exercise_forms.where(exercise: exercise).last.id), class: 'btn' %>
+                      <%= link_to material_icon.visibility, student_chapter_assignment_result_path(@chapter.id, exercise.id, current_user.user_exercise_forms.where(exercise: exercise).last.id), class: 'btn' %>
                     </td>
                     <td class="actions">
-                      <%= link_to material_icon.edit, [:student, @chapter, exercise], class: 'btn' %>
+                      <%= link_to material_icon.edit, student_chapter_assignment_path(@chapter, exercise), class: 'btn' %>
                     </td>
                   </tr>
                 <% end %>

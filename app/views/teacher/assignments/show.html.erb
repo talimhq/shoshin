@@ -11,6 +11,7 @@
           <table>
             <thead>
               <tr>
+                <th class="image"></th>
                 <th class="text">Nom</th>
                 <th class="text">Prénom</th>
                 <th class="numeric">Score</th>
@@ -22,6 +23,7 @@
               <% @assignment.chapter.group.students.includes(:account).each do |student| %>
                 <% last_exercise = student.user_exercise_forms.where(exercise_id: @assignment.exercise_id).last %>
                 <tr>
+                  <td class="image"><img src="<%= gravatar_url(student.email) %>" height="24px" alt=""></td>
                   <td class="text"><%= student.last_name %></td>
                   <td class="text"><%= student.first_name %></td>
                   <td class="numeric"><%=  last_exercise ? last_exercise.score : 0 %></td>

@@ -8,6 +8,14 @@ class Assignment < ApplicationRecord
   validate :chapter_and_exercise_from_same_teacher
 
   delegate :name, to: :exercise, prefix: true
+  delegate :questions, to: :exercise, prefix: false
+
+  store_accessor :ability_evaluations
+  store_accessor :expectation_evaluations
+
+  def assessed?
+    !ability_evaluations.empty? || !expectation_evaluations.empty?
+  end
 
   private
 

@@ -577,3 +577,14 @@ input[type="radio"] {
 .select2-results {
   font: 13px robotoregular, sans-serif;
 }
+.select2-container--default .select2-selection--multiple {
+  margin-top: 10px;
+  border: none;
+}
+.select2-container--default.select2-container--focus
+.select2-selection--multiple {
+  border: none;
+}
+.select2-container {
+  height: auto;
+}

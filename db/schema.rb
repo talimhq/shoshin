@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004191657) do
+ActiveRecord::Schema.define(version: 20161006175905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,16 +125,20 @@ ActiveRecord::Schema.define(version: 20161004191657) do
   end
 
   create_table "assignments", force: :cascade do |t|
-    t.integer  "chapter_id",              null: false
-    t.integer  "exercise_id",             null: false
+    t.integer  "chapter_id",                           null: false
+    t.integer  "exercise_id",                          null: false
     t.integer  "position"
-    t.integer  "max_tries",   default: 0, null: false
+    t.integer  "max_tries",               default: 0,  null: false
     t.datetime "due_date"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.jsonb    "ability_evaluations",     default: {}
+    t.jsonb    "expectation_evaluations", default: {}
+    t.index ["ability_evaluations"], name: "index_assignments_on_ability_evaluations", using: :gin
     t.index ["chapter_id"], name: "index_assignments_on_chapter_id", using: :btree
     t.index ["exercise_id", "chapter_id"], name: "index_assignments_on_exercise_id_and_chapter_id", unique: true, using: :btree
     t.index ["exercise_id"], name: "index_assignments_on_exercise_id", using: :btree
+    t.index ["expectation_evaluations"], name: "index_assignments_on_expectation_evaluations", using: :gin
   end
 
   create_table "authorships", force: :cascade do |t|

@@ -52,7 +52,7 @@ class Teacher::AssignmentsController < TeacherController
   end
 
   def assignment_params
-    params.require(:assignment).permit(:exercise_id, :max_tries, :due_date)
+    params.require(:assignment).permit(:exercise_id, :max_tries, :due_date, ability_evaluations: @assignment.questions.map { |question| { question.id.to_s => [] } })
   end
 
   def set_exercises

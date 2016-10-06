@@ -1,0 +1,24 @@
+<% @assignment.questions.each do |question| %>
+  <div class="title-area">
+    <h3 class="main-title"><%= question.print_title %></h3>
+  </div>
+  <div class="row">
+    <div class="column xs12 s6 m12 l6">
+      <div class="content-area">
+        <div class="trix-content">
+          <%= question.content.html_safe %>
+        </div>
+      </div>
+    </div>
+    <div class="column xs12 s6 m12 l6">
+      <div class="content-area">
+        <%= f.simple_fields_for :ability_evaluations do |s| %>
+          <%= s.input question.id.to_s, collection: TeachingCycle.find_by(teaching: @chapter.group.teaching, cycle: @chapter.group.level.cycle).ability_sets, as: :grouped_select, group_method: :ability_items, input_html: { multiple: true }, label: 'Compétences', include_hidden: false, selected: @assignment.ability_evaluations[question.id.to_s], required: false %>
+        <% end %>
+        <%= f.simple_fields_for :expectation_evaluations do |s| %>
+          <%= s.input question.id.to_s, collection: TeachingCycle.find_by(teaching: @chapter.group.teaching, cycle: @chapter.group.level.cycle).themes.map(&:expectations).flatten, as: :grouped_select, group_method: :knowledge_items, input_html: { multiple: true }, label: 'Attendus', include_hidden: false, selected: @assignment.expectation_evaluations[question.id.to_s], required: false %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

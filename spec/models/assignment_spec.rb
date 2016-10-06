@@ -10,6 +10,8 @@ RSpec.describe Assignment, type: :model do
     it { is_expected.to have_db_column(:due_date).of_type(:datetime) }
     it { is_expected.to have_db_column(:position).of_type(:integer) }
     it { is_expected.to have_db_column(:max_tries).of_type(:integer) }
+    it { is_expected.to have_db_column(:ability_evaluations).of_type(:jsonb) }
+    it { is_expected.to have_db_column(:expectation_evaluations).of_type(:jsonb) }
   end
 
   describe 'associations' do
@@ -40,6 +42,15 @@ RSpec.describe Assignment, type: :model do
       exercise.update(authors: [chapter.teacher])
       expect(build(:assignment, chapter: chapter, exercise: exercise)).to\
         be_valid
+    end
+  end
+
+  describe 'instance methods' do
+    let(:assignment) { create(:assignment) }
+
+    it 'delegates questions to exercise' do
+      create(:question, exercise: assignment.exercise)
+      expect(assignment.questions).to eq(assignment.exercise.questions)
     end
   end
 

@@ -571,7 +571,7 @@ input[type="radio"] {
   text-align: center;
 }
 .select2-results__option {
-  height: 30px;
+  min-height: 30px;
   box-sizing: border-box;
 }
 .select2-results {

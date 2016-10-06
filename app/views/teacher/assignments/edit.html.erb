@@ -6,7 +6,7 @@
       <div class="title-area">
         <h3 class="main-title">Paramètres de l'exercice</h3>
       </div>
-      <%= simple_form_for @assignment, url: @assignment.new_record? ? teacher_chapter_assignments_path(@chapter) : teacher_chapter_assignment_path(@chapter, @assignment.exercise_id)  do |f| %>
+      <%= simple_form_for @assignment, url: teacher_chapter_assignment_path(@chapter, @assignment.exercise_id), method: :patch  do |f| %>
         <div class="content-area">
           <%= f.association :exercise, collection: @exercises, label: 'Exercice' %>
           <%#= f.input :max_tries, label: 'Nombre de tentatives', collection: (0..10).map { |num| [num == 0 ? 'Illimité' : num, num] } %>

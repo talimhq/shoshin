@@ -1,0 +1,70 @@
+<%= content_for :title, 'Référentiels' %>
+<div class="row">
+  <div class="column xs12 l3">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Filtrer</h3>
+      </div>
+      <%= search_form_for @q, url: [:teacher, :teaching_cycles], defaults: { required: false } do |f| %>
+        <div class="content-area">
+          <%= f.input :teaching_id_eq, collection: Teaching.ordered, label: 'Enseignement' %>
+          <%= f.input :cycle_id_eq, collection: Cycle.ordered, label: 'Cycle' %>
+        </div>
+        <div class="actions-area">
+          <%= f.submit 'Filtrer', class: 'btn' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="column xs12 l9">
+    <div class="card">
+      <div class="table-area">
+        <div class="header">
+          Référentiels
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th class="text">
+                  <%= sort_link @q, :teaching_name, 'Enseignement' %>
+                </th>
+                <th class="text">
+                  <%= sort_link @q, :cycle_name, 'Cycle' %>
+                </th>
+                <th class="actions">Compétences</th>
+                <th class="actions">Thèmes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @teaching_cycles.any? %>
+                <% @teaching_cycles.each do |teaching_cycle| %>
+                  <tr>
+                    <td class="text"><%= teaching_cycle.teaching_name %></td>
+                    <td class="text"><%= teaching_cycle.cycle_name %></td>
+                    <td class="actions">
+                      <%= link_to material_icon.extension, [:teacher, teaching_cycle, :ability_sets], class: 'btn' %>
+                    </td>
+                    <td class="actions">
+                      <%= link_to material_icon.donut_small, [:teacher, teaching_cycle, :themes], class: 'btn' %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr>
+                  <td colspan="4">Aucun référentiel n'a été trouvé.</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer">
+          <div class="page-info">
+            <%= page_entries_info @teaching_cycles %>
+          </div>
+          <%= paginate @teaching_cycles %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,6 @@ class Teacher < ApplicationRecord
                      source_type: 'Lesson', inverse_of: :authors
   has_many :exercises, through: :authorships, source: :editable,
                        source_type: 'Exercise', inverse_of: :authors
-  has_many :teacher_teaching_cycles, inverse_of: :teacher, dependent: :destroy
   has_many :user_exercise_forms, as: :user, dependent: :destroy
   has_many :groups, inverse_of: :teacher, dependent: :destroy
   has_many :group_notifications, as: :user, dependent: :destroy

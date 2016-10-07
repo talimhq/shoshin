@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ChapterExercise, type: :model do
+RSpec.describe Assignment, type: :model do
   describe 'db structure' do
     it { is_expected.to have_db_column(:chapter_id).of_type(:integer) }
     it { is_expected.to have_db_index(:chapter_id) }
@@ -10,6 +10,8 @@ RSpec.describe ChapterExercise, type: :model do
     it { is_expected.to have_db_column(:due_date).of_type(:datetime) }
     it { is_expected.to have_db_column(:position).of_type(:integer) }
     it { is_expected.to have_db_column(:max_tries).of_type(:integer) }
+    it { is_expected.to have_db_column(:ability_evaluations).of_type(:jsonb) }
+    it { is_expected.to have_db_column(:expectation_evaluations).of_type(:jsonb) }
   end
 
   describe 'associations' do
@@ -22,28 +24,37 @@ RSpec.describe ChapterExercise, type: :model do
     it { is_expected.to validate_presence_of(:exercise) }
 
     it 'does not add duplicate exercise to the same chapter' do
-      chapter_exercise = create(:chapter_exercise)
-      duplicate = build(:chapter_exercise, chapter: chapter_exercise.chapter,
-                                           exercise: chapter_exercise.exercise)
+      assignment = create(:assignment)
+      duplicate = build(:assignment, chapter: assignment.chapter,
+                                           exercise: assignment.exercise)
       expect(duplicate).not_to be_valid
     end
 
     it 'chapter and exercise from different teacher are not valid' do
       chapter = create(:chapter)
-      chapter_exercise = create(:chapter_exercise)
-      expect(chapter_exercise.update(chapter: chapter)).to be_falsy
+      assignment = create(:assignment)
+      expect(assignment.update(chapter: chapter)).to be_falsy
     end
 
     it 'chapter and exercise from same teacher are valid' do
       chapter = create(:chapter)
       exercise = create(:exercise)
       exercise.update(authors: [chapter.teacher])
-      expect(build(:chapter_exercise, chapter: chapter, exercise: exercise)).to\
+      expect(build(:assignment, chapter: chapter, exercise: exercise)).to\
         be_valid
     end
   end
 
+  describe 'instance methods' do
+    let(:assignment) { create(:assignment) }
+
+    it 'delegates questions to exercise' do
+      create(:question, exercise: assignment.exercise)
+      expect(assignment.questions).to eq(assignment.exercise.questions)
+    end
+  end
+
   describe 'factories' do
-    it { expect(build(:chapter_exercise)).to be_valid }
+    it { expect(build(:assignment)).to be_valid }
   end
 end

@@ -11,8 +11,8 @@ class Exercise < ApplicationRecord
   has_many :questions, -> { order(position: :asc) }, inverse_of: :exercise,
                                                      dependent: :destroy
   has_many :user_exercise_forms, inverse_of: :exercise, dependent: :destroy
-  has_many :chapter_exercises, inverse_of: :exercise, dependent: :destroy
-  has_many :chapters, through: :chapter_exercises
+  has_many :assignments, inverse_of: :exercise, dependent: :destroy
+  has_many :chapters, through: :assignments
 
   validates :name, :time, :popularity, :difficulty, :teaching,
             :questions_count, presence: true
@@ -23,7 +23,7 @@ class Exercise < ApplicationRecord
   delegate :short_name, to: :teaching, prefix: true
 
   ransacker :is_used do
-    Arel.sql('(SELECT EXISTS (SELECT 1 FROM chapter_exercises WHERE chapter_exercises.exercise_id = exercises.id))')
+    Arel.sql('(SELECT EXISTS (SELECT 1 FROM assignments WHERE assignments.exercise_id = exercises.id))')
   end
 
   def create_copy(user)

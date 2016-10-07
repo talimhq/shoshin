@@ -1,0 +1,19 @@
+<% content_for :title, @assignment.exercise_name %>
+<% content_for :parent_url, url_for([:teacher, @chapter]) %>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Grille d'évaluation</h3>
+      </div>
+      <%= simple_form_for @assignment, url: teacher_chapter_assignment_path(@chapter, @assignment.exercise_id), method: :patch  do |f| %>
+          <%#= f.input :max_tries, label: 'Nombre de tentatives', collection: (0..10).map { |num| [num == 0 ? 'Illimité' : num, num] } %>
+          <%#= f.input :due_date, as: :date, label: 'Doit être fait au plus tard le', include_blank: true, hint: 'Laissez vide si vous ne souhaitez pas bloquer l\'accès après cette date.' %>
+        <%= render 'assignment_evaluation_setup', f: f %>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

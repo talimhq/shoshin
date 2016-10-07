@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Teacher::StudentGroupsController, type: :controller do
   let(:group) { create(:group) }
-  let(:teacher) { create(:teacher) }
+  let(:teacher) { create(:teacher, school: classroom.school) }
   let(:classroom) { create(:classroom, level: group.level) }
   let(:student) { create(:student, classroom: classroom) }
 

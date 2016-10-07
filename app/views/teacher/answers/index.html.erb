@@ -7,9 +7,13 @@
         <%= @question.exercise_name %>
       </div>
       <div class="content-area">
-        <div class="trix-content">
-          <%= @question.exercise_statement.html_safe %>
-        </div>
+        <% if @question.exercise_statement.blank? %>
+          <p>Répondre aux questions suivantes:</p>
+        <% else %>
+          <div class=trix-content">
+            <%= @question.exercise_statement.html_safe %>
+          </div>
+        <% end %>
       </div>
       <div class="title-area">
         <%= @question.print_title %>

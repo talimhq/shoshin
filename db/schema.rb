@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920122031) do
+ActiveRecord::Schema.define(version: 20161007174731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,23 @@ ActiveRecord::Schema.define(version: 20160920122031) do
     t.index ["question_id"], name: "index_answers_single_choices_on_question_id", using: :btree
   end
 
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "chapter_id",                           null: false
+    t.integer  "exercise_id",                          null: false
+    t.integer  "position"
+    t.integer  "max_tries",               default: 0,  null: false
+    t.datetime "due_date"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.jsonb    "ability_evaluations",     default: {}
+    t.jsonb    "expectation_evaluations", default: {}
+    t.index ["ability_evaluations"], name: "index_assignments_on_ability_evaluations", using: :gin
+    t.index ["chapter_id"], name: "index_assignments_on_chapter_id", using: :btree
+    t.index ["exercise_id", "chapter_id"], name: "index_assignments_on_exercise_id_and_chapter_id", unique: true, using: :btree
+    t.index ["exercise_id"], name: "index_assignments_on_exercise_id", using: :btree
+    t.index ["expectation_evaluations"], name: "index_assignments_on_expectation_evaluations", using: :gin
+  end
+
   create_table "authorships", force: :cascade do |t|
     t.integer  "teacher_id",    null: false
     t.string   "editable_type", null: false
@@ -133,19 +150,6 @@ ActiveRecord::Schema.define(version: 20160920122031) do
     t.index ["editable_id", "teacher_id", "editable_type"], name: "index_authorships_on_teacher_and_editable", unique: true, using: :btree
     t.index ["editable_type", "editable_id"], name: "index_authorships_on_editable_type_and_editable_id", using: :btree
     t.index ["teacher_id"], name: "index_authorships_on_teacher_id", using: :btree
-  end
-
-  create_table "chapter_exercises", force: :cascade do |t|
-    t.integer  "chapter_id",              null: false
-    t.integer  "exercise_id",             null: false
-    t.integer  "position"
-    t.integer  "max_tries",   default: 0, null: false
-    t.datetime "due_date"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["chapter_id"], name: "index_chapter_exercises_on_chapter_id", using: :btree
-    t.index ["exercise_id", "chapter_id"], name: "index_chapter_exercises_on_exercise_id_and_chapter_id", unique: true, using: :btree
-    t.index ["exercise_id"], name: "index_chapter_exercises_on_exercise_id", using: :btree
   end
 
   create_table "chapter_lessons", force: :cascade do |t|
@@ -363,16 +367,6 @@ ActiveRecord::Schema.define(version: 20160920122031) do
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
   end
 
-  create_table "teacher_teaching_cycles", force: :cascade do |t|
-    t.integer  "teacher_id",        null: false
-    t.integer  "teaching_cycle_id", null: false
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["teacher_id", "teaching_cycle_id"], name: "index_teacher_teaching_cycles_on_teacher_and_teaching_cycle", unique: true, using: :btree
-    t.index ["teacher_id"], name: "index_teacher_teaching_cycles_on_teacher_id", using: :btree
-    t.index ["teaching_cycle_id"], name: "index_teacher_teaching_cycles_on_teaching_cycle_id", using: :btree
-  end
-
   create_table "teachers", force: :cascade do |t|
     t.boolean  "approved",   default: false, null: false
     t.boolean  "admin",      default: false, null: false
@@ -442,9 +436,9 @@ ActiveRecord::Schema.define(version: 20160920122031) do
   add_foreign_key "answers_inputs", "questions"
   add_foreign_key "answers_multiple_choices", "questions"
   add_foreign_key "answers_single_choices", "questions"
+  add_foreign_key "assignments", "chapters"
+  add_foreign_key "assignments", "exercises"
   add_foreign_key "authorships", "teachers"
-  add_foreign_key "chapter_exercises", "chapters"
-  add_foreign_key "chapter_exercises", "exercises"
   add_foreign_key "chapter_lessons", "chapters"
   add_foreign_key "chapter_lessons", "lessons"
   add_foreign_key "chapters", "groups"
@@ -467,8 +461,6 @@ ActiveRecord::Schema.define(version: 20160920122031) do
   add_foreign_key "student_groups", "groups"
   add_foreign_key "student_groups", "students"
   add_foreign_key "students", "classrooms"
-  add_foreign_key "teacher_teaching_cycles", "teachers"
-  add_foreign_key "teacher_teaching_cycles", "teaching_cycles"
   add_foreign_key "teaching_cycles", "cycles"
   add_foreign_key "teaching_cycles", "teachings"
   add_foreign_key "theme_levels", "levels"

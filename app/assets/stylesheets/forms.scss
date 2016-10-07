@@ -571,9 +571,20 @@ input[type="radio"] {
   text-align: center;
 }
 .select2-results__option {
-  height: 30px;
+  min-height: 30px;
   box-sizing: border-box;
 }
 .select2-results {
   font: 13px robotoregular, sans-serif;
+}
+.select2-container--default .select2-selection--multiple {
+  margin-top: 10px;
+  border: none;
+}
+.select2-container--default.select2-container--focus
+.select2-selection--multiple {
+  border: none;
+}
+.select2-container {
+  height: auto;
 }

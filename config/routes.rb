@@ -38,13 +38,13 @@ Rails.application.routes.draw do
         resources :authorships, { path: 'auteurs', only: [:index, :new, :create, :destroy] }.merge(options)
       end
 
-      resources :teaching_cycles, path: 'enseignements', only: nil, shallow: true do
+      resources :teaching_cycles, path: 'referentiels', only: [:index],
+                                  shallow: true do
+        concerns :paginable
         resources :ability_sets, path: 'competences', only: [:index]
         resources :themes, only: [:index, :show]
       end
 
-      resources :teacher_teaching_cycles, path: 'referentiels',
-                                       only: [:index, :create, :destroy]
       resources :school_teachers, path: 'trouver-etablissement',
                                only: [:new, :create, :update, :destroy]
       resources :schools, path: 'etablissement',
@@ -71,8 +71,7 @@ Rails.application.routes.draw do
       patch 'groupes/:id/eleves' => 'student_groups#update'
 
       resources :chapters, path: 'chapitres', except: [:index, :new, :create] do
-        resources :chapter_exercises, path: 'exercices', as: :exercises,
-                                      except: [:index] do
+        resources :assignments, path: 'exercices', except: [:index] do
           resources :student_exercise_forms, only: :show, as: :result
         end
       end
@@ -112,8 +111,7 @@ Rails.application.routes.draw do
       end
       resources :chapters, path: 'chapitres', only: :show do
         resources :chapter_lessons, path: 'cours', only: :show, as: :lessons
-        resources :chapter_exercises, path: 'exercices', only: [:show],
-                                      as: :exercises do
+        resources :assignments, path: 'exercices', only: [:show] do
           resources :user_exercise_forms, path: 'resultats',
                                           only: [:create, :show],
                                           as: :results

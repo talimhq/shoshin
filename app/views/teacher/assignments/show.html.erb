@@ -1,5 +1,5 @@
-<% content_for :title, "#{@chapter_exercise.exercise_name} - Résultats" %>
-<% content_for :parent_url, url_for([:teacher, @chapter_exercise.chapter]) %>
+<% content_for :title, "#{@assignment.exercise_name} - Résultats" %>
+<% content_for :parent_url, url_for([:teacher, @assignment.chapter]) %>
 <div class="row">
   <div class="column">
     <div class="card">
@@ -11,6 +11,7 @@
           <table>
             <thead>
               <tr>
+                <th class="image"></th>
                 <th class="text">Nom</th>
                 <th class="text">Prénom</th>
                 <th class="numeric">Score</th>
@@ -19,16 +20,17 @@
               </tr>
             </thead>
             <tbody>
-              <% @chapter_exercise.chapter.group.students.includes(:account).each do |student| %>
-                <% last_exercise = student.user_exercise_forms.where(exercise_id: @chapter_exercise.exercise_id).last %>
+              <% @assignment.chapter.group.students.includes(:account).each do |student| %>
+                <% last_exercise = student.user_exercise_forms.where(exercise_id: @assignment.exercise_id).last %>
                 <tr>
+                  <td class="image"><img src="<%= gravatar_url(student.email) %>" height="24px" alt=""></td>
                   <td class="text"><%= student.last_name %></td>
                   <td class="text"><%= student.first_name %></td>
                   <td class="numeric"><%=  last_exercise ? last_exercise.score : 0 %></td>
-                  <td class="numeric"><%= student.user_exercise_forms.where(exercise_id: @chapter_exercise.exercise_id).count %></td>
+                  <td class="numeric"><%= student.user_exercise_forms.where(exercise_id: @assignment.exercise_id).count %></td>
                   <td class="actions">
                     <% if last_exercise %>
-                      <%= link_to material_icon.visibility, teacher_chapter_exercise_result_path(@chapter_exercise.chapter_id, @chapter_exercise.exercise_id, last_exercise.id), class: 'btn' %>
+                      <%= link_to material_icon.visibility, teacher_chapter_assignment_result_path(@assignment.chapter_id, @assignment.exercise_id, last_exercise.id), class: 'btn' %>
                     <% end %>
                   </td>
                 </tr>

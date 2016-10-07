@@ -47,24 +47,34 @@
             <thead>
               <tr>
                 <th class="text">Titre</th>
-                <th class="actions"></th>
+                <th class="actions">Résultats</th>
+                <th class="boolean">Évalué?</th>
+                <th class="actions">Évaluations</th>
+                <th class="actions">Supprimer</th>
               </tr>
             </thead>
             <tbody>
-              <% if @chapter.exercises.any? %>
-                <% @chapter.exercises.each do |exercise| %>
+              <% if @chapter.assignments.any? %>
+                <% @chapter.assignments.includes(:exercise).each do |assignment| %>
                   <tr>
-                    <td class="text"><%= exercise.name %></td>
+                    <td class="text"><%= assignment.exercise_name %></td>
                     <td class="actions">
-                      <%= link_to material_icon.timeline, [:teacher, @chapter, exercise], class: 'btn link-see' %>
-                      <%= link_to material_icon.edit, [:edit, :teacher, @chapter, exercise], class: 'btn link-edit' %>
-                      <%= link_to material_icon.delete, [:teacher, @chapter, exercise], method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
+                      <%= link_to material_icon.timeline, teacher_chapter_assignment_path(@chapter, assignment.exercise_id), class: 'btn link-see' %>
+                    </td>
+                    <td class="boolean">
+                      <%= assignment.assessed? ? material_icon.check.css_class('icon-success') : material_icon.close.css_class('icon-error') %>
+                    </td>
+                    <td class="actions">
+                      <%= link_to material_icon.assessment, edit_teacher_chapter_assignment_path(@chapter, assignment.exercise_id), class: 'btn link-edit' %>
+                    </td>
+                    <td class="actions">
+                      <%= link_to material_icon.delete, teacher_chapter_assignment_path(@chapter, assignment.exercise_id), method: :delete, data: { confirm: 'En êtes vous sûr?' }, class: 'btn link-destroy' %>
                     </td>
                   </tr>
                 <% end %>
               <% else %>
                 <tr>
-                  <td colspan="2">Vous n'avez pas encore associé d'exercices avec ce chapitre.</td>
+                  <td colspan="5">Vous n'avez pas encore associé d'exercices avec ce chapitre.</td>
                 </tr>
               <% end %>
             </tbody>
@@ -72,7 +82,7 @@
         </div>
       </div>
       <div class="actions-area">
-        <%= link_to 'Ajouter', new_teacher_chapter_exercise_path(@chapter), class: 'btn' %>
+        <%= link_to 'Ajouter', new_teacher_chapter_assignment_path(@chapter), class: 'btn' %>
       </div>
     </div>
   </div>

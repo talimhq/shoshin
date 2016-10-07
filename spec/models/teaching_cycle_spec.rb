@@ -15,7 +15,6 @@ RSpec.describe TeachingCycle, type: :model do
     it { is_expected.to belong_to(:teaching) }
     it { is_expected.to have_many(:ability_sets) }
     it { is_expected.to have_many(:themes) }
-    it { is_expected.to have_many(:teacher_teaching_cycles) }
   end
 
   describe 'validations' do

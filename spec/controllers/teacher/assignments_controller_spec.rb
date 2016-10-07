@@ -174,12 +174,6 @@ RSpec.describe Teacher::AssignmentsController, type: :controller do
                                    assignment: { exercise_id: '' } }
           expect(assignment.reload.exercise).not_to be_nil
         end
-
-        it 're renders the page' do
-          patch :update, params: { chapter_id: chapter.id, id: exercise.id,
-                                   assignment: { exercise_id: '' } }
-          expect(response).to have_http_status(200)
-        end
       end
     end
   end

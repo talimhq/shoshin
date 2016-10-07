@@ -38,13 +38,13 @@ Rails.application.routes.draw do
         resources :authorships, { path: 'auteurs', only: [:index, :new, :create, :destroy] }.merge(options)
       end
 
-      resources :teaching_cycles, path: 'enseignements', only: nil, shallow: true do
+      resources :teaching_cycles, path: 'referentiels', only: [:index],
+                                  shallow: true do
+        concerns :paginable
         resources :ability_sets, path: 'competences', only: [:index]
         resources :themes, only: [:index, :show]
       end
 
-      resources :teacher_teaching_cycles, path: 'referentiels',
-                                       only: [:index, :create, :destroy]
       resources :school_teachers, path: 'trouver-etablissement',
                                only: [:new, :create, :update, :destroy]
       resources :schools, path: 'etablissement',

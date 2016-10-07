@@ -11,7 +11,7 @@ class Teacher::AssignmentsController < TeacherController
   end
 
   def create
-    @assignment = @chapter.assignments.new(assignment_params)
+    @assignment = @chapter.assignments.new(create_params)
     if @assignment.save
       flash[:notice] = 'Exercice ajouté.'
       redirect_to [:teacher, @chapter]
@@ -25,7 +25,7 @@ class Teacher::AssignmentsController < TeacherController
   end
 
   def update
-    if @assignment.update(assignment_params)
+    if @assignment.update(update_params)
       flash[:notice] = 'Exercice mis à jour.'
       redirect_to [:teacher, @chapter]
     else
@@ -51,8 +51,12 @@ class Teacher::AssignmentsController < TeacherController
                                                 exercise_id: params[:id])
   end
 
-  def assignment_params
-    params.require(:assignment).permit(:exercise_id, :max_tries, :due_date, ability_evaluations: @assignment.questions.map { |question| { question.id.to_s => [] } })
+  def create_params
+    params.require(:assignment).permit(:exercise_id, :max_tries, :due_date)
+  end
+
+  def update_params
+    params.require(:assignment).permit(:max_tries, :due_date, ability_evaluations: @assignment&.questions.map { |question| { question.id.to_s => [] } }, expectation_evaluations: @assignment&.questions.map { |question| { question.id.to_s => [] } })
   end
 
   def set_exercises

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006175905) do
+ActiveRecord::Schema.define(version: 20161007174731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -367,16 +367,6 @@ ActiveRecord::Schema.define(version: 20161006175905) do
     t.index ["classroom_id"], name: "index_students_on_classroom_id", using: :btree
   end
 
-  create_table "teacher_teaching_cycles", force: :cascade do |t|
-    t.integer  "teacher_id",        null: false
-    t.integer  "teaching_cycle_id", null: false
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.index ["teacher_id", "teaching_cycle_id"], name: "index_teacher_teaching_cycles_on_teacher_and_teaching_cycle", unique: true, using: :btree
-    t.index ["teacher_id"], name: "index_teacher_teaching_cycles_on_teacher_id", using: :btree
-    t.index ["teaching_cycle_id"], name: "index_teacher_teaching_cycles_on_teaching_cycle_id", using: :btree
-  end
-
   create_table "teachers", force: :cascade do |t|
     t.boolean  "approved",   default: false, null: false
     t.boolean  "admin",      default: false, null: false
@@ -471,8 +461,6 @@ ActiveRecord::Schema.define(version: 20161006175905) do
   add_foreign_key "student_groups", "groups"
   add_foreign_key "student_groups", "students"
   add_foreign_key "students", "classrooms"
-  add_foreign_key "teacher_teaching_cycles", "teachers"
-  add_foreign_key "teacher_teaching_cycles", "teaching_cycles"
   add_foreign_key "teaching_cycles", "cycles"
   add_foreign_key "teaching_cycles", "teachings"
   add_foreign_key "theme_levels", "levels"

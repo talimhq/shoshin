@@ -5,30 +5,26 @@
 <% content_for :parent_url, teacher_teaching_cycles_path %>
 <div class="row">
   <div class="column xs12 offset-l1 l10">
-    <% @teaching_cycle.ability_sets.each do |ability_set| %>
-      <div class="card">
-        <div class="table-area">
-          <div class="header">
-            <%= ability_set.name %> 
-          </div> 
-          <div class="table">
-            <table>
-              <thead>
-                <tr>
-                  <th class="text">Item</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% ability_set.ability_items.each do |ability_item| %>
-                  <tr>
-                    <td class="text"><%= ability_item.name %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Compétences</h3>
       </div>
-    <% end %>
+      <div class="accordion-area">
+        <% @teaching_cycle.ability_sets.each do |ability_set| %>
+          <div class="parent">
+            <h4><%= ability_set.name %></h4>
+            <div class="overflow">
+              <div class="children">
+                <% ability_set.ability_items.each do |ability_item| %>
+                  <div class="child">
+                    <span><%= ability_item.name %></span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

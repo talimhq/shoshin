@@ -5,32 +5,28 @@
 <% content_for :parent_url, teacher_teaching_cycles_path %>
 <div class="row">
   <div class="column x12 offset-l1 l10">
-    <div class="card">
-      <div class="table-area">
-        <div class="header">
-          Thèmes
+    <% @teaching_cycle.themes.each do |theme| %>
+      <div class="card">
+        <div class="title-area">
+          <h3 class="main-title"><%= theme.name %></h3>
         </div>
-        <div class="table">
-          <table>
-            <thead>
-              <tr>
-                <th class="text">Nom</th>
-                <th class="numeric">Attendus</th>
-                <th class="actions"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @teaching_cycle.themes.each do |theme| %>
-                <tr>
-                  <td class="text"><%= theme.name %></td>
-                  <td class="numeric"><%= theme.expectations.size %></td>
-                  <td class="actions"><%= link_to material_icon.visibility, teacher_theme_path(theme), class: 'btn' %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+        <div class="accordion-area">
+          <% theme.expectations.each do |expectation| %>
+            <div class="parent">
+              <h4><%= expectation.name %></h4>
+              <div class="overflow">
+                <div class="children">
+                  <% expectation.knowledge_items.each do |knowledge_item| %>
+                    <div class="child">
+                      <span><%= knowledge_item.name %></span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

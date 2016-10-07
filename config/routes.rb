@@ -42,7 +42,7 @@ Rails.application.routes.draw do
                                   shallow: true do
         concerns :paginable
         resources :ability_sets, path: 'competences', only: [:index]
-        resources :themes, only: [:index, :show]
+        resources :themes, only: [:index]
       end
 
       resources :school_teachers, path: 'trouver-etablissement',

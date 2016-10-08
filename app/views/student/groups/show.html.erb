@@ -16,20 +16,7 @@
       </div>
       <div class="row tabs-container">
         <div class="tab-content column xs12 active" id="group_chat">
-          <div class="chat-area">
-            <div class="chat-body">
-              <div class="chat-messages" data-behaviour="chat-messages" data-group-id="<%= @group.id %>">
-                <% @group.group_notifications.includes(:user).each do |notification| %>
-                  <%= ApplicationController.render notification %>
-                <% end %>
-              </div>
-              <div class="chat-form">
-                <%= simple_form_for GroupNotification.new, url: student_group_messages_path(@group), method: :post, remote: true do |f| %>
-                  <%= f.text_area :body, rows: 1, placeholder: 'Écrire un message' %>
-                <% end %>
-              </div>
-            </div>
-          </div>
+          <%= render 'group_chat/chat_area' %>
         </div>
         <div class="tab-content column xs12" id="group_chapters">
           <div class="table-area">

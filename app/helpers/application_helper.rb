@@ -28,4 +28,9 @@ module ApplicationHelper
   def current_user
     current_account.user
   end
+
+  def group_message_url_for_user(user, group)
+    return teacher_group_messages_path(group) if user.is_a?(Teacher)
+    return student_group_messages_path(group) if user.is_a?(Student)
+  end
 end

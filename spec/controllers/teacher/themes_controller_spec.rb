@@ -21,22 +21,4 @@ RSpec.describe Teacher::ThemesController, type: :controller do
       end
     end
   end
-
-  describe 'GET #show' do
-    context 'as a guest' do
-      it 'redirects' do
-        get :show, params: { id: theme.id }
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context 'as a teacher' do
-      before(:each) { sign_in create(:teacher_account) }
-
-      it 'is a success' do
-        get :show, params: { id: theme.id }
-        expect(response).to have_http_status(200)
-      end
-    end
-  end
 end

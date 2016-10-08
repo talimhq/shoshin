@@ -6,7 +6,7 @@
     } else {
       children.css('margin-top', - children.height());
     }
-  };
+  }
 
   document.addEventListener('turbolinks:load', function() {
     $('.accordion-area .parent').each(function() {

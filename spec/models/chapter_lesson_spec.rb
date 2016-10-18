@@ -55,5 +55,9 @@ RSpec.describe ChapterLesson, type: :model do
       create(:step, lesson: chapter_lesson.lesson)
       expect(chapter_lesson.steps).to eq(chapter_lesson.lesson.steps)
     end
+
+    it 'delegates group to chapter' do
+      expect(chapter_lesson.group).to eq(chapter_lesson.chapter.group)
+    end
   end
 end

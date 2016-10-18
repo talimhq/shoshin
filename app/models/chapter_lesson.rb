@@ -8,6 +8,7 @@ class ChapterLesson < ApplicationRecord
 
   delegate :name, to: :lesson, prefix: false
   delegate :steps, to: :lesson, prefix: false
+  delegate :group, to: :chapter, prefix: false
 
   private
 

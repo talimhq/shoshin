@@ -3,23 +3,23 @@ class ChapterPresenter < BasePresenter
 
   def initialize(object, template)
     super
-    @lessons = chapter.lessons
+    @chapter_lessons = chapter.chapter_lessons
     @exercises = chapter.exercises
     @undone_exercises = @exercises - h.current_user.done_exercises
     @exercises -= @undone_exercises
   end
 
-  def lessons
-    @lessons.any? ? print_lessons.join.html_safe : no_lessons
+  def chapter_lessons
+    @chapter_lessons.any? ? print_chapter_lessons.join.html_safe : no_chapter_lessons
   end
 
-  def no_lessons
-    h.render 'chapters/no_lesson'
+  def no_chapter_lessons
+    h.render 'chapters/no_chapter_lesson'
   end
 
-  def print_lessons
-    @lessons.map do|lesson|
-      h.render 'chapters/lesson', chapter: chapter, lesson: lesson
+  def print_chapter_lessons
+    @chapter_lessons.map do|chapter_lesson|
+      h.render 'chapters/chapter_lesson', chapter_lesson: chapter_lesson
     end
   end
 

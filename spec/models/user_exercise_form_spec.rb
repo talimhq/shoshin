@@ -25,25 +25,23 @@ RSpec.describe UserExerciseForm, type: :model do
   end
 
   describe 'instance methods' do
-    let(:teacher_exercise_form) { create(:teacher_exercise_form) }
+    let(:user_exercise_form) { create(:user_exercise_form) }
 
     it 'returns exercise_name' do
-      expect(teacher_exercise_form.exercise_name).to eq(teacher_exercise_form.exercise.name)
+      expect(user_exercise_form.exercise_name).to eq(user_exercise_form.exercise.name)
     end
 
     it 'returns exercise_statement' do
-      expect(teacher_exercise_form.exercise_statement).to eq(teacher_exercise_form.exercise.statement)
+      expect(user_exercise_form.exercise_statement).to eq(user_exercise_form.exercise.statement)
     end
 
     it 'returns the exercise questions' do
-      create(:input_question, exercise: teacher_exercise_form.exercise)
-      expect(teacher_exercise_form.questions.length).to eq(1)
+      create(:input_question, exercise: user_exercise_form.exercise)
+      expect(user_exercise_form.questions.length).to eq(1)
     end
   end
 
   describe 'factories' do
-    it { expect(build(:random_user_exercise_form)).to be_valid }
-    it { expect(build(:teacher_exercise_form)).to be_valid }
-    it { expect(build(:student_exercise_form)).to be_valid }
+    it { expect(build(:user_exercise_form)).to be_valid }
   end
 end

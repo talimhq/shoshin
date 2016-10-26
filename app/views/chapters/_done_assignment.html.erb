@@ -1,0 +1,5 @@
+<div class="child">
+  <%= link_to [:student, assignment] do %>
+    <%= assignment.exercise_name %> (dernier score: <%= current_user.student_exercise_forms.where(assignment: assignment).first.score %>)
+  <% end %>
+</div>

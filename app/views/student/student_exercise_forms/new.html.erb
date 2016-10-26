@@ -1,0 +1,38 @@
+<% content_for :title, @exercise_form.exercise_name %>
+<% content_for :parent_url, url_for([:student, @assignment]) %>
+<div class="row">
+  <div class="column xs-12">
+    <div class="card">
+      <div class="content-area">
+        <% if @exercise_form.exercise_statement.blank? %>
+          <p>Répondre aux questions suivantes:</p>
+        <% else %>
+          <div class=trix-content">
+            <%= @exercise_form.exercise_statement.html_safe %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="card">
+      <%= simple_form_for @exercise_form, url: student_assignment_exercise_forms_path(@assignment), method: :post do |f| %>
+        <% @exercise_form.questions.each do |question| %>
+          <div class="title-area">
+            <h3 class="main-title"><%= question.print_title %></h3>
+          </div>
+          <div class="content-area">
+            <div class="trix-content">
+              <%= question.content.html_safe %>
+            </div>
+            <%= simple_fields_for :answers do |s| %>
+              <%= render question, f: s, question: question %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer', class: 'btn' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ if ($('meta[name="current-account"]').length > 0) {
     received: function(data) {
       $('[data-behaviour="chat-messages"][data-group-id="' + data.group_id + '"]').append(data.message);
       parseMessagesAuthor();
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
       scrollToBottom();
     }
   });

@@ -109,14 +109,14 @@ Rails.application.routes.draw do
       resources :groups, path: 'groupes', only: :show do
         resources :messages, only: [:create]
       end
-      resources :chapters, path: 'chapitres', only: :show do
-        resources :chapter_lessons, path: 'cours', only: :show, as: :lessons
-        resources :assignments, path: 'exercices', only: [:show] do
-          resources :user_exercise_forms, path: 'resultats',
-                                          only: [:create, :show],
-                                          as: :results
-        end
+
+      resources :chapter_lessons, path: 'cours', only: :show
+      resources :assignments, path: 'exercices', only: :show, shallow: true do
+        resources 'student_exercise_forms', only: [:new, :create, :show],
+                                            as: :exercise_forms,
+                                            path: 'mes-exercices'
       end
+      resources :chapters, path: 'chapitres', only: :show
     end
 
     authenticated :account do

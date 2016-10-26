@@ -2,6 +2,7 @@ class Assignment < ApplicationRecord
   belongs_to :chapter, inverse_of: :assignments,
                        counter_cache: :exercises_count
   belongs_to :exercise, inverse_of: :assignments
+  has_many :student_exercise_forms, inverse_of: :assignment, dependent: :destroy
 
   validates :chapter, :exercise, presence: true
   validates_uniqueness_of :exercise, scope: :chapter
@@ -9,6 +10,7 @@ class Assignment < ApplicationRecord
 
   delegate :name, to: :exercise, prefix: true
   delegate :questions, to: :exercise, prefix: false
+  delegate :group, to: :chapter, prefix: false
 
   store_accessor :ability_evaluations
   store_accessor :expectation_evaluations

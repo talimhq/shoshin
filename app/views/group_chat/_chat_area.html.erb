@@ -1,0 +1,14 @@
+<div class="chat-area">
+  <div class="chat-body">
+    <div class="chat-messages" data-behaviour="chat-messages" data-group-id="<%= @group.id %>">
+      <% @group.group_notifications.includes(:user).each do |notification| %>
+        <%= render 'group_chat/message', message: notification %>
+      <% end %>
+    </div>
+    <div class="chat-form">
+      <%= simple_form_for GroupNotification.new, url: group_message_url_for_user(current_user, @group), method: :post, remote: true do |f| %>
+        <%= f.text_area :body, rows: 1, placeholder: 'Écrire un message' %>
+      <% end %>
+    </div>
+  </div>
+</div>

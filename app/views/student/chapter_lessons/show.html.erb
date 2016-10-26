@@ -1,5 +1,5 @@
 <% content_for :title, @chapter_lesson.name %>
-<% content_for :parent_url, url_for([:student, @chapter_lesson.chapter]) %>
+<% content_for :parent_url, url_for([:student, @chapter_lesson.group]) %>
 <div class="row">
   <div class="column xs12 l8 offset-l2">
     <% @chapter_lesson.steps.each do |step| %>

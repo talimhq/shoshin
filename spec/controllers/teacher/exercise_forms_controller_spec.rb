@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Teacher::ExerciseFormsController, type: :controller do
   let(:answer) { create(:answers_input) }
   let(:exercise) { answer.question.exercise }
-  let(:exercise_form) { create(:teacher_exercise_form, exercise: exercise) }
+  let(:exercise_form) { create(:user_exercise_form, exercise: exercise) }
   let(:valid_attributes) {
     { answer.id.to_s => answer.content }
   }

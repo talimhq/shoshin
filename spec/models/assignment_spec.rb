@@ -17,6 +17,7 @@ RSpec.describe Assignment, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:chapter) }
     it { is_expected.to belong_to(:exercise) }
+    it { is_expected.to have_many(:student_exercise_forms) }
   end
 
   describe 'validations' do
@@ -51,6 +52,10 @@ RSpec.describe Assignment, type: :model do
     it 'delegates questions to exercise' do
       create(:question, exercise: assignment.exercise)
       expect(assignment.questions).to eq(assignment.exercise.questions)
+    end
+
+    it 'delegates group to chapter' do
+      expect(assignment.group).to eq(assignment.chapter.group)
     end
   end
 

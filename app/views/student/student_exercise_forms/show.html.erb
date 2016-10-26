@@ -1,15 +1,11 @@
 <% content_for :title, "#{@exercise_form.exercise_name} - Résultat" %>
-<% content_for :parent_url, teacher_chapter_assignment_path(@assignment.chapter_id, @assignment.exercise_id) %>
+<% content_for :parent_url, student_assignment_path(@exercise_form.assignment) %>
 <div class="row">
   <div class="column xs-12">
+
     <div class="card">
       <div class="title-area">
-        <h3 class="main-title">
-          Élève: <%= @exercise_form.student.full_name %>
-        </h3>
-        <h3 class="main-title">
-          Score: <%= @exercise_form.score %>
-        </h3>
+        <h3 class="main-title">Score: <%= @exercise_form.score %></h3>
       </div>
       <div class="content-area">
         <% if @exercise_form.exercise_statement.blank? %>
@@ -21,6 +17,7 @@
         <% end %>
       </div>
     </div>
+
     <% @exercise_form.questions.each do |question| %>
       <div class="card <%= class_for_result(@exercise_form.results[question.id.to_s])%>">
         <div class="title-area">
@@ -32,7 +29,7 @@
           <div class="trix-content">
             <%= question.content.html_safe %>
           </div>
-          <p>L'élève a répondu <%= @exercise_form.answers[question.id.to_s] %></p>
+          <p>Vous avez répondu <%= @exercise_form.answers[question.id.to_s] %></p>
         </div>
       </div>
     <% end %>

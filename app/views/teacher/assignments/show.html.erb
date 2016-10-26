@@ -21,13 +21,13 @@
             </thead>
             <tbody>
               <% @assignment.chapter.group.students.includes(:account).each do |student| %>
-                <% last_exercise = student.user_exercise_forms.where(exercise_id: @assignment.exercise_id).last %>
+                <% last_exercise = student.student_exercise_forms.where(assignment_id: @assignment.id).first %>
                 <tr>
                   <td class="image"><img src="<%= gravatar_url(student.email) %>" height="24px" alt=""></td>
                   <td class="text"><%= student.last_name %></td>
                   <td class="text"><%= student.first_name %></td>
                   <td class="numeric"><%=  last_exercise ? last_exercise.score : 0 %></td>
-                  <td class="numeric"><%= student.user_exercise_forms.where(exercise_id: @assignment.exercise_id).count %></td>
+                  <td class="numeric"><%= student.student_exercise_forms.where(assignment_id: @assignment.id).count %></td>
                   <td class="actions">
                     <% if last_exercise %>
                       <%= link_to material_icon.visibility, teacher_chapter_assignment_result_path(@assignment.chapter_id, @assignment.exercise_id, last_exercise.id), class: 'btn' %>

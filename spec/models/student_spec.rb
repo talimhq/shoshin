@@ -14,7 +14,7 @@ RSpec.describe Student, type: :model do
     it { is_expected.to belong_to(:classroom) }
     it { is_expected.to have_many(:student_groups) }
     it { is_expected.to have_many(:groups) }
-    it { is_expected.to have_many(:user_exercise_forms) }
+    it { is_expected.to have_many(:student_exercise_forms) }
     it { is_expected.to have_many(:group_notifications) }
   end
 

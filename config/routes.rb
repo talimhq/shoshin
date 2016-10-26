@@ -111,13 +111,12 @@ Rails.application.routes.draw do
       end
 
       resources :chapter_lessons, path: 'cours', only: :show
-      resources :chapters, path: 'chapitres', only: :show do
-        resources :assignments, path: 'exercices', only: [:show] do
-          resources :user_exercise_forms, path: 'resultats',
-                                          only: [:create, :show],
-                                          as: :results
-        end
+      resources :assignments, path: 'exercices', only: :show, shallow: true do
+        resources 'student_exercise_forms', only: [:new, :create, :show],
+                                            as: :exercise_forms,
+                                            path: 'mes-exercices'
       end
+      resources :chapters, path: 'chapitres', only: :show
     end
 
     authenticated :account do

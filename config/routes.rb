@@ -64,7 +64,7 @@ Rails.application.routes.draw do
             post 'classer' => 'chapters#sort', as: :sort
           end
         end
-        resources :messages, only: [:create]
+        resources :messages, only: [:create, :destroy]
       end
 
       get 'groupes/:id/eleves' => 'student_groups#edit', as: :group_students

@@ -1,4 +1,4 @@
-<div class="message" data-user-type="<%= message.user_type %>" data-user-id="<%= message.user_id %>">
+<div class="message" data-user-type="<%= message.user_type %>" data-user-id="<%= message.user_id %>" data-message-url="<%= teacher_message_path(message) %>">
   <div class="message_gutter">
     <div class="message_icon">
       <div class="member_preview" style="background-image: url('<%= gravatar_url(message.user.email) %>')" aria-hidden="true">
@@ -9,6 +9,7 @@
   <div class="message_content">
     <span class="message_author"><%= message.user.full_name %></span>
     <span class="message_timestamp"><%= message.created_at.strftime('%H:%M') %></span>
+    <%= material_icon.delete.css_class('message_destroy') %>
     <span class="message_body"><%= message.body %></span>
   </div>
 </div>

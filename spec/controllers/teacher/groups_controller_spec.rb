@@ -130,6 +130,21 @@ RSpec.describe Teacher::GroupsController, type: :controller do
         end
       end
 
+      context 'with student_ids' do
+        it 'creates student_group' do
+          school = create(:school)
+          create(:school_teacher, school: school, teacher: teacher,
+                                  approved: true)
+          level = create(:level)
+          teaching = create(:teaching)
+          classroom = create(:classroom, school: school, level: level)
+          student = create(:student, classroom: classroom)
+          expect {
+            post :create, params: { group: { level_id: level.id, teaching_id: teaching.id, student_ids: [student.id] } }
+          }.to change(StudentGroup, :count).by(1)
+        end
+      end
+
       context 'with invalid data' do
         it 'does not create a group' do
           expect {

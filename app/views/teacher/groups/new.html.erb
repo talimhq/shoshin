@@ -1,12 +1,3 @@
 <% content_for :title, 'Nouveau groupe' %>
-<% content_for :parent_url, teacher_groups_path %>
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <div class="title-area">
-        <h3 class="main-title">Nouveau groupe</h3>
-      </div>
-      <%= render 'form' %>
-    </div>
-  </div>
-</div>
+<% content_for :parent_url, root_url %>
+<%= render 'form' %>

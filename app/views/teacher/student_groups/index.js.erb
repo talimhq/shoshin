@@ -1,0 +1,24 @@
+var target = $('#level_classrooms_students');
+target.html('');
+
+<% if @classrooms.any? %>
+  <% @classrooms.each do |classroom| %>
+    target.append('<%= j render partial: "teacher/groups/classroom_students", locals: { classroom: classroom } %>');
+  <% end %>
+<% else %>
+  target.html('<div class="column"><p>Aucune classe de ce niveau dans votre établissement.</p></div>');
+<% end %>
+
+$('.select-all').on('click', function(e) {
+  e.preventDefault();
+  $(this).closest('.classroom_students_checkboxes').find('input:checkbox').each(function() {
+    $(this).prop('checked', true);
+  });
+});
+
+$('.unselect-all').on('click', function(e) {
+  e.preventDefault();
+  $(this).closest('.classroom_students_checkboxes').find('input:checkbox').each(function() {
+    $(this).prop('checked', false);
+  });
+});

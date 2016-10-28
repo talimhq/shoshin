@@ -1,10 +1,37 @@
-<%= simple_form_for [:teacher, @group] do |f| %>
-  <div class="content-area">
-    <%= f.input :name, label: 'Nom' %>
-    <%= f.association :teaching, label: 'Enseignement' %>
-    <%= f.association :level, label: 'Niveau' %>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Informations du groupe</h3>
+      </div>
+      <%= simple_form_for [:teacher, @group] do |f| %>
+        <div class="content-area">
+          <div class="row">
+            <div class="column xs12 s4">
+              <%= f.input :name, label: 'Nom' %>
+            </div>
+            <div class="column xs12 s4">
+              <%= f.association :teaching, label: 'Enseignement' %>
+            </div>
+            <div class="column xs12 s4">
+              <%= f.association :level, label: 'Niveau' %>
+            </div>
+          </div>
+        </div>
+        <div class="title-area">
+          <h3 class="main-title">Élèves du groupe</h3>
+        </div>
+        <div class="content-area">
+          <div class="row" id="level_classrooms_students">
+            <% current_user.school.classrooms.includes(students: :account).where(level: @group.level).each do |classroom| %>
+              <%= render partial: "classroom_students", locals: { classroom: classroom, f: f } %>
+            <% end %>
+          </div>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="actions-area">
-    <%= f.button :submit, 'Enregistrer' %>
-  </div>
-<% end %>
+</div>

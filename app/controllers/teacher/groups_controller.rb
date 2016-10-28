@@ -1,10 +1,6 @@
 class Teacher::GroupsController < TeacherController
   before_action :authorize, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @groups = current_user.groups.includes(:teaching, :level)
-  end
-
   def show
   end
 
@@ -37,13 +33,13 @@ class Teacher::GroupsController < TeacherController
   def destroy
     @group.destroy
     flash[:notice] = 'Groupe supprimé.'
-    redirect_to teacher_groups_path
+    redirect_to root_url
   end
 
   private
 
   def group_params
-    params.require(:group).permit(:name, :level_id, :teaching_id)
+    params.require(:group).permit(:name, :level_id, :teaching_id, student_ids: [])
   end
 
   def authorize

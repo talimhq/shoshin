@@ -13,6 +13,7 @@ if ($('meta[name="current-account"]').length > 0) {
       parseMessagesAuthor();
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
       scrollToBottom();
+      triggerForRemove();
     }
   });
 }

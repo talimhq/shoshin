@@ -75,6 +75,17 @@
             display: block;
             cursor: text;
           }
+          .message_destroy {
+            display: none;
+            color: #9e9ea6;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.125rem;
+            cursor: pointer;
+            &:hover {
+              color: $red;
+            }
+          }
         }
         &:not(.first) {
           .message_gutter {
@@ -98,6 +109,9 @@
           background: #f9f9f9;
           .message_timestamp {
             visibility: visible;
+          }
+          .message_destroy {
+            display: inline;
           }
         }
       }

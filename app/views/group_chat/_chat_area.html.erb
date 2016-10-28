@@ -12,3 +12,11 @@
     </div>
   </div>
 </div>
+
+<% if current_user.is_a? Student %>
+  <style type="text/css" media="all">
+    .message_destroy {
+      display: none !important;
+    }
+  </style>
+<% end%>

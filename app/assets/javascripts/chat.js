@@ -13,9 +13,25 @@ var parseMessagesAuthor = function() {
   });
 }
 
+var triggerForRemove = function() {
+  $('.message_destroy').off('click')
+                       .on('click', function(e) {
+    e.preventDefault();
+    var message = $(this).closest('.message');
+    message.remove();
+    parseMessagesAuthor();
+    scrollToBottom();
+    $.ajax({
+      method: 'DELETE',
+      url: message.data('message-url')
+    })
+  });
+}
+
 document.addEventListener('turbolinks:load', function() {
   parseMessagesAuthor();
   scrollToBottom();
+  triggerForRemove();
   $('#new_group_notification').on('keypress', function(e) {
     if (e && e.keyCode === 13) {
       e.preventDefault();

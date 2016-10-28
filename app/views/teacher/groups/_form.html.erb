@@ -1,5 +1,6 @@
 <%= simple_form_for [:teacher, @group] do |f| %>
   <div class="content-area">
+    <%= f.input :name, label: 'Nom' %>
     <%= f.association :teaching, label: 'Enseignement' %>
     <%= f.association :level, label: 'Niveau' %>
   </div>

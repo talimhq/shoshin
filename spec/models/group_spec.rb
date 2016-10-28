@@ -52,9 +52,9 @@ RSpec.describe Group, type: :model do
           eq("#{group.teaching_name} (#{group.level_name})")
       end
 
-      it 'returns name if present' do
+      it 'returns name with teaching short_name if name is present' do
         group.update(name: 'foo')
-        expect(group.display_name).to eq('foo')
+        expect(group.display_name).to eq("foo (#{group.teaching.short_name})")
       end
     end
   end

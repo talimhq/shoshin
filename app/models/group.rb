@@ -14,6 +14,10 @@ class Group < ApplicationRecord
   delegate :name, to: :level, prefix: true
 
   def display_name
-    name || "#{teaching_name} (#{level_name})"
+    if name
+      "#{name} (#{teaching.short_name})"
+    else
+      "#{teaching_name} (#{level_name})"
+    end
   end
 end

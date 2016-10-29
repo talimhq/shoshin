@@ -23,8 +23,14 @@
         </div>
         <div class="content-area">
           <div class="row" id="level_classrooms_students">
-            <% current_user.school.classrooms.includes(students: :account).where(level: @group.level).each do |classroom| %>
-              <%= render partial: "classroom_students", locals: { classroom: classroom, f: f } %>
+            <% if @group.students.any? %>
+              <% current_user.school.classrooms.includes(students: :account).where(level: @group.level).each do |classroom| %>
+                <%= render partial: "classroom_students", locals: { classroom: classroom, f: f } %>
+              <% end %>
+            <% else %>
+              <div class="column">
+                <p>Veuillez sélectionner un niveau.</p>
+              </div>
             <% end %>
           </div>
         </div>

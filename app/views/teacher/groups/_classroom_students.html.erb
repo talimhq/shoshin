@@ -5,7 +5,7 @@
       <%= link_to 'Tous', '#', class: 'btn select-all' %>
       <%= link_to 'Aucun', '#', class: 'btn alert unselect-all' %>
     </div>
-    <%= collection_check_boxes :group, :student_ids, classroom.students, :id, :full_name do |b| %>
+    <%= collection_check_boxes :group, :student_ids, classroom.students, :id, :full_name, include_hidden: false do |b| %>
       <%= b.check_box %> <%= b.label %>
     <% end %>
   </div>

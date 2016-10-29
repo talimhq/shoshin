@@ -6,25 +6,6 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     { level_id: create(:level).id, teaching_id: create(:teaching).id }
   }
 
-  describe 'GET #index' do
-    context 'as a guest' do
-      it 'redirects' do
-        get :index
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context 'as a teacher' do
-      let(:teacher) { create(:teacher) }
-      before(:each) { sign_in teacher.account }
-
-      it 'is a success' do
-        get :index
-        expect(response).to have_http_status(200)
-      end
-    end
-  end
-
   describe 'GET #show' do
     context 'as a guest' do
       it 'redirects' do

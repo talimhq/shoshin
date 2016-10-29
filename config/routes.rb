@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
       patch '/eleves/:id/motdepasse' => 'student_passwords#update', as: :student_password
 
-      resources :groups, path: 'groupes', shallow: true do
+      resources :groups, path: 'groupes', shallow: true, except: :index do
         resources :chapters, path: 'chapitres', only: [:new, :create] do
           collection do
             post 'classer' => 'chapters#sort', as: :sort
@@ -67,8 +67,7 @@ Rails.application.routes.draw do
         resources :messages, only: [:create, :destroy]
       end
 
-      get 'groupes/:id/eleves' => 'student_groups#edit', as: :group_students
-      patch 'groupes/:id/eleves' => 'student_groups#update'
+      get 'niveaux/:id/eleves' => 'student_groups#index'
 
       resources :chapters, path: 'chapitres', except: [:index, :new, :create] do
         resources :assignments, path: 'exercices', except: [:index] do

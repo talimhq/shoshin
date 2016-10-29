@@ -1,19 +1,31 @@
-<% content_for :title, "#{@group.teaching_name} (#{@group.level_name})" %>
-<% content_for :parent_url, teacher_groups_path %>
+<% content_for :title, @group.display_name %>
 <div class="row">
-  <div class="column">
+  <div class="column l3">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title"><%= @group.display_name %></h3>
+      </div>
+      <div class="content-area">
+        <p><strong>Niveau:</strong> <%= @group.level_name %></p>
+        <p><strong>Enseignement:</strong> <%= @group.teaching_name %></p>
+        <p><strong>Élèves:</strong> <%= @group.students.count %></p>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Supprimer', [:teacher, @group], method: :delete, data: { confirm: 'Attention! Cette action est définitive. Confirmez vous la suppression de ce groupe?' }, class: 'btn link-destroy' %>
+        <%= link_to 'Modifier', edit_teacher_group_path(@group), class: 'btn' %>
+      </div>
+    </div>
+  </div>
+  <div class="column l9">
     <div class="card">
       <div class="tabs-area">
         <div class="row">
           <ul class="tabs">
-            <li class="tab column xs4 active">
+            <li class="tab column xs6 active">
               <%= link_to 'Discussion', '#group_chat' %>
             </li>
-            <li class="tab column xs4">
+            <li class="tab column xs6">
               <%= link_to 'Chapitres', '#group_chapters' %>
-            </li>
-            <li class="tab column xs4">
-              <%= link_to 'Élèves', '#group_students' %>
             </li>
           </ul>
         </div>
@@ -66,40 +78,6 @@
           </div>
           <div class="actions-area">
             <%= link_to 'Ajouter', new_teacher_group_chapter_path(@group), class: 'btn' %>
-          </div>
-        </div>
-        <div class="tab-content column xs12" id="group_students">
-          <div class="table-area">
-            <div class="header">
-              Élèves
-            </div>
-            <div class="table">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="text">Nom</th>
-                    <th class="text">Prénom</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% if @group.students.any? %>
-                    <% @group.students.includes(:account).each do |student| %>
-                      <tr>
-                        <td class="text"><%= student.last_name %></td>
-                        <td class="text"><%= student.first_name %></td>
-                      </tr>
-                    <% end %>
-                  <% else %>
-                    <tr>
-                      <td colspan="2">Vous n'avez pas encore ajouté d'élèves à ce groupe.</td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="actions-area">
-            <%= link_to 'Modifier', [:teacher, @group, :students], class: 'btn' %>
           </div>
         </div>
       </div>

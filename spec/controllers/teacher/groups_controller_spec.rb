@@ -6,25 +6,6 @@ RSpec.describe Teacher::GroupsController, type: :controller do
     { level_id: create(:level).id, teaching_id: create(:teaching).id }
   }
 
-  describe 'GET #index' do
-    context 'as a guest' do
-      it 'redirects' do
-        get :index
-        expect(response).to have_http_status(302)
-      end
-    end
-
-    context 'as a teacher' do
-      let(:teacher) { create(:teacher) }
-      before(:each) { sign_in teacher.account }
-
-      it 'is a success' do
-        get :index
-        expect(response).to have_http_status(200)
-      end
-    end
-  end
-
   describe 'GET #show' do
     context 'as a guest' do
       it 'redirects' do
@@ -127,6 +108,21 @@ RSpec.describe Teacher::GroupsController, type: :controller do
         it 'redirects' do
           post :create, params: { group: valid_attributes }
           expect(response).to have_http_status(302)
+        end
+      end
+
+      context 'with student_ids' do
+        it 'creates student_group' do
+          school = create(:school)
+          create(:school_teacher, school: school, teacher: teacher,
+                                  approved: true)
+          level = create(:level)
+          teaching = create(:teaching)
+          classroom = create(:classroom, school: school, level: level)
+          student = create(:student, classroom: classroom)
+          expect {
+            post :create, params: { group: { level_id: level.id, teaching_id: teaching.id, student_ids: [student.id] } }
+          }.to change(StudentGroup, :count).by(1)
         end
       end
 

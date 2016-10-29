@@ -1,0 +1,12 @@
+<div class="column s6 l4" id="classroom_<%= classroom.id %>">
+  <div class="vertical-checkboxes classroom_students_checkboxes">
+    <h4 class="no-margin"><%= classroom.name %></h4>
+    <div class="actions-checkbox">
+      <%= link_to 'Tous', '#', class: 'btn select-all' %>
+      <%= link_to 'Aucun', '#', class: 'btn alert unselect-all' %>
+    </div>
+    <%= collection_check_boxes :group, :student_ids, classroom.students, :id, :full_name, include_hidden: false do |b| %>
+      <%= b.check_box %> <%= b.label %>
+    <% end %>
+  </div>
+</div>

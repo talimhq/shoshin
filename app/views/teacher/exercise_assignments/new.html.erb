@@ -1,0 +1,19 @@
+<% content_for :title, "#{@exercise.name} - Utiliser" %>
+<% content_for :parent_url, url_for([:teacher, @exercise]) %>
+<div class="row">
+  <div class="column l10 offset-l1">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Sélection du chapitre</h3>
+      </div>
+      <%= simple_form_for @assignment, url: teacher_exercise_assignment_index_path(@exercise) do |f| %>
+        <div class="content-area">
+          <%= f.association :chapter, collection: @groups, as: :grouped_select, group_method: :chapters, group_label_method: :display_name, label: 'Chapitre' %>
+        </div>
+        <div class="actions-area">
+          <%= f.button :submit, 'Enregistrer' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

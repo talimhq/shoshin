@@ -1,12 +1,13 @@
 <% content_for :title, @lesson.name %>
 <% content_for :parent_url, teacher_lessons_path %>
 <div class="row">
-  <div class="column xs12 s6 m12 l6">
+  <div class="column xs12 l4">
     <div class="card">
       <div class="title-area">
-        <h3 class="main-title"><%= @lesson.name %></h3>
+        <h3 class="main-title">Données du cours</h3>
       </div>
       <div class="content-area">
+        <strong>Titre :</strong> <%= @lesson.name %>
         <strong>Enseignement :</strong> <%= @lesson.teaching_name %><br>
         <strong>Niveaux :</strong> <%= @lesson.level_names %><br>
         <strong>Popularité :</strong> <%= @lesson.popularity %>
@@ -17,14 +18,35 @@
       </div>
     </div>
   </div>
-  <div class="column xs12 s6 m12 l6">
+  <div class="column xs12 s6 l4">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Groupes qui ont accès à ce cours</h3>
+      </div>
+      <div class="content-area">
+        <% if @chapter_lessons.any? %>
+          <ul>
+            <% @chapter_lessons.each do |chapter_lesson| %>
+              <li><%= chapter_lesson.chapter.group.display_name %> dans le chapitre <%= chapter_lesson.chapter.name %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>Vous n'utilisez pas encore ce cours avec l'un de vos groupes.</p>
+        <% end %>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Ajouter', new_teacher_lesson_chapter_path(@lesson), class: 'btn' %>
+      </div>
+    </div>
+  </div>
+  <div class="column xs12 s6 l4">
     <div class="card">
       <div class="title-area">
         <h3 class="main-title">Auteurs</h3>
       </div>
       <div class="content-area">
         <% @lesson.authors.each do |author| %>
-          <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
+          <div class="user-bar small"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
         <% end %>
       </div>
       <div class="actions-area">

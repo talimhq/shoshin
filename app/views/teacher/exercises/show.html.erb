@@ -1,12 +1,13 @@
 <% content_for :title, @exercise.name %>
 <% content_for :parent_url, teacher_exercises_path %>
 <div class="row">
-  <div class="column xs12 s6 m12 l6">
+  <div class="column xs12 l4">
     <div class="card">
       <div class="title-area">
-        <h3 class="main-title"><%= @exercise.name %></h3>
+        <h3 class="main-title">Données de l'exercice</h3>
       </div>
       <div class="content-area">
+        <strong>Titre :</strong> <%= @exercise.name %><br>
         <strong>Enseignement :</strong> <%= @exercise.teaching_name %><br>
         <strong>Niveaux :</strong> <%= @exercise.level_names %><br>
         <strong>Popularité :</strong> <%= @exercise.popularity %>
@@ -17,14 +18,35 @@
       </div>
     </div>
   </div>
-  <div class="column xs12 s6 m12 l6">
+  <div class="column xs12 s6 l4">
+    <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Groupes qui ont accès à cet exercice</h3>
+      </div>
+      <div class="content-area">
+        <% if @assignments.any? %>
+          <ul>
+            <% @assignments.each do |assignment| %>
+              <li><%= assignment.chapter.group.display_name %> dans le chapitre <%= assignment.chapter.name %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>Vous n'utilisez pas encore cet exercice avec l'un de vos groupes.</p>
+        <% end %>
+      </div>
+      <div class="actions-area">
+        <%= link_to 'Ajouter', new_teacher_exercise_assignment_path(@exercise), class: 'btn' %>
+      </div>
+    </div>
+  </div>
+  <div class="column xs12 s6 l4">
     <div class="card">
       <div class="title-area">
         <h3 class="main-title">Auteurs<h3>
       </div>
       <div class="content-area">
         <% @exercise.authors.each do |author| %>
-          <div class="user-bar"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
+          <div class="user-bar small"> <img src="<%= gravatar_url(author.email) %>" alt="<%= author.full_name %> avatar" /> <span><%= author.full_name %></span></div>
         <% end %>
       </div>
       <div class="actions-area">
@@ -36,6 +58,9 @@
 <div class="row">
   <div class="column">
     <div class="card">
+      <div class="title-area">
+        <h3 class="main-title">Énoncé et questions</h3>
+      </div>
       <% if @exercise.statement %>
         <div class="content-area">
           <div class="trix-content">

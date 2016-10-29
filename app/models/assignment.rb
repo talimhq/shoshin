@@ -5,7 +5,7 @@ class Assignment < ApplicationRecord
   has_many :student_exercise_forms, inverse_of: :assignment, dependent: :destroy
 
   validates :chapter, :exercise, presence: true
-  validates_uniqueness_of :exercise, scope: :chapter
+  validate :uniqueness_of_exercise_in_chapter
   validate :chapter_and_exercise_from_same_teacher
 
   delegate :name, to: :exercise, prefix: true
@@ -25,6 +25,16 @@ class Assignment < ApplicationRecord
     if chapter && exercise
       errors.add(:exercise_id, 'Cet exercice ne vous appartient pas') unless \
         chapter.teacher.in? exercise.authors
+    end
+  end
+
+  def uniqueness_of_exercise_in_chapter
+    if chapter && exercise
+      assignment = Assignment.find_by(chapter: chapter, exercise: exercise)
+      unless assignment.nil? || self == assignment
+        errors.add(:exercise_id, 'Vous ne pouvez pas ajouter deux fois le même exercice dans le même chapitre')
+        errors.add(:chapter_id, 'Vous ne pouvez pas ajouter deux fois le même exercice dans le même chapitre')
+      end
     end
   end
 end

@@ -8,6 +8,8 @@ class Teacher::ExercisesController < TeacherController
 
   def show
     @exercise = Exercise.includes(:questions, authors: :account).find(params[:id])
+    @assignments = @exercise.assignments
+                            .includes(chapter: { group: [:teaching, :level]})
   end
 
   def new

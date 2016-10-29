@@ -8,6 +8,8 @@ class Teacher::LessonsController < TeacherController
 
   def show
     @lesson = Lesson.includes(:authors, :teaching, :steps).find(params[:id])
+    @chapter_lessons = @lesson.chapter_lessons
+                               .includes(chapter: { group: [:teaching, :level]})
   end
 
   def new

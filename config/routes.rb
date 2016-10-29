@@ -86,6 +86,8 @@ Rails.application.routes.draw do
                                      as: :search, on: :collection
         get 'apercu', to: 'shared_lessons#show', as: :preview, on: :member
         post 'copier', to: 'shared_lessons#create', as: :copy
+        resources :lesson_chapters, only: [:new, :create], as: :chapter,
+                                    path: 'partage'
       end
 
       resources :exercises, path: 'exercices' do
@@ -97,6 +99,8 @@ Rails.application.routes.draw do
         end
         get 'chercher(/page/:page)', to: 'shared_exercises#index', as: :search, on: :collection
         post 'copier', to: 'shared_exercises#create', as: :copy
+        resources :exercise_assignments, only: [:new, :create], as: :assignment,
+                                         path: 'partage'
       end
 
       get '/exercices/:id/tester' => 'exercise_forms#new', as: :try_exercise

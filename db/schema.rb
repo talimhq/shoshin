@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026143850) do
+ActiveRecord::Schema.define(version: 20161030130458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,12 +381,14 @@ ActiveRecord::Schema.define(version: 20161026143850) do
   end
 
   create_table "teachers", force: :cascade do |t|
-    t.boolean  "approved",   default: false, null: false
-    t.boolean  "admin",      default: false, null: false
+    t.boolean  "approved",    default: false,                               null: false
+    t.boolean  "admin",       default: false,                               null: false
     t.integer  "old_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.jsonb    "preferences", default: {"level_id"=>"", "teaching_id"=>""}, null: false
     t.index ["old_id"], name: "index_teachers_on_old_id", using: :btree
+    t.index ["preferences"], name: "index_teachers_on_preferences", using: :gin
   end
 
   create_table "teaching_cycles", force: :cascade do |t|

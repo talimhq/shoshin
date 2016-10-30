@@ -106,6 +106,8 @@ Rails.application.routes.draw do
       get '/exercices/:id/tester' => 'exercise_forms#new', as: :try_exercise
       post '/exercices/:id/tester' => 'exercise_forms#create'
       get '/exercices/:exercise_id/resultats/:id' => 'exercise_forms#show', as: :exercise_result
+
+      resource :preferences, only: [:update]
     end
 
     namespace :student, path: 'eleve' do

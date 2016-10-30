@@ -18,6 +18,9 @@ class Teacher < ApplicationRecord
   validates :admin, :approved, exclusion: { in: [nil] }
   validates :account, presence: true
 
+  serialize :preferences, HashSerializer
+  store_accessor :preferences
+
   def exercises_from_level(level)
     editables_by_level(:exercises, level)
   end

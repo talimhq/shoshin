@@ -10,6 +10,8 @@ RSpec.describe Teacher, type: :model do
     it { is_expected.to have_db_column(:admin).of_type(:boolean) }
     it { is_expected.to have_db_column(:old_id).of_type(:integer) }
     it { is_expected.to have_db_index(:old_id) }
+    it { is_expected.to have_db_column(:preferences).of_type(:jsonb) }
+    it { is_expected.to have_db_index(:preferences) }
   end
 
   describe 'associations' do

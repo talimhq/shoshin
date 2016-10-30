@@ -54,6 +54,24 @@
     <% if current_account.role == 'teacher' %>
       <div class="card">
         <div class="title-area">
+          <h3 class="main-title">Préférences</h3>
+        </div>
+        <%= simple_form_for current_user, url: teacher_preferences_path, defaults: { required: false } do |f| %>
+          <div class="content-area">
+            <p>Si vous le souhaitez, vous pouvez préciser quel niveau et/ou quelle discipline vous intéresse.</p>
+            <p>Nous utiliserons cette information pour filtrer automatiquement pour vous les ressources qui vous correspondent.</p>
+            <%= f.simple_fields_for :preferences, OpenStruct.new(current_user.preferences) do |s| %>
+              <%= s.input :level_id, collection: Level.all, label: 'Niveau' %>
+              <%= s.input :teaching_id, collection: Teaching.all, label: 'Enseignement' %>
+            <% end %>
+          </div>
+          <div class="actions-area">
+            <%= f.button :submit, 'Enregistrer' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card">
+        <div class="title-area">
           <h3 class="main-title">Mécontent?</h3>
         </div>
         <div class="actions-area">

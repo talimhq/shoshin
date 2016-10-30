@@ -13,7 +13,10 @@ class Teacher::LessonsController < TeacherController
   end
 
   def new
-    @lesson = current_user.lessons.new
+    @lesson = current_user.lessons.new(
+      teaching_id: current_user.preferences[:teaching_id],
+      level_ids: [current_user.preferences[:level_id]]
+    )
   end
 
   def create

@@ -13,7 +13,10 @@ class Teacher::ExercisesController < TeacherController
   end
 
   def new
-    @exercise = current_user.exercises.new
+    @exercise = current_user.exercises.new(
+      teaching_id: current_user.preferences[:teaching_id],
+      level_ids: [current_user.preferences[:level_id]]
+    )
   end
 
   def create

@@ -5,7 +5,7 @@ class Teacher::GroupsController < TeacherController
   end
 
   def new
-    @group = current_user.groups.new
+    @group = current_user.groups.new(current_user.preferences)
   end
 
   def create
